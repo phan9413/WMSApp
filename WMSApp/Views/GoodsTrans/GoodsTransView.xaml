@@ -14,7 +14,9 @@
                      IsEnabled="{Binding SignatureEnable}" 
                      Command="{Binding CmdCaptureSignature}"></ToolbarItem>
         
-        <ToolbarItem IconImageSource="save512.png" Text="Save" Order="Default" Command="{Binding CmdSaveUpdate}"></ToolbarItem>
+        <ToolbarItem
+            IconImageSource="save512.png"
+            Text="Save" Order="Default" Command="{Binding CmdSaveUpdate}"></ToolbarItem>
         <ToolbarItem IconImageSource="cancel512.png" Text="Cancel" Order="Default" Command="{Binding CmdClose}"></ToolbarItem>
         
     </ContentPage.ToolbarItems>
