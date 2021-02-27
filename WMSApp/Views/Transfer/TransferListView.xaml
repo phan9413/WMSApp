@@ -1,0 +1,209 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WMSApp.Views.Transfer.TransferListView"
+             BackgroundColor="White"
+             Title="Inventory Transfer">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Order="Default"
+                     IconImageSource="createAdd512.png"
+                     Command="{Binding CmdDirectRequestList}"
+                     CommandParameter="direct"></ToolbarItem>
+        
+        <ToolbarItem IconImageSource="search_white.png" Order="Default"
+                     Command="{Binding CmdSearchBarVisible}"
+                     CommandParameter="{Reference searchBar}"></ToolbarItem>
+        
+    </ContentPage.ToolbarItems>
+
+    <Grid Padding="6" RowSpacing="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Text="{StaticResource PressBackToReturn}"></Label>
+        <SearchBar Grid.Row="1" x:Name="searchBar" 
+                   Placeholder="Input doc number to search"
+                   Text="{Binding SearchText}" 
+                   IsVisible="{Binding IsSearchBarVisible}"></SearchBar>
+        
+        <Expander Grid.Row="2"  
+                  IsExpanded="true"
+                  BackgroundColor="{StaticResource ColorTone3}"                  
+                  Padding="6">
+            <Expander.Header>
+                <Grid>
+                    <Label Grid.Column="0" Text="Details" FontAttributes="Bold" FontSize="Medium"  TextColor="White"/>
+                    <Image Source="expanded_blue.png"
+                           WidthRequest="15"
+                           HeightRequest="15"
+                           HorizontalOptions="End"
+                           VerticalOptions="Center">
+                        <Image.Triggers>
+                            <DataTrigger TargetType="Image"
+                                 Binding="{Binding Source={RelativeSource AncestorType={x:Type Expander}}, Path=IsExpanded}"
+                                 Value="True">
+                                <Setter Property="Source"
+                                        Value="collapsed_blue.png" />
+                            </DataTrigger>
+                        </Image.Triggers>
+                    </Image>
+                </Grid>
+            </Expander.Header>
+            <ScrollView Orientation="Horizontal">
+                <StackLayout Orientation="Horizontal" 
+                             HorizontalOptions="FillAndExpand" Spacing="3">
+                    
+                    <!--<Frame CornerRadius="3"                                       
+                           BackgroundColor="{StaticResource GoogleBlue}">
+                        <Label Text="All Request" Margin="0" TextColor="White">
+                        </Label>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer NumberOfTapsRequired="1"
+                                                  Command="{Binding CmdShowRequestList}"
+                                                  CommandParameter="a"/>
+                        </Frame.GestureRecognizers>
+                    </Frame>-->
+
+                    <Frame CornerRadius="3"                                        
+                           BackgroundColor="{StaticResource GoogleBlue}">
+                        <Label Text="Open Request" Margin="0" TextColor="White"/>
+                        
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer NumberOfTapsRequired="1"
+                                                  Command="{Binding CmdShowRequestList}"
+                                                  CommandParameter="o"/>
+                        </Frame.GestureRecognizers>
+                    </Frame>
+
+                    <Frame CornerRadius="3"                                         
+                           BackgroundColor="{StaticResource GoogleBlue}">
+                        <Label Text="Picked Request" Margin="0" TextColor="White"/>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer NumberOfTapsRequired="1"
+                                                  Command="{Binding CmdShowRequestList}"
+                                                  CommandParameter="h"/>
+                        </Frame.GestureRecognizers>
+                    </Frame>
+
+                    <!--<Frame CornerRadius="3"                                      
+                           BackgroundColor="{StaticResource GoogleBlue}">
+                        <Label Text="Closed Request" Margin="0" TextColor="White"></Label>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer NumberOfTapsRequired="1"
+                                                  Command="{Binding CmdShowRequestList}"
+                                                  CommandParameter="c"/>
+                        </Frame.GestureRecognizers>
+                    </Frame>-->
+                    
+                    
+                    <!--<Frame CornerRadius="3"                                      
+                           BackgroundColor="{StaticResource GoogleBlue}">
+                        <Label Text="Standalone Transfer" TextColor="White"/>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer NumberOfTapsRequired="1"
+                                                  Command="{Binding CmdDirectRequestList}"
+                                                  CommandParameter="direct"/>
+                        </Frame.GestureRecognizers>
+                    </Frame>-->
+
+                </StackLayout>
+            </ScrollView>
+        </Expander>
+
+        <Expander Grid.Row="3"   
+                  BackgroundColor="{StaticResource ColorTone5}"                  
+                  Padding="6">
+            <Expander.Header>
+                <Grid>
+                    <Label Grid.Column="0" Text="{Binding DateRange, Mode=TwoWay}" 
+                           FontAttributes="Bold" 
+                           FontSize="Medium"  
+                           TextColor="White"/>
+                    <Image Source="expanded_blue.png"
+                           WidthRequest="15"
+                           HeightRequest="15"
+                           HorizontalOptions="End"
+                           VerticalOptions="Center">
+                        <Image.Triggers>
+                            <DataTrigger TargetType="Image"
+                                 Binding="{Binding Source={RelativeSource AncestorType={x:Type Expander}}, Path=IsExpanded}"
+                                 Value="True">
+                                <Setter Property="Source"
+                                        Value="collapsed_blue.png" />
+                            </DataTrigger>
+                        </Image.Triggers>
+                    </Image>
+                </Grid>
+            </Expander.Header>
+            <Grid RowSpacing="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Start"
+                       TextColor="White"
+                    Text="Start date"></Label>
+
+                <Label Grid.Row="1" Grid.Column="0"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Start"
+                       TextColor="White"
+                    Text="End date"></Label>
+
+                <DatePicker Grid.Row="0" Grid.Column="1"
+                            Format="dd/MM/yyyy"
+                            Date="{Binding StartDate, Mode=TwoWay}"/>
+
+                <DatePicker Grid.Row="1" Grid.Column="1" 
+                            Format="dd/MM/yyyy"
+                            Date="{Binding EndDate, Mode=TwoWay}"/>
+            </Grid>
+        </Expander>
+
+        <ListView Grid.Row="4" 
+                  IsVisible="{Binding OpenListVisible}"
+                  ItemsSource="{Binding ItemsSource, Mode=TwoWay}"
+                  SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ImageCell ImageSource="file.png" 
+                               Text="{Binding Text}" 
+                               TextColor="{StaticResource ColorTone3}"
+                               Detail="{Binding Details}" 
+                               DetailColor="{StaticResource ColorTone1}"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <!-- for picker list display -->        
+        <ListView Grid.Row="4" 
+                  HasUnevenRows="True"
+                  IsVisible="{Binding PickedListVisible}"
+                  ItemsSource="{Binding ItemsSourcePicked, Mode=TwoWay}"
+                  SelectedItem="{Binding SelectedItemPicked, Mode=TwoWay}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ImageCell ImageSource="file.png" 
+                               Text="{Binding DocNumDisplay}" 
+                               TextColor="{StaticResource ColorTone3}"
+                               Detail="{Binding DetailsDisplay}" 
+                               DetailColor="{StaticResource ColorTone1}"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+    
+</ContentPage>

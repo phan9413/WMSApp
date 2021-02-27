@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:zxing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
+             mc:Ignorable="d"
+             Title="Scanning"
+             x:Class="WMSApp.Views.Share.CameraScanView">
+
+    <Grid Padding="15" BackgroundColor="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="auto"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <zxing:ZXingScannerView 
+                    x:Name="scanner"              
+                    Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"         
+                    HeightRequest="360"
+                    WidthRequest="300"
+                    OnScanResult="scanner_OnScanResult"                                                                                                                                                                           
+                    HorizontalOptions="FillAndExpand"                        
+                    VerticalOptions="FillAndExpand"/>
+
+        <zxing:ZXingDefaultOverlay  x:Name="scannerOverlay"                   
+                    Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"                          
+                    BottomText=""                             
+                    Opacity="0.9"/>
+
+        <ImageButton Grid.Row="0"
+                    Grid.Column="1"
+                    x:Name="torchLight"
+                    WidthRequest="45"
+                    HeightRequest="45"
+                    Source="flashlight512.png"
+                    BackgroundColor="Transparent"
+                    HorizontalOptions="End"
+                    VerticalOptions="Start"
+                    Clicked="torchLight_Clicked"/>
+
+        <Entry Grid.Row="1" Grid.Column="0"
+               x:Name="EntryManualInput" 
+               Placeholder="Manual Input"
+               VerticalOptions="Center"></Entry>
+
+        <Frame Grid.Row="1" Grid.Column="1"                
+               Margin="0"               
+               BorderColor="Silver"
+               HeightRequest="15"
+               WidthRequest="60"
+               VerticalOptions="Center"
+               BackgroundColor="White" >
+
+            <Label Text="Submit"                                   
+                    FontSize="Default" 
+                   VerticalOptions="Center"
+                    HorizontalTextAlignment="Center">
+            </Label>
+
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer
+                    x:Name ="btnSubmit"
+                    NumberOfTapsRequired="1" 
+                    Tapped="btnSubmit_Tapped"></TapGestureRecognizer>
+            </Frame.GestureRecognizers>
+        </Frame>
+
+        <Button Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" 
+                x:Name="btnCancel" Text="Close" Clicked="btnCancel_Clicked"></Button>
+    </Grid>
+
+</ContentPage>

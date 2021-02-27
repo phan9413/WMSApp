@@ -1,0 +1,474 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+    <AssemblyName>WMSApp</AssemblyName>
+    <RootNamespace>WMSApp</RootNamespace>
+    <Authors>WMS Team</Authors>
+    <Company>Mobiact Sdn Bhd</Company>
+    <Description>Warehouse Management System Mobile App</Description>
+    <Copyright>Copyright of Mobiact Sdn Bhd</Copyright>
+    <ApplicationIcon>whs512.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>portable</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Acr.UserDialogs" Version="7.1.0.468" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Plugin.Multilingual" Version="1.0.2" />
+    <PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.7" />
+    <PackageReference Include="sqlite-net-pcl" Version="1.7.335" />
+    <PackageReference Include="System.Runtime" Version="4.3.1" />
+    <PackageReference Include="Xam.Plugin.Media" Version="5.0.1" />
+    <PackageReference Include="Xamarin.Controls.SignaturePad.Forms" Version="3.0.0" />
+    <PackageReference Include="Xamarin.Forms" Version="4.8.0.1687" />  
+    <PackageReference Include="Xamarin.Essentials" Version="1.5.3.2" />  
+    <PackageReference Include="ZXing.Net.Mobile" Version="2.4.1" />  
+    <PackageReference Include="ZXing.Net.Mobile.Forms" Version="2.4.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Resources\Login\ChngWebApiConnView\ChngWebApiConnView.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ChngWebApiConnView.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Login\ChngWebApiConnView\ChngWebApiConnView.zh-Hans.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ChngWebApiConnView.zh-Hans.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Login\LoginView\LoginView.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>LoginView.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Login\LoginView\LoginView.zh-Hans.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>LoginView.zh-Hans.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Views\DO\SoDocListView.xaml.cs">
+      <DependentUpon>SoDocListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\GoodsReturnRequest\GoodsReturnRequestListView.xaml.cs">
+      <DependentUpon>GoodsReturnRequestListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\GoodsReturnRequest\GoodsReturnRequestItemsView.xaml.cs">
+      <DependentUpon>GoodsReturnRequestItemsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\GoodsReturnRequest\GoodsReturnRequestWithNoSourceView.xaml.cs">
+      <DependentUpon>GoodsReturnRequestWithNoSourceView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\GoodsReturn\GoodsReturnWithNoGRRequestView.xaml.cs">
+      <DependentUpon>GoodsReturnWithNoGRRequestView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\GRPO\GrpoDocListView.xaml.cs">
+      <DependentUpon>GrpoDocListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\GRPO\GrpoItemsView.xaml.cs">
+      <DependentUpon>GrpoItemsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\GRPO\GrpoPOLinePopUpView.xaml.cs">
+      <DependentUpon>GrpoPOLinePopUpView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\GRPO\GrpoPoLinesPopUpSelectView.xaml.cs">
+      <DependentUpon>GrpoPoLinesPopUpSelectView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\GRPO\GrpoScanView.xaml.cs">
+      <DependentUpon>GrpoScanView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Inventory\InventoryView.xaml.cs">
+      <DependentUpon>InventoryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ReturnRequest\ReturnRequestLinePopUpView.xaml.cs">
+      <DependentUpon>ReturnRequestLinePopUpView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ReturnRequest\ReturnRequestListView.xaml.cs">
+      <DependentUpon>ReturnRequestListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ReturnRequest\ReturnRequestWithNoSourceView.xaml.cs">
+      <DependentUpon>ReturnRequestWithNoSourceView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Return\ReturnListView.xaml.cs">
+      <DependentUpon>ReturnListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Return\ReturnWithNoDocSourceView.xaml.cs">
+      <DependentUpon>ReturnWithNoDocSourceView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Setting\AppGroup\AppGroupListView.xaml.cs">
+      <DependentUpon>AppGroupListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Share\CollectSerialsView.xaml.cs">
+      <DependentUpon>CollectSerialsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Share\CollectBatchPopUpView.xaml.cs">
+      <DependentUpon>CollectBatchPopUpView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Share\PickWarehousePopUpView.xaml.cs">
+      <DependentUpon>PickWarehousePopUpView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Share\SerialToBinSelectionView.xaml.cs">
+      <DependentUpon>SerialToBinSelectionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Share\HandheldScannerView.xaml.cs">
+      <DependentUpon>HandheldScannerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Share\TransferBoItemSrBatView.xaml.cs">
+      <DependentUpon>TransferBoItemSrBatView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\SimplifiedMain\SimplifyMainMenuView.xaml.cs">
+      <DependentUpon>SimplifyMainMenuView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\StandAloneTransfer\StandAloneTransferLineTOView.xaml.cs">
+      <DependentUpon>StandAloneTransferLineTOView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\StandAloneTransfer\StandAloneTransferLineFROMView.xaml.cs">
+      <DependentUpon>StandAloneTransferLineFROMView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\StandAloneTransfer\StansAloneTransferMenuView.xaml.cs">
+      <DependentUpon>StansAloneTransferMenuView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Transfer1\ItemToBinView.xaml.cs">
+      <DependentUpon>ItemToBinView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Transfer1\TransferPickV.xaml.cs">
+      <DependentUpon>TransferPickV.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Transfer\TransferListView.xaml.cs">
+      <DependentUpon>TransferListView.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Views\DO\DOSelectionMenuView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\DO\DoSOLinePopUpView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\DO\DoSoLinesPopUpSelectView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\DO\DoWithNoSoView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\GoodsReturnRequest\GoodsReturnRequestListView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\GoodsReturnRequest\GoodsReturnRequestItemsView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\GoodsReturnRequest\GrrGrnLinesPopUpSelectView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\GoodsReturnRequest\GoodsReturnRequestWithNoSourceView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\GoodsReturn\GoodsReturnItemsView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\GoodsReturn\GoodsReturnListView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\GoodsReturn\GoodsReturnWithNoGRRequestView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\GoodsReturn\PRRLinePopUpView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\GoodsReturn\PRRLinesPopUpSelectView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\RequestSummary\RequestSummaryView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\ReturnRequest\ReturnRequestLinePopUpSelectView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\ReturnRequest\ReturnRequestLinePopUpView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\ReturnRequest\ReturnRequestListView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\ReturnRequest\ReturnRequestWithNoSourceView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Return\ReturnItemLinePopUpView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Return\ReturnItemLinesPopUpSelectView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Return\ReturnItemsView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Return\ReturnWithNoDocSourceView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Share\HandheldScannerView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Test\TestVisionView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Transfer1\ItemToBinView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\GRPO\GrpoPOLinePopUpView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\GRPO\GrpoPoLinesPopUpSelectView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\GRPO\GRPOSelectionMenuView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\GRPO\GrpoWithNoPoView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Share\CollectSerialsView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Share\CollectBatchesView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Share\CollectBatchPopUpView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Share\PickWarehousePopUpView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Share\SelectVendorPopUpView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Share\TransferBoItemSrBatBinView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Share\TransferBoItemSrBatView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\StandAloneTransfer\StandAloneTransferLineTOView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\StandAloneTransfer\StandAloneTransferListView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\StandAloneTransfer\StandAloneTransferLineFROMView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\StandAloneTransfer\StansAloneTransferMenuView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Share\CaptureSignatureView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Test\TestShowQrCode.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Transfer1\BatchesConfirmView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Transfer1\BatchListView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Transfer1\BatchToBinSelectView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Transfer1\BatchToBinView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Transfer1\BinBatchListView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Transfer1\BinItemListView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Transfer1\BinSerialListView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Transfer1\ItemToBinSelectView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Transfer1\SerialListView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Transfer1\SerialsConfirmView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Transfer1\SerialToBinSelectView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Transfer1\SerialToBinView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\TransferBo\BinSelectionPopUpView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Inventory\InventoryView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Share\SerialToBinSelectionView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Share\CaptureTextView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Setting\AppChseCmpnyListView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Setting\AppGroup\AppGroupAddEditView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Setting\AppGroup\AppGroupAuthListView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Setting\AppGroup\AppGroupListView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Setting\AppGroup\AppGroupUserSelectionListView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Setting\AppGroup\AppGroupUsrListView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Setting\AppUser\AppUserAddGroupListView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Setting\AppUser\AppUserAddView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Setting\AppUser\AppUserListView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Login\ChngWebApiConnView\ChngWebApiConnView.zh-Hans.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ChngWebApiConnView.zh-Hans.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Login\ChngWebApiConnView\ChngWebApiConnView.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ChngWebApiConnView.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Login\LoginView\LoginView.zh-Hans.resx">
+      <LastGenOutput>LoginView.zh-Hans.Designer.cs</LastGenOutput>
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Login\LoginView\LoginView.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>LoginView.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\DO\SoDocListView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\DO\SoItemsView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\DO\SoScanView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\GoodsTrans\GoodsTransScanView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\GoodsTrans\GoodsTransView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\GoodsTrans\ItemsSearchView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\GRPO\GrpoDocListView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\GRPO\GrpoItemsView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\GRPO\GrpoScanView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\InventoryCounts\InventoryCountsDocListView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\InventoryCounts\InventoryCountsItemScanView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\InventoryCounts\InventoryCountsItemView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Login\ChngWebApiConnView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Login\LoginView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Main\MainView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Main\MainViewDetail.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Main\MainViewMaster.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Setting\SettingView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Share\CameraScanView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Share\GeneralListView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Share\ItemSeriesView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Share\ItemWarehouseView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\SimplifiedMain\SimplifyMainMenuView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Test\DynaAddInExpander.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Test\FoatingButtonPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Test\TestNotification.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\TransferRequest\TransferRequestView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Transfer1\TransferPickV.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Transfer\SelectBinListView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Transfer\SimpleBinListView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Transfer\TransferListLineView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Transfer\TransferListView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\NewFolder\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="DbClass">
+      <HintPath>..\..\WMSWebAPI\bin\Debug\netcoreapp3.1\DbClass.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+</Project>

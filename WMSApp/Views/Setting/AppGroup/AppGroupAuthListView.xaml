@@ -1,0 +1,189 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             Title="Group Permission Setup"
+             x:Class="WMSApp.Views.Setting.AppGroup.AppGroupAuthListView">
+    
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Save"
+                     Order="Default"
+                     Command="{Binding cmdSave}"/>
+
+        <ToolbarItem IconImageSource="search_white.png" 
+                     Order="Primary"
+                     Command="{Binding cmdShowSearchBar}"
+                     CommandParameter="{x:Reference searchBar}"/>
+
+    </ContentPage.ToolbarItems>
+
+    <Grid Padding="12" BackgroundColor="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" 
+               Text="{StaticResource PressBackToReturn}" 
+               TextColor="{StaticResource colorPrimaryDark}"/>
+
+        <SearchBar Grid.Row="1" 
+                   x:Name="searchBar" 
+                   HeightRequest="21"
+                   IsVisible="{Binding seachBarVisible}" 
+                   Text="{Binding searchQuery}"
+                   Placeholder="Enter related name to search"></SearchBar>
+
+        <ListView Grid.Row="2"
+                  CachingStrategy="RecycleElement"
+                  HasUnevenRows="True"
+                  IsGroupingEnabled="True"
+                  
+                  SelectedItem="{Binding selectedItem, Mode=TwoWay}"
+                  ItemsSource="{Binding obcList}">
+
+            <!-- Listview header -->
+            <ListView.Header>
+                <Grid Grid.Row="1" Padding="12" 
+                      RowSpacing="0"
+                      BackgroundColor="{StaticResource ColorTone3}" >
+
+                    <Label Grid.Column="0" 
+                           TextColor="White" FontAttributes="Bold"
+                           Text ="{Binding curCompanyName}" ></Label>
+
+                    <Label Grid.Column="1"                            
+                           TextColor="White" 
+                           HorizontalOptions="End" 
+                           FontAttributes="Bold"
+                           Text ="{Binding curGroupName}" ></Label>
+                </Grid>
+            </ListView.Header>
+
+
+            <!--define the group header template over here-->
+            <ListView.GroupHeaderTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid BackgroundColor="White">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer NumberOfTapsRequired="1" 
+                                                      Command="{Binding cmdGroupHeaderTapper}">
+                                </TapGestureRecognizer>
+                            </Grid.GestureRecognizers>
+
+                            <Label  Grid.Column="0"
+                                    Text="{Binding TitleWithItemCount}"
+                                    Padding="12"
+                                    TextColor="Black"
+                                    FontSize="15" 
+                                    FontAttributes="Bold"       
+                                    HorizontalOptions="Start"
+                                    VerticalOptions="Center">
+                            </Label>
+
+                            <CheckBox Grid.Column="1" 
+                                      VerticalOptions="Center"
+                                      HorizontalOptions="End"
+                                IsChecked="{Binding isSwitchOn, Mode=TwoWay}">
+
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal">
+                                            <VisualState.Setters>
+                                                <Setter Property="Color"
+                                                        Value="{StaticResource ColorTone4}" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+
+                                        <VisualState x:Name="IsChecked">
+                                            <VisualState.Setters>
+                                                <Setter Property="Color"
+                                                        Value="{StaticResource ColorTone5}" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                            </CheckBox>
+                        </Grid>
+
+
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.GroupHeaderTemplate>
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid RowSpacing="3">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="2"   
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="Start"
+                                   HeightRequest="30"
+                                   WidthRequest="81"                                   
+                                   Source="permission.png"></Image>
+
+                            <Label Grid.Row="0" Grid.Column="1"                                    
+                                   Padding="0"
+                                   FontSize="15" 
+                                   TextColor="Black"
+                                   Text="{Binding Title}"
+                                   ></Label>
+
+                            <Label Grid.Row="1" Grid.Column="1"                                    
+                                   Text="{Binding Desc}" 
+                                   TextColor="{StaticResource SapMildColor3}" 
+                                   VerticalOptions="Start"
+                                   Padding="0"
+                                   FontSize="12"></Label>
+
+                            <CheckBox Grid.Row="0" Grid.Column="2" Grid.RowSpan="2"   
+                                      VerticalOptions="Center"
+                                      HorizontalOptions="End"
+                                      IsChecked="{Binding isSwitchOn, Mode=TwoWay}">
+
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal">
+                                            <VisualState.Setters>
+                                                <Setter Property="Color"
+                                            Value="{StaticResource SapMildColor4}" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+
+                                        <VisualState x:Name="IsChecked">
+                                            <VisualState.Setters>
+                                                <Setter Property="Color"
+                                            Value="{StaticResource SapMildColor5}"/>
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                            </CheckBox>
+
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+    </Grid>
+</ContentPage>

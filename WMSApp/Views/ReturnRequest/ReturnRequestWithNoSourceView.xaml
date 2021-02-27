@@ -1,0 +1,297 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WMSApp.Views.ReturnRequest.ReturnRequestWithNoSourceView"
+             Title="M.Ret. Request">
+    
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="cancel512.png" 
+                     Text="Cancel" 
+                     Order="Default" 
+                     Command="{Binding CmdClose}"></ToolbarItem>
+
+        <ToolbarItem IconImageSource="search_white.png"
+                     Command="{Binding CmdSearchBarVisible}" 
+                     CommandParameter="{x:Reference searchbar}"></ToolbarItem>
+
+        <ToolbarItem IconImageSource="save512.png" 
+                     Text="Save" 
+                     Order="Default" 
+                     Command="{Binding CmdSave}"></ToolbarItem>
+    </ContentPage.ToolbarItems>
+
+    <Grid Padding="3" 
+          RowSpacing="0">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Text="{StaticResource PressBackToReturn}"></Label>
+
+        <SearchBar Grid.Row="1" 
+                   x:Name="searchbar" 
+                   IsVisible="false"></SearchBar>
+
+        <Expander Grid.Row="2" 
+                  Padding="6"    
+                  BackgroundColor="{StaticResource ColorTone5}">
+
+            <Expander.Header>
+                <Grid>
+                    <Label Grid.Column="0" 
+                           Text="Doc Properties" 
+                           FontAttributes="Bold" 
+                           FontSize="Medium"  
+                           TextColor="White"/>
+                    <Image Source="expanded_blue.png"
+                           WidthRequest="15"
+                           HeightRequest="15"
+                           HorizontalOptions="End"
+                           VerticalOptions="Center">
+                        <Image.Triggers>
+                            <DataTrigger TargetType="Image"
+                                 Binding="{Binding Source={RelativeSource AncestorType={x:Type Expander}}, 
+                                            Path=IsExpanded}"
+                                 Value="True">
+                                <Setter Property="Source"
+                                        Value="collapsed_blue.png" />
+                            </DataTrigger>
+                        </Image.Triggers>
+                    </Image>
+                </Grid>
+            </Expander.Header>
+
+            <ScrollView>
+                <StackLayout BackgroundColor="White" Padding="6">
+                    <Label Text="Doc Series" 
+                           FontAttributes="Italic"></Label>
+
+                    <Picker x:Name="DocSeries" 
+                            ItemsSource="{Binding DocSeriesItemsSource}" 
+                            SelectedItem="{Binding DocSeriesSelectedItem}"></Picker>
+
+                    <Label Text="DO#" FontAttributes="Italic"></Label>
+                    <Entry Text="{Binding NumberAtCard}"></Entry>
+
+                    <Label Text="Reference 2" FontAttributes="Italic"></Label>
+                    <Entry Text="{Binding Ref2}"></Entry>
+
+                    <Label Text="Comments" FontAttributes="Italic"></Label>
+                    <Entry Text="{Binding Comments}"></Entry>
+
+                    <Label Text="Journal memo" FontAttributes="Italic"></Label>
+                    <Entry Text="{Binding JrnlMemo}"></Entry>
+
+                    <!--rest of the UDF needed -->
+
+                </StackLayout>
+            </ScrollView>
+        </Expander>
+
+        <!-- show selected supplier -->
+        <Expander Grid.Row="3"                  
+                  BackgroundColor="{StaticResource ColorTone3}" 
+                  IsExpanded="True">
+
+            <Expander.Header>
+                <Grid>
+                    <Label Grid.Column="0" 
+                           Padding="3"
+                           Text="Bp Details" 
+                           FontAttributes="Bold" 
+                           FontSize="Medium"  
+                           TextColor="White"/>
+                    <Image Source="expanded_blue.png"
+                           WidthRequest="15"
+                           HeightRequest="15"
+                           HorizontalOptions="End"
+                           VerticalOptions="Center">
+                        <Image.Triggers>
+                            <DataTrigger TargetType="Image"
+                                 Binding="{Binding Source={RelativeSource AncestorType={x:Type Expander}},
+                                            Path=IsExpanded}"
+                                 Value="True">
+                                <Setter Property="Source"
+                                        Value="collapsed_blue.png" />
+                            </DataTrigger>
+                        </Image.Triggers>
+                    </Image>
+                </Grid>
+            </Expander.Header>
+
+            <StackLayout Orientation="Vertical" 
+                         BackgroundColor="White">
+
+                <Label FontSize="Medium"                        
+                       FontAttributes="Bold" 
+                       Text="{Binding CardName}"/>
+
+                <Grid ColumnSpacing="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Column="0"                            
+                           Text="{Binding CardCode}"/>
+
+                    <Label Grid.Column="1" 
+                           Text="Choose Bp"
+                           TextDecorations="Underline"
+                           TextColor="White"
+                           FontAttributes="Bold"
+                           Padding="6"                        
+                           VerticalOptions="Center"
+                           BackgroundColor="{StaticResource GoogleGreen}">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer NumberOfTapsRequired="1" 
+                                              Command="{Binding CmdSelectBp}"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                </Grid>
+
+
+            </StackLayout>
+        </Expander>
+
+        <Label Grid.Row="4" 
+               Text="{Binding ExitWhs, StringFormat='Entry warehouse {0}'}"
+               FontSize="Medium"
+               TextDecorations="Underline"               
+               Padding="6"
+               TextColor="White"
+               FontAttributes="Bold"
+               BackgroundColor="{StaticResource GoogleYellow}">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer NumberOfTapsRequired="1"
+                                      Command="{Binding CmdChangeWhs}"></TapGestureRecognizer>
+            </Label.GestureRecognizers>
+        </Label>
+
+        <!-- Middle scanner -->
+        <Label Grid.Row="5" 
+               Text="Manual Input" 
+               FontSize="Medium"
+               TextDecorations="Underline"               
+               Padding="6"
+               TextColor="White"
+               FontAttributes="Bold"
+               
+               BackgroundColor="{StaticResource GoogleBlue}">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer NumberOfTapsRequired="1"
+                                      Command="{Binding CmdManualInput}">
+                </TapGestureRecognizer>
+            </Label.GestureRecognizers>
+        </Label>
+
+        <Label Grid.Row="5" 
+               Text="Scan" 
+               FontSize="Medium"
+               TextDecorations="Underline"               
+               Padding="6"
+               TextColor="White"
+               FontAttributes="Bold"
+               HorizontalOptions="End"
+               BackgroundColor="{StaticResource GoogleGreen}">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer NumberOfTapsRequired="1"
+                                      Command="{Binding CmdStartScan}">
+                </TapGestureRecognizer>
+            </Label.GestureRecognizers>
+        </Label>
+
+        <!-- search bar -->
+        <SearchBar 
+            Grid.Row="6" 
+            x:Name="searchBarItem"
+            IsVisible="false"
+            Placeholder="Enter Item code to search"                 
+            HorizontalOptions="Start"
+            VerticalOptions="Center"                
+            Text="{Binding SearchItemQuery}"></SearchBar>
+
+        <!-- PO Lines POR1_Ex -->
+        <ListView Grid.Row="7" 
+                  CachingStrategy="RecycleElement"
+                  HasUnevenRows="True"
+                  ItemsSource="{Binding ItemsSource, Mode=TwoWay}"
+                  SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <SwipeView>
+                            <SwipeView.LeftItems>
+                                <SwipeItems Mode="Reveal">
+                                    <SwipeItem x:Name="removeSwipe" Text="Remove"
+                                               IconImageSource="delete512.png"
+                                               BackgroundColor="{StaticResource GoogleRed}"
+                                               CommandParameter="{Binding .}"
+                                               Invoked="removeSwipe_Invoked"/>
+                                </SwipeItems>
+                            </SwipeView.LeftItems>
+
+                            <!-- Content -->
+                            <Grid RowSpacing="0" Padding="3"                                   
+                              BackgroundColor="{Binding CellBackGroundColor}">
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+
+                                <Label Grid.Row="0" Grid.Column="1" Text="{Binding CardName}"></Label>
+                                <Label Grid.Row="1" Grid.Column="1" Text="{Binding CardCode}"></Label>
+                                <Label Grid.Row="2" Grid.Column="1" Text="{Binding DocNum, StringFormat='Doc# {0}'}"></Label>
+
+                                <Label Grid.Row="3" Grid.Column="1" Text="{Binding ItemCodeDisplay}" FontAttributes="Bold"></Label>
+                                <Label Grid.Row="3" Grid.Column="2" Text="{Binding OpenQuantityDisplay}" 
+                                   HorizontalOptions="End"></Label>
+
+                                <Label Grid.Row="4" Grid.Column="1" Text="{Binding ItemNameDisplay}"></Label>
+                                <Label Grid.Row="4" Grid.Column="2" Text="{Binding ReceiptQuantityDisplay, Mode=TwoWay}" 
+                                        HorizontalOptions="End"></Label>
+
+                                <Label Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2"                                                            
+                                       Text="{Binding ItemWhsCode, Mode=TwoWay}" 
+                                       HorizontalOptions="End"></Label>
+
+                                <Label Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2"                         
+                                   Text="{Binding ShowList, Mode=TwoWay}" 
+                                   HorizontalOptions="End"></Label>
+
+                                <BoxView Grid.Row="7"
+                                    Grid.ColumnSpan="3"
+                                    HeightRequest="0.9" BackgroundColor="{StaticResource colorPrimaryDark}"></BoxView>
+
+                            </Grid>
+
+                        </SwipeView>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+    </Grid>
+
+</ContentPage>

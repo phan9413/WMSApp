@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage  xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+             xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+             x:Class="WMSApp.Views.DO.DoSoLinesPopUpSelectView">
+    
+    <!--You can set an animation in the xaml file or in the csharp code behind-->
+    <pages:PopupPage.Animation>
+        <animations:ScaleAnimation 
+            PositionIn="Center"
+            PositionOut="Center"
+            ScaleIn="1.2"
+            ScaleOut="0.8"
+            DurationIn="30"
+            DurationOut="30"
+            EasingIn="SinOut"
+            EasingOut="SinIn"            
+            HasBackgroundAnimation="True"/>
+    </pages:PopupPage.Animation>
+
+    <!--page started here -->
+    <StackLayout VerticalOptions="Center" 
+                 HorizontalOptions="Center"
+                 Orientation="Vertical"
+                 Spacing="0"
+                 Padding="21">
+
+        <Label Text="Duplicated item found in mutiple SO Doc(s), 
+               please select a doc line to process"
+               FontAttributes="Bold"
+               Padding="6"
+               BackgroundColor="Wheat"></Label>
+
+        <ListView 
+            CachingStrategy="RecycleElement"
+            HasUnevenRows="True"
+            ItemsSource="{Binding ItemsSource, Mode=TwoWay}"
+            SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <!-- Content -->
+                        <Grid RowSpacing="0" Padding="3"                                   
+                              BackgroundColor="{Binding CellBackGroundColor}">
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <Label Grid.Row="0" Grid.Column="1" Text="{Binding CardName}" FontAttributes="Bold" FontSize="Medium"></Label>
+                            <Label Grid.Row="1" Grid.Column="1" Text="{Binding CardCode}"></Label>
+                            <Label Grid.Row="2" Grid.Column="1" Text="{Binding DocNum, StringFormat='Doc# {0}'}"></Label>
+
+                            <Label Grid.Row="3" Grid.Column="1" Text="{Binding ItemCodeDisplay}" FontAttributes="Bold"></Label>
+                            <Label Grid.Row="3" Grid.Column="2" Text="{Binding OpenQuantityDisplay}" 
+                                   HorizontalOptions="End"></Label>
+
+                            <Label Grid.Row="4" Grid.Column="1" Text="{Binding ItemNameDisplay}"></Label>
+                            <Label Grid.Row="4" Grid.Column="2" Text="{Binding ReceiptQuantityDisplay, Mode=TwoWay}" 
+                                        HorizontalOptions="End"></Label>
+
+                            <Label Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2"                         
+                                   Text="{Binding ItemWhsCode, Mode=TwoWay}" 
+                                   HorizontalOptions="End"></Label>
+
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+
+    </pages:PopupPage>

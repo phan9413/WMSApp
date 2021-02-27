@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             Title="Group Users List"
+             x:Class="WMSApp.Views.Setting.AppGroup.AppGroupUsrListView">
+    
+    <ContentPage.ToolbarItems>
+        <ToolbarItem 
+            x:Name="tbmi_addUser" 
+            Order="Default" 
+            Text="Add" 
+            Priority="0"
+            Command="{Binding cmdAddUser}"/>
+
+        <ToolbarItem 
+            x:Name="tbmi_searchUser" 
+            Order="Default" 
+            IconImageSource="search_white.png" 
+            Priority="1" 
+            Command="{Binding cmdSearchUser}"
+            CommandParameter="{x:Reference searchBar}"/>
+
+        <ToolbarItem 
+            x:Name="tbmi_selectUser" 
+            Order="Secondary" 
+            Text="Select all"
+            Priority="2" 
+            Command="{Binding cmdSelectUser}"/>
+
+        <ToolbarItem 
+            x:Name="tbmi_undoSelectr" 
+            Order="Secondary" 
+            Text="De-select all"
+            Priority="2" 
+            Command="{Binding cmdUndoSelectUser}"/>
+
+        <ToolbarItem 
+            x:Name="tbmi_removeUser" 
+            Order="Secondary" 
+            Text="Remove from group" 
+            Priority="3" 
+            Command="{Binding cmdRemoveUser}"/>
+
+    </ContentPage.ToolbarItems>
+
+    <Grid Padding="12" BackgroundColor="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Label Grid.Row="0" 
+               Text="{StaticResource PressBackToReturn}" 
+               TextColor="{StaticResource colorPrimaryDark}"
+               HeightRequest="18"/>
+
+        <Label Grid.Row="0" Grid.Column="1" 
+               Text="Save and Return" 
+               HeightRequest="15"
+               HorizontalOptions="EndAndExpand"
+               FontAttributes="Bold"
+               TextColor="{StaticResource colorPrimaryDark}">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding CmdSaveAndReturn}"></TapGestureRecognizer>
+            </Label.GestureRecognizers>
+        </Label>
+        
+        <SearchBar Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                   HeightRequest="21"
+                   x:Name="searchBar" 
+                   HorizontalOptions="Start"
+                   VerticalOptions="Center"
+                   Text="{Binding searchText}"
+                   IsVisible="{Binding isSearchBarVisible}"
+                   Placeholder="Enter user related info to search"/>
+
+        <ListView Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                  x:Name="lvUser"       
+                  HasUnevenRows="True"
+                  CachingStrategy="RecycleElement"
+                  ItemsSource="{Binding obcList, Mode=TwoWay}"
+                  SelectedItem="{Binding selectedItem, Mode=TwoWay}">
+
+            <ListView.Header>
+                <Grid Grid.Row="1"
+                      Padding="12" 
+                      RowSpacing="0"
+                      BackgroundColor="{StaticResource ColorTone3}" >
+
+                    <Label Grid.Column="0" 
+                           TextColor="White" FontAttributes="Bold"
+                           Text ="{Binding curCompanyName}" ></Label>
+
+                    <Label Grid.Column="1"                            
+                           TextColor="White" 
+                           HorizontalOptions="End" 
+                           FontAttributes="Bold"
+                           Text ="{Binding curGroupName}" ></Label>
+                </Grid>
+            </ListView.Header>
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid RowSpacing="3" Padding="9">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="2"   
+                                    HeightRequest="45"
+                                   WidthRequest="45"
+                                   HorizontalOptions="CenterAndExpand"
+                                   VerticalOptions="CenterAndExpand"
+                                   Source="user512.png"/>
+
+                            <Label Grid.Row="0" Grid.Column="1" VerticalTextAlignment="End"
+                                   FontSize="Subtitle"
+                                   FontAttributes="Bold"
+                                   HorizontalOptions="Start"                                   
+                                   Text="{Binding TextDisplay}"/>
+
+                            <Label Grid.Row="1" Grid.Column="1" VerticalTextAlignment="Start"
+                                   HorizontalOptions="Start"                                   
+                                   TextColor="{StaticResource ColorTone3}"
+                                   Text="{Binding DetailsDisplay}"/>
+
+                            <CheckBox Grid.Row="0" Grid.Column="2" Grid.RowSpan="2"
+                                        IsChecked="{Binding isSelected, Mode=TwoWay}" 
+                                        IsVisible="{Binding isVisible, Mode=TwoWay}"
+                                        IsEnabled="True">
+                                
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal">
+                                            <VisualState.Setters>
+                                                <Setter Property="Color" Value="{StaticResource ColorTone4}" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+
+                                        <VisualState x:Name="IsChecked">
+                                            <VisualState.Setters>
+                                                <Setter Property="Color" Value="{StaticResource ColorTone5}" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                            </CheckBox>
+
+                        </Grid>
+                    </ViewCell>
+
+                </DataTemplate>
+            </ListView.ItemTemplate>
+
+        </ListView>
+
+    </Grid>
+</ContentPage>

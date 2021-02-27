@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WMSApp.View.Item.ItemListV"
+             Title="Search Inventory - Item">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="whs_white512.png" 
+                     Text="ByWhs"
+                     Command="{Binding CmdByWhs}"></ToolbarItem>
+    </ContentPage.ToolbarItems>
+
+    <Grid Padding="3">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Frame Padding="0"
+               OutlineColor="{StaticResource colorPrimaryDark}"
+               HasShadow="True"
+               HorizontalOptions="FillAndExpand"
+               VerticalOptions="Center">
+
+            <SearchBar Grid.Row="0"
+                       Placeholder="Input Item name / code"
+                       Text="{Binding SearchText,Mode=TwoWay}">
+            </SearchBar>
+        </Frame>
+
+        <ListView Grid.Row="1"           
+                  HasUnevenRows="True"
+                  CachingStrategy="RecycleElement"
+                  ItemsSource="{Binding ItemsSource, Mode=TwoWay}"
+                  SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ImageCell ImageSource="item.png"                                
+                               Text="{Binding ItemCode}"                             
+                               Detail="{Binding ItemName}"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</ContentPage>

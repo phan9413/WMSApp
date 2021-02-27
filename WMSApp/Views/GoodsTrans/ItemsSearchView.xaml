@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             Title="Search for Add"
+             mc:Ignorable="d"
+             x:Class="WMSApp.Views.GIGR.ItemsSearchView">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        
+        <Label Grid.Row="0" Text="{StaticResource PressBackToReturn}"></Label>
+        <SearchBar Grid.Row="1" 
+                   Placeholder="Enter items detail to search"
+                   Text="{Binding QueryText}"></SearchBar>
+
+        <ListView Grid.Row="1" CachingStrategy="RecycleElement"
+                  SelectionMode="Single"
+                  ItemsSource="{Binding ItemsSource}"
+                  SelectedItem="{Binding SelectedItem}">
+            
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextCell Text="{Binding Text}" TextColor="{StaticResource colorPrimaryDark}"
+                              Detail="{Binding Details}" DetailColor="{StaticResource ColorTone3}">
+                    </TextCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+    </Grid>
+</ContentPage>

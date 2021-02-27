@@ -1,0 +1,176 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:zxing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"                
+             x:Class="WMSApp.Views.Login.LoginView"
+             Title="{Binding Title}"
+             mc:Ignorable="d">
+    
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="{Binding TextConnectStatus}"                                                                                        
+                     Order="Default"                     
+                     Command="{Binding cmdRefreshConnection}"></ToolbarItem>
+
+        <ToolbarItem Text="{Binding TextSetupQrCodeLink}"                                                                                            
+                     Order="Secondary"
+                     IsEnabled="{Binding isMenuEnable}"
+                     Command="{Binding cmdSetupQrCodeLink}"></ToolbarItem>
+
+        <ToolbarItem Text="{Binding TextSetupAddressLink}"                                
+                     Order="Secondary"
+                     IsEnabled="{Binding isMenuEnable}"
+                     Command="{Binding  cmdSetupWebLink}"></ToolbarItem>
+        
+
+        <ToolbarItem Text="{Binding TextQuit}"    
+                     Order="Secondary"
+                     Command="{Binding cmdQuit}"></ToolbarItem>
+
+    </ContentPage.ToolbarItems>
+
+    <StackLayout Spacing="0">
+        
+        <Grid x:Name="stckScanner" 
+              RowSpacing="0"
+              IsVisible="{Binding stckScannerVisible}"
+              Style="{StaticResource GridStyle}">
+            
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <zxing:ZXingScannerView Grid.Row="0"
+                        x:Name="_scanView"                                                                                                                                 
+                        WidthRequest="300" HeightRequest="300" 
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="FillAndExpand"/>
+
+            <zxing:ZXingDefaultOverlay Grid.Row="0"
+                        TopText="{Binding ScannerMiddleText}" 
+                        BottomText=""                             
+                        Opacity="0.9"/>
+
+            <Button Grid.Row="1"                                                
+                    Text="{Binding ViewScanCancel}" 
+                    Style="{StaticResource ButtonStyle}"                    
+                    Command="{Binding cmdCancelScan}"/>
+        </Grid>
+
+        <Grid Style="{StaticResource GridStyle}" 
+              IsVisible="{Binding stckLoginVisible}" RowSpacing="0">
+            
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+                <ColumnDefinition Width="90*"></ColumnDefinition>
+                <ColumnDefinition Width="21*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0"       
+                   Text="{Binding LabelCompany}" 
+                   Style="{StaticResource LabelStyle}"
+                   FontSize="20"/>
+
+            <Picker Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3"     
+                    Style="{StaticResource PickerStyle}"
+                    SelectedItem="{Binding pkerSelectedItem, Mode=TwoWay}"
+                    ItemsSource="{Binding pkerCompany}"/>
+
+            <Label Grid.Row="1" Grid.Column="0"                     
+                   Style="{StaticResource LabelStyle}"
+                   Text="{Binding LabelUserId}"
+                   FontSize="20"/>
+                   
+
+            <Entry Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" 
+                   Style="{StaticResource EntryStyle}"                     
+                   Text="{Binding tbName, Mode=TwoWay}"/>
+
+            <Label Grid.Row="2" Grid.Column="0" 
+                   Style="{StaticResource LabelStyle}"
+                   Text="{Binding LabelPassword}"
+                   FontSize="20"/>
+                    
+
+            <Entry Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3"    
+                   Style="{StaticResource EntryStyle}"
+                   IsPassword="{Binding isPwVisible}"                    
+                   Text="{Binding tbPw, Mode=TwoWay}"/>
+
+            <ActivityIndicator  
+                Grid.Row="3" Grid.Column="0" 
+                HorizontalOptions="End"                                                              
+                Scale="2.5" HeightRequest="21"
+                IsRunning="{Binding actIndVisibility}"
+                IsEnabled="{Binding actIndVisibility}"
+                IsVisible="{Binding actIndVisibility}"                                                                           
+                Color="{StaticResource colorPrimaryDark}" />
+
+            <Label Grid.Row="3" Grid.Column="1" 
+                   Style="{StaticResource LabelStyle}"                    
+                   Text="{Binding LabelSwicthPasswordVisible}"
+                   HorizontalOptions="End"/>
+
+            <Switch Grid.Row="3" Grid.Column="2"                                                                                          
+                    HorizontalOptions="End"                    
+                    Style="{StaticResource SwitchStyle}"                    
+                    IsToggled="{Binding isViewPw, Mode=TwoWay}"/>
+
+            <Label Grid.Row="4" Grid.Column="1" 
+                   Style="{StaticResource LabelStyle}"                    
+                   Text="Remember Me"
+                   HorizontalOptions="End"/>
+
+            <CheckBox Grid.Row="4" Grid.Column="2"                                                                                          
+                    HorizontalOptions="Center"                                        
+                    IsChecked="{Binding RememberMe, Mode=TwoWay}"/>
+
+            <Button Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="4"    
+                    Text="{Binding BtnLabelLogon}"  
+                    FontSize="20"
+                    CornerRadius="20"
+                    Margin="50"
+                    HeightRequest="50"
+                    Style="{StaticResource ButtonStyle}"
+                    Command="{Binding cmdLogin}"/>
+
+            <Label Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="3" HorizontalOptions="End" Text="{Binding Version}"></Label>
+        </Grid>
+
+        <Grid HorizontalOptions="Center" 
+              VerticalOptions="Center"
+              RowSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Image Grid.Row="0"                       
+                    Source="sap_goldpartner.jpg"
+                    HeightRequest="120"
+                    WidthRequest="240"
+                    HorizontalOptions="Center"                                
+                    VerticalOptions="Center"/>
+
+            <Label Grid.Row="1"       
+                   Style="{StaticResource LabelStyle}"
+                    Text="Copyright of Fast Track SBOi Sdn. Bhd."
+                    FontAttributes="Bold"                                         
+                    FontSize="9" 
+                    HorizontalOptions="Center" />
+        </Grid>
+
+    </StackLayout>
+</ContentPage>

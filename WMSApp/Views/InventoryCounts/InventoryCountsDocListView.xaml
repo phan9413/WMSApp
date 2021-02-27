@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             Title="Inventory Counts"
+             x:Class="WMSApp.Views.InventoryCounts.InventoryCountsDocListView">
+    
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="search_white.png" 
+                     Order="Default" 
+                     Command="{Binding CmdSearchBarVisible}" 
+                     CommandParameter="{x:Reference searchBar}"/>
+    </ContentPage.ToolbarItems>
+
+    <Grid Padding="12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" 
+               HorizontalOptions="Start"
+               VerticalOptions="Center"
+               Text="{StaticResource PressBackToReturn}" 
+               TextColor="{StaticResource colorPrimaryDark}" 
+               FontSize="15"></Label>
+
+        <Label Grid.Row="1" 
+               HorizontalOptions="Start"
+               VerticalOptions="Center"
+               Text="Select An Inventory Counting Activity to start" 
+               FontAttributes="Bold"
+               TextColor="{StaticResource colorPrimaryDark}" 
+               FontSize="15"></Label>
+
+        <SearchBar Grid.Row="2" 
+                   x:Name="searchBar"
+                   HeightRequest="21"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Center"
+                   IsVisible="False"
+                   Text="{Binding SearchText, Mode=TwoWay}"
+                   Placeholder="Text related info to serch"></SearchBar>
+
+        <!-- binding to list of purchase order -->
+        <ListView Grid.Row="3"
+            CachingStrategy="RecycleElement"
+            SelectionMode="Single"
+            SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
+            ItemsSource="{Binding ItemsSource, Mode=TwoWay}"
+            IsPullToRefreshEnabled="True"
+            RefreshCommand="{Binding CmdRefreshListView}"
+            IsRefreshing="{Binding IsListViewRefreshing}">
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ImageCell ImageSource="file.png" 
+                               Text="{Binding Text}" 
+                               TextColor="{StaticResource ColorTone3}"
+                               Detail="{Binding Details}" 
+                               DetailColor="{StaticResource ColorTone1}"></ImageCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+    </Grid>
+</ContentPage>

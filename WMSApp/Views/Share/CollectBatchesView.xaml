@@ -1,0 +1,197 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:zxing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms" 
+             xmlns:local="clr-namespace:WMSApp.Converters"           
+                  x:Class="WMSApp.Views.Share.CollectBatchesView"
+             Title="Data collection">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:StatusColorConverter x:Key="StatusChanged"></local:StatusColorConverter>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Cancel"
+                     IconImageSource="cancel512.png"
+                     Command="{Binding CancelCmd}"></ToolbarItem>
+        <ToolbarItem Text="Save"
+                     IconImageSource="save512.png"
+                     Command="{Binding SaveCmd}"></ToolbarItem>
+    </ContentPage.ToolbarItems>
+
+    <Grid RowSpacing="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" 
+            BackgroundColor="{Binding Status,Converter={StaticResource StatusChanged}}"></Label>
+
+        <Grid Grid.Row="1"
+              Padding="3"
+              RowSpacing="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0"
+                       HorizontalOptions="Center"                       
+                       Text="Scan code to add" />
+
+            <Expander Grid.Row="1" 
+                      IsExpanded="{Binding IsCameraExpaneded}">
+                <Expander.Header>
+                    <Label Text="Scanner" 
+                           FontAttributes="Bold" 
+                           VerticalOptions="Center"
+                           Padding="6" 
+                           TextColor="White"
+                           BackgroundColor="{StaticResource colorPrimaryDark}"></Label>    
+                </Expander.Header>
+                
+            <Grid 
+                  VerticalOptions="Center"
+                  HorizontalOptions="Center">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <zxing:ZXingScannerView Grid.RowSpan="2"
+                                    Grid.ColumnSpan="2"
+                                    x:Name="scanView"
+                                    IsTorchOn="{Binding IsTorchOn}"
+                                    IsScanning="{Binding IsScanning}"
+                                    IsAnalyzing="{Binding IsAnalyzing}"
+                                    Result="{Binding Result,Mode=TwoWay}"
+                                    ScanResultCommand="{Binding OnQRCodeScannerCmd}"
+                                    WidthRequest="300"
+                                    HeightRequest="300" />
+
+                <zxing:ZXingDefaultOverlay Grid.RowSpan="2"
+                                       Grid.ColumnSpan="2"
+                                       x:Name="scannerOverlay"
+                                       Opacity="0.9" />
+                
+                <ImageButton Grid.Row="0"
+                         Grid.Column="1"
+                         WidthRequest="45"
+                         HeightRequest="45"
+                         BackgroundColor="Transparent"
+                         Source="flashlight512.png"
+                         Command="{Binding TorchCmd}" />
+            </Grid>
+            </Expander>
+
+            <StackLayout Grid.Row="2"  
+                         Orientation="Horizontal" 
+                         Padding="6"
+                         BackgroundColor="{StaticResource colorPrimary}">
+                <Label Text="List"                           
+                       TextColor="White"
+                       VerticalOptions="Center"
+                       FontAttributes="Bold" />
+
+                <ImageButton Source="createAdd512.png"
+                            HorizontalOptions="EndAndExpand"                                         
+                            VerticalOptions="Center"
+                            HeightRequest="45"
+                            WidthRequest="45"
+                            BackgroundColor="{StaticResource colorPrimary}"
+                            Command="{Binding CmdAdd}"></ImageButton>
+            </StackLayout>
+
+            <ListView Grid.Row="3" x:Name="QRValueList"
+                      HasUnevenRows="True"
+                      CachingStrategy="RecycleElement"
+                      ItemsSource="{Binding QRCodeList}">
+
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <SwipeView>
+                                <SwipeView.RightItems>
+                                    <SwipeItem  BackgroundColor="Red"
+                                               IconImageSource="delete512.png"
+                                               Invoked="OnDeleteSwipeItemInvoked"
+                                               CommandParameter="{Binding .}"/>
+                                </SwipeView.RightItems>
+
+                                <Grid Padding="6">
+
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="4"
+                                            HeightRequest="30"
+                                            WidthRequest="30"
+                                            Source="scan_black512.png"></Image>
+
+                                    <Label Grid.Row="0" Grid.Column="1" 
+                                           FontAttributes="Bold"
+                                           FontSize="Medium"  
+                                           Text="{Binding DistNumber,Mode=TwoWay}"/>
+
+
+                                    <Label Grid.Row="1" Grid.Column="1" 
+                                            Text="{Binding Qty, StringFormat='Qty {0:N}',Mode=TwoWay}"
+                                            FontSize="Medium" />
+
+
+                                    <Label Grid.Row="2" Grid.Column="1" 
+                                           IsVisible="{Binding IsShowOtherProperty, Mode=TwoWay}"
+                                            Text="{Binding Admissiondate, StringFormat='Admission {0:dd/MM/yyyy}',Mode=TwoWay}"/>
+
+
+                                    <Label Grid.Row="3" Grid.Column="1" 
+                                           IsVisible="{Binding IsShowOtherProperty, Mode=TwoWay}"
+                                            Text="{Binding Expireddate, StringFormat='Expired {0:dd/MM/yyyy}',Mode=TwoWay}"/>
+                                    
+                                    <Label Grid.Row="4" Grid.Column="1" 
+                                           IsVisible="{Binding IsShowOtherProperty, Mode=TwoWay}"
+                                            Text="{Binding Attribute1, StringFormat='Attr1: {0}'}"/>
+
+
+                                    <Label Grid.Row="5" Grid.Column="1" 
+                                           IsVisible="{Binding IsShowOtherProperty, Mode=TwoWay}"
+                                            Text="{Binding Attribute2, StringFormat='Attr2: {0}'}"/>
+
+
+                                    <BoxView  Grid.Row="0" Grid.Column="2" Grid.RowSpan="4"
+                                                 BackgroundColor="Red"
+                                                 WidthRequest="0.9"></BoxView>
+                                </Grid>
+
+                            </SwipeView>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+        </Grid>
+    </Grid>
+</ContentPage>

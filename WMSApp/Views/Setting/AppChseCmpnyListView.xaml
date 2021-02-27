@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             Title="Choose Company"
+             mc:Ignorable="d"
+             x:Class="WMSApp.Views.Setting.AppChseCmpnyListView">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="tbim_search"                              
+                     IconImageSource="search_white.png" 
+                     Order="Default" 
+                     Priority="0" 
+                     Command="{Binding cmdSetVisibleSearchBar}" 
+                     CommandParameter="{x:Reference searchBar}"/>
+
+    </ContentPage.ToolbarItems>
+
+    <Grid Padding="12" BackgroundColor="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Label Grid.Row="0" Text="{StaticResource PressBackToReturn}" 
+               HeightRequest="15"
+               TextColor="{StaticResource colorPrimaryDark}"/>
+
+        <SearchBar Grid.Row="1" 
+                       IsVisible="{Binding searchBarVisibility, Mode=TwoWay}"
+                       x:Name="searchBar" 
+                       Placeholder="Type company name to search" 
+                       Text="{Binding searchText}">
+        </SearchBar>
+
+        <ListView Grid.Row="2" 
+                      x:Name ="lvComp"                       
+                      HasUnevenRows="True"  
+                      CachingStrategy="RecycleElement"                       
+                      SelectedItem="{Binding selectedItem, Mode=TwoWay}"
+                      ItemsSource="{Binding list, Mode=TwoWay}">
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ImageCell Text="{Binding TextDisplay}" 
+                                   TextColor="Black"
+                                   Detail="{Binding DetailsDisplay}" 
+                                   DetailColor="{StaticResource colorPrimary}"
+                                   ImageSource="company512.png"/>
+
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+    
+</ContentPage>

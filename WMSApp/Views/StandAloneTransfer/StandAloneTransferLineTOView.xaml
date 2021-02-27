@@ -1,0 +1,184 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WMSApp.Views.StandAloneTransfer.StandAloneTransferLineTOView">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Save" 
+                     Order="Default" 
+                     IconImageSource="save512.png"
+                     Command="{Binding CmdSave1}"></ToolbarItem>
+        <ToolbarItem Text="Cancel" 
+                     Order="Default" 
+                     IconImageSource="cancel512.png"
+                     Command="{Binding CmdCancel}"></ToolbarItem>
+    </ContentPage.ToolbarItems>
+
+    <Grid Padding="3" RowSpacing="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Text="{StaticResource PressBackToReturn}"></Label>
+
+        <Expander Grid.Row="1" 
+                  Padding="6"    
+                  BackgroundColor="{StaticResource ColorTone5}">
+
+            <Expander.Header>
+                <Grid>
+                    <Label Grid.Column="0" 
+                           Text="Transfer Properties" 
+                           FontAttributes="Bold" 
+                           FontSize="Medium"  
+                           TextColor="White"/>
+                    <Image Source="expanded_blue.png"
+                           WidthRequest="15"
+                           HeightRequest="15"
+                           HorizontalOptions="End"
+                           VerticalOptions="Center">
+                        <Image.Triggers>
+                            <DataTrigger TargetType="Image"
+                                 Binding="{Binding Source={RelativeSource AncestorType={x:Type Expander}}, 
+                                            Path=IsExpanded}"
+                                 Value="True">
+                                <Setter Property="Source"
+                                        Value="collapsed_blue.png" />
+                            </DataTrigger>
+                        </Image.Triggers>
+                    </Image>
+                </Grid>
+            </Expander.Header>
+
+            <ScrollView>
+                <StackLayout BackgroundColor="White" Padding="6">
+                    <Label Text="Doc Series" 
+                           FontAttributes="Italic"></Label>
+
+                    <Picker x:Name="DocSeries" 
+                            ItemsSource="{Binding DocSeriesItemsSource}" 
+                            SelectedItem="{Binding DocSeriesSelectedItem}"></Picker>
+
+                    <Label Text="DO#" FontAttributes="Italic"></Label>
+                    <Entry Text="{Binding NumberAtCard}"></Entry>
+
+                    <Label Text="Reference 2" FontAttributes="Italic"></Label>
+                    <Entry Text="{Binding Ref2}"></Entry>
+
+                    <Label Text="Comments" FontAttributes="Italic"></Label>
+                    <Entry Text="{Binding Comments}"></Entry>
+
+                    <Label Text="Journal memo" FontAttributes="Italic"></Label>
+                    <Entry Text="{Binding JrnlMemo}"></Entry>
+
+                    <!--rest of the UDF needed -->
+
+                </StackLayout>
+            </ScrollView>
+        </Expander>
+
+        <Label Grid.Row="2" Text="{Binding Direction}"
+               Padding="3"
+               TextColor="Black"
+               FontAttributes="Bold"
+               FontSize="Medium"
+               BackgroundColor="Lime"></Label>
+
+        <Label Grid.Row="3" Text="Input Item Code"
+               Padding="12"
+               TextColor="White"
+               FontAttributes="Bold"               
+               TextDecorations="Underline"
+               FontSize="Medium"
+               BackgroundColor="{StaticResource GoogleYellow}">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer NumberOfTapsRequired="1"
+                                      Command="{Binding CmdInputItemCode}"
+                                      CommandParameter="{Binding .}"/>
+            </Label.GestureRecognizers>
+        </Label>
+
+        <Label Grid.Row="3" Text="Scan Item Code"
+               Padding="12"
+               TextColor="White"
+               FontAttributes="Bold"
+               FontSize="Medium"
+               TextDecorations="Underline"
+               HorizontalOptions="End"
+               BackgroundColor="{StaticResource GoogleGreen}">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer NumberOfTapsRequired="1"
+                                      Command="{Binding CmdScanItemCode}"
+                                      CommandParameter="{Binding .}"/>
+            </Label.GestureRecognizers>
+        </Label>
+        
+        <ListView Grid.Row="4"
+                  CachingStrategy="RecycleElement"
+                  HasUnevenRows="True"
+                  SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
+                  ItemsSource="{Binding ItemsSource, Mode=TwoWay}">
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid RowSpacing="0" Padding="3" BackgroundColor="{Binding ViewCellColor}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
+                                   FontAttributes="Bold"
+                                   FontSize="Medium"
+                                   Text="{Binding ItemCode}"></Label>
+
+                            <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"
+                                   FontAttributes="None"
+                                   FontSize="Default"
+                                   Text="{Binding ItemName}"></Label>
+
+                            <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
+                                   FontAttributes="None"
+                                   FontSize="Default"
+                                   Text="{Binding ShowList}"></Label>
+
+                            <Label Grid.Row="3" Grid.Column="0"
+                                   Text="{Binding FromWhsCode,StringFormat='From {0}'}"></Label>
+
+                            <Label Grid.Row="3" Grid.Column="1"
+                                   Text="{Binding ToWhsCode, StringFormat='To {0}'}"></Label>
+
+                            <Label Grid.Row="4" Grid.Column="0" 
+                                   Padding="3"
+                                   TextColor="AliceBlue"                                   
+                                   BackgroundColor="{StaticResource colorPrimary}"
+                                   Text="{Binding Qty, StringFormat='Request Qty: {0:N}'}"></Label>
+
+                            <Label Grid.Row="4" Grid.Column="1" 
+                                   Padding="3"
+                                   TextColor="AliceBlue"                                   
+                                   BackgroundColor="{Binding CellCompleteColor}"
+                                   Text="{Binding Qty, StringFormat='Transfer Qty: {0:N}'}"></Label>
+
+                            <Label Grid.Row="5" Grid.Column="1"                                    
+                                   Text="{Binding LineDetailsDisplay}"></Label>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+    </Grid>
+</ContentPage>

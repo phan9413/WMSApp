@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+  <external-files-path name="my_images" path="Android/data/com.plugin.mediatest/files/Pictures" />
+  <external-files-path name="my_movies" path="Movies" />
+  <external-path name="external_files" path="."/>
+  <files-path name="my_donwload" path="Downloads"/>
+</paths>

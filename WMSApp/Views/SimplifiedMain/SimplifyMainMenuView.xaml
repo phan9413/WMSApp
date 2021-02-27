@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             Title="Inventory Management App"
+             x:Class="WMSApp.Views.SimplifiedMain.SimplifyMainMenuView">
+   
+    <!--<ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="settings25.png" 
+                     IsEnabled="{Binding IsSettingEnable}"
+                     Order="Primary" 
+                     Text="Setting"
+                     Command="{Binding CmdSettingView}"></ToolbarItem>
+
+        <ToolbarItem IconImageSource="logout512.png" 
+                     Order="Primary" 
+                     Text="Setting"
+                     Command="{Binding CmdLogout}"></ToolbarItem>
+    </ContentPage.ToolbarItems>-->
+    
+    <!--<ScrollView>
+        <Grid RowSpacing="12" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Row="0" Grid.Column="0" 
+                    Text="Goods Receipt PO"                     
+                    TextColor="White" BackgroundColor="{StaticResource GoogleBlue}" 
+                    HeightRequest="150" 
+                    WidthRequest="150"
+                    Command="{Binding CmdGrpo}"></Button>
+        
+            <Button Grid.Row="0" Grid.Column="1" 
+                    Text="Delivery"                     
+                    TextColor="White" 
+                    BackgroundColor="{StaticResource GoogleRed}" 
+                    HeightRequest="150" WidthRequest="150" 
+                    Command="{Binding CmdDeliveryOrder}"></Button>
+        
+            <Button Grid.Row="1" Grid.Column="0" Text="Goods Receipt"  
+                    Command="{Binding CmdGIGR}" 
+                    CommandParameter="GR"
+                    TextColor="White" 
+                    BackgroundColor="{StaticResource GoogleYellow}" 
+                    HeightRequest="150" WidthRequest="150"></Button>
+
+            <Button Grid.Row="1" Grid.Column="1" Text="Goods Issues"  
+                    Command="{Binding CmdGIGR}" 
+                    CommandParameter="GI"                    
+                    TextColor="White" 
+                    BackgroundColor="{StaticResource GoogleGreen}" HeightRequest="150" WidthRequest="150"></Button>
+        
+            <Button Grid.Row="2" Grid.Column="0" 
+                    Text="Inventory Counting"  
+                    Command="{Binding CmdInventoryCount}"
+                    CommandParameter="OPEN"                    
+                    TextColor="White" BackgroundColor="{StaticResource ColorTone5}" 
+                    HeightRequest="150" WidthRequest="150"></Button>
+
+            <Button Grid.Row="2" Grid.Column="1" Text="Test Notification"  
+                    Command="{Binding CmdNotification}"
+                    TextColor="White" BackgroundColor="{StaticResource ColorTone5}" HeightRequest="150" WidthRequest="150"></Button>
+
+        </Grid>
+    </ScrollView>-->
+    
+</ContentPage>

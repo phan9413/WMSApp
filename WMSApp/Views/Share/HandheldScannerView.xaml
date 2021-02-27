@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             Title="{Binding PageTitle}"
+             mc:Ignorable="d"
+             x:Class="WMSApp.Views.Share.HandheldScannerView">
+    
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="cancel512.png" Clicked="btnCancel_Clicked" ></ToolbarItem>
+    </ContentPage.ToolbarItems>
+    
+    <Grid RowSpacing="0" Padding="15" HorizontalOptions="CenterAndExpand" 
+          VerticalOptions="Center">
+
+        <Label Grid.Row="0" Text="Cancel" 
+               TextColor="White" Padding="15"
+               BackgroundColor="{StaticResource colorPrimaryDark}" 
+               HorizontalOptions="Center" 
+               VerticalOptions="Center">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="TapGestureRecognizer_Tapped"></TapGestureRecognizer>
+            </Label.GestureRecognizers>
+        </Label>
+
+        <Label Grid.Row="1" Text="{Binding PageTitle}" 
+               FontSize="Medium" 
+               TextColor="{StaticResource ColorTone1}"
+               HorizontalOptions="Center" 
+               VerticalOptions="Center"/>
+        
+        <Entry Grid.Row="3" x:Name="entryData" TextChanged="entryData_TextChanged"></Entry>
+    </Grid>
+</ContentPage>

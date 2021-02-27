@@ -1,0 +1,223 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             Title="Delivery Order"
+             x:Class="WMSApp.Views.DeliveryOrder.SoDocListView">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Picked List"
+                     IconImageSource="picklist512.png"
+                     Command="{Binding CmdDoPicklist}"/>
+        
+        <ToolbarItem Text="Manul DO"
+                     IconImageSource="createAdd512.png"
+                     Command="{Binding CmdManualDo}"/>
+        
+        <ToolbarItem Text="Select"
+                     IconImageSource="select512.png"
+                     Command="{Binding CmdSelectSOs}"/>
+
+        <ToolbarItem IconImageSource="search_white.png" 
+                     Order="Default" 
+                     Command="{Binding CmdSearchBarVisible}"
+                     CommandParameter="{x:Reference searchBar}"/>
+    </ContentPage.ToolbarItems>
+
+    <Grid Padding="3" 
+          RowSpacing="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" 
+               HorizontalOptions="Start"
+               VerticalOptions="Center"
+               Text="{StaticResource PressBackToReturn}" 
+               TextColor="{StaticResource colorPrimaryDark}" 
+               FontSize="15"></Label>
+
+        <Label Grid.Row="1" 
+               HorizontalOptions="Start"
+               VerticalOptions="Center"
+               Text="Select a SO to start DO" 
+               FontAttributes="Bold"
+               TextColor="{StaticResource colorPrimaryDark}" 
+               FontSize="15"></Label>
+
+        <SearchBar Grid.Row="2" 
+                   x:Name="searchBar"                   
+                   HorizontalOptions="Start"
+                   VerticalOptions="Center"
+                   IsVisible="{Binding SearchBarVisible}"
+                       Text="{Binding SearchText, Mode=TwoWay}"
+                   Placeholder="Text related info to serch"></SearchBar>
+
+        <Expander Grid.Row="3"   
+                  IsExpanded="True"                    
+                  Padding="6"
+                  BackgroundColor="{StaticResource ColorTone5}">
+            <Expander.Header>
+                <Grid>
+                    <Label Grid.Column="0" Text="{Binding DateRange, Mode=TwoWay}" 
+                           FontAttributes="Bold" 
+                           FontSize="Medium"
+                           TextColor="White"/>
+
+                    <Image Source="expanded_blue.png"
+                           WidthRequest="15"
+                           HeightRequest="15"
+                           HorizontalOptions="End"
+                           VerticalOptions="Center">
+                        <Image.Triggers>
+                            <DataTrigger TargetType="Image"
+                                 Binding="{Binding 
+                                Source={RelativeSource AncestorType={x:Type Expander}}, Path=IsExpanded}"
+                                 Value="True">
+                                <Setter Property="Source"
+                                        Value="collapsed_blue.png" />
+                            </DataTrigger>
+                        </Image.Triggers>
+                    </Image>
+                </Grid>
+            </Expander.Header>
+
+            <Grid RowSpacing="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Start"
+                       TextColor="White"
+                    Text="Start date"/>
+
+                <Label Grid.Row="1" Grid.Column="0"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Start"
+                       TextColor="White"
+                    Text="End date"/>
+
+                <DatePicker Grid.Row="0" Grid.Column="1"
+                            Format="dd/MM/yyyy"
+                            TextColor="White"
+                            Date="{Binding StartDate, Mode=TwoWay}"/>
+
+                <DatePicker Grid.Row="1" Grid.Column="1" 
+                            Format="dd/MM/yyyy"
+                            TextColor="White"
+                            Date="{Binding EndDate, Mode=TwoWay}"/>
+            </Grid>
+        </Expander>
+
+        <!-- binding to list of purchase order -->
+        <ListView Grid.Row="5"
+            CachingStrategy="RecycleElement"
+            SelectionMode="Single"
+            IsPullToRefreshEnabled="True"
+            HasUnevenRows="True"
+            SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
+            ItemsSource="{Binding ItemsSource, Mode=TwoWay}"            
+            RefreshCommand="{Binding CmdRefreshListView}"
+            IsRefreshing="{Binding IsListViewRefreshing}">
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid RowSpacing="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" 
+                                   Source="file.png"
+                                   HeightRequest="60"
+                                   WidthRequest="60"/>
+
+                            <Label Grid.Row="0" Grid.Column="1" 
+                                   FontSize="Medium"
+                                   FontAttributes="Bold"
+                                   Text="{Binding Text}"/>
+
+                            <Label Grid.Row="1" Grid.Column="1"                                    
+                                   Text="{Binding Details}"/>
+
+                            <CheckBox Grid.Row="0" Grid.Column="2" Grid.RowSpan="2" 
+                                      IsChecked="{Binding IsChecked, Mode=TwoWay}"></CheckBox>
+                        </Grid>
+                    </ViewCell>
+
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+    </Grid> 
+</ContentPage>
+
+<!--<ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="search_white.png" Order="Default" Command="{Binding CmdSearchBarVisible}"/>
+    </ContentPage.ToolbarItems>
+    
+    <Grid Padding="12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0"               
+               Text="{StaticResource PressBackToReturn}" 
+               TextColor="{StaticResource colorPrimaryDark}" 
+               FontSize="15"></Label>
+
+        <Label Grid.Row="1"                
+               Text="Select a SO to start Delivery pick" 
+               FontAttributes="Bold"
+               TextColor="{StaticResource colorPrimaryDark}" 
+               FontSize="15"></Label>
+        
+        <SearchBar Grid.Row="2"
+                   x:Name="searchBar"
+                   HeightRequest="21"                 
+                   IsVisible="{Binding SearchBarVisible}"
+                   Text="{Binding SearchText, Mode=TwoWay}"
+                   Placeholder="Text related info to serch"></SearchBar>
+
+        <ListView Grid.Row="3"
+            CachingStrategy="RecycleElement"
+            SelectionMode="Single"
+            SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
+            ItemsSource="{Binding ItemsSource, Mode=TwoWay}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ImageCell ImageSource="file.png" 
+                               Text="{Binding Text}" 
+                               TextColor="{StaticResource ColorTone3}"
+                               Detail="{Binding Details}" 
+                               DetailColor="{StaticResource ColorTone1}"></ImageCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</ContentPage> -->

@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             Title="{Binding Title}"
+             x:Class="WMSApp.Views.Login.ChngWebApiConnView">
+    
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="{Binding ToolbarItemTestAndSave}"                           
+                     Order="Secondary"
+                     Command="{Binding cmdTestAndSave}">
+        </ToolbarItem>
+
+        <ToolbarItem Text="{Binding ToolbarItemCancel}"                      
+                     Order="Secondary"
+                     Command="{Binding cmdCancel}">
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+
+
+    <StackLayout Padding="15" BackgroundColor="White">
+
+        <Label Text="{Binding LabelWebApiInstru}" 
+               Style="{StaticResource LabelStyle}"
+                   VerticalOptions="Start"                  
+                   HorizontalOptions="Start"
+                   FontSize="15"
+                   FontAttributes="Bold"/>
+
+        <Entry x:Name="tbAddress" 
+               Style="{StaticResource EntryStyle}"
+               Text="{Binding tbAddr, Mode=TwoWay}"                   
+               Placeholder="eg. http://ftsap.com:42330/"></Entry>
+
+        <ActivityIndicator IsRunning="{Binding isActIndiEnabled}"
+                        IsEnabled="{Binding isActIndiEnabled}"
+                        IsVisible="{Binding isActIndiEnabled}"
+                        Color="Orange"                              
+                        HeightRequest="24"/>
+
+        <!-- <Label Text="{Binding LabelWebApiSvrAddrs}"      
+               Style="{StaticResource LabelStyle}"
+                   VerticalOptions="Start"
+                   HorizontalOptions="Start"                    
+                   FontAttributes="Bold"
+                   FontSize="15"/>
+
+        <Grid Style="{StaticResource GridStyle}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Button Grid.Row="0"                         
+                    Text="http://219.92.2.141:82/"                                             
+                    HorizontalOptions="StartAndExpand"                     
+                    BackgroundColor="White"
+                    x:Name="tbeg1"
+                    TextColor="{StaticResource colorPrimaryDark}"
+                    Command="{Binding cmdBtn1}"
+                    CommandParameter="{x:Reference tbeg1}"></Button>
+
+            <Button Grid.Row="1"                         
+                        Text="http://192.168.137.1:20719/"                        
+                        HorizontalOptions="StartAndExpand" 
+                        BackgroundColor="White"                        
+                        x:Name="tbeg2"
+                        TextColor="{StaticResource colorPrimaryDark}"
+                        Command="{Binding cmdBtn2}"
+                        CommandParameter="{x:Reference tbeg2}"></Button>
+
+            <Button Grid.Row="2"                        
+                        Text="http://192.168.0.16:44329/"                             
+                        BackgroundColor="White"
+                        HorizontalOptions="StartAndExpand"                         
+                        x:Name="tbeg3"
+                        TextColor="{StaticResource colorPrimaryDark}"
+                        Command="{Binding cmdBtn3}"
+                        CommandParameter="{x:Reference tbeg3}"></Button>
+
+            <Button Grid.Row="3"     
+                Text="{Binding BtnLabelTestConnect}"    
+                VerticalOptions="FillAndExpand"
+                HorizontalOptions="Fill"    
+                Style="{StaticResource ButtonStyle}"                                                                  
+                Command="{Binding cmdTestAndSave}">
+            </Button>
+        </Grid>-->
+        
+        <Button Text="{Binding BtnLabelTestConnect}"                    
+                Style="{StaticResource ButtonStyle}"                                                                  
+                Command="{Binding cmdTestAndSave}">
+        </Button>
+
+    </StackLayout>
+
+</ContentPage>

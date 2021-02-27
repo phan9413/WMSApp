@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WMSApp.Views.Transfer1.BatchToBinView">
+
+    <ContentPage.ToolbarItems>
+        
+        <ToolbarItem IconImageSource="cancel512.png" Text="Cancel" Command="{Binding CmdCancel}"></ToolbarItem>
+        <ToolbarItem IconImageSource="search_white.png" 
+                     Command="{Binding CmdSearchBarVisible}" 
+                     CommandParameter="{x:Reference searchBar}"></ToolbarItem>
+        <ToolbarItem IconImageSource="save512.png" Text="Save" Command="{Binding CmdSave}"></ToolbarItem>
+    </ContentPage.ToolbarItems>
+
+    <Grid Padding="3" RowSpacing="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" 
+               Text="{StaticResource PressBackToReturn}"></Label>
+
+        <SearchBar Grid.Row="1"  
+                   x:Name="searchBar" 
+                   IsVisible="false"
+                   Text="{Binding SearchQuery}"></SearchBar>
+
+        <Label Grid.Row="2"
+            Text="{Binding WhsCode, StringFormat='Warehouse {0}'}" 
+            TextColor="White"
+            FontSize="Medium"
+            FontAttributes="Bold"
+            Padding="6"                       
+            BackgroundColor="{StaticResource colorPrimary}"></Label>
+        
+        <Label Grid.Row="2"
+                Text="Scan Batch#"                        
+                TextColor="White"
+                FontSize="Medium"
+                Padding="6"                
+                BackgroundColor="{StaticResource GoogleGreen}"
+               TextDecorations="Underline"
+               HorizontalOptions="EndAndExpand">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer NumberOfTapsRequired="1" 
+                                            Command="{Binding CmdScanBatch}">
+                </TapGestureRecognizer>
+            </Label.GestureRecognizers>
+        </Label>
+
+        <Label Grid.Row="3"
+               Text="Put batch# to bin"                        
+               TextColor="White"
+               FontSize="Medium"
+               Padding="6"                
+               BackgroundColor="{StaticResource ColorTone3}">
+        </Label>
+
+        <ListView Grid.Row="4"
+                  CachingStrategy="RecycleElement"
+                  HasUnevenRows="True"
+                  ItemsSource="{Binding ItemsSource, Mode=TwoWay}"
+                  SelectedItem="{Binding  SelectedItem, Mode=TwoWay}">
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid RowSpacing="0" Padding="3">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="2"                                     
+                                   HeightRequest="30"
+                                   WidthRequest="30"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"
+                                   Source="tray512.png"></Image>
+
+                            <Label Grid.Row="0" Grid.Column="1"    
+                                   FontAttributes="Bold"
+                                   Text="{Binding ItemCode}"></Label>
+                            
+                            <Label Grid.Row="1" Grid.Column="1"     
+                                   FontAttributes="Bold"
+                                   Text="{Binding ItemName}"></Label>
+
+                            <Label Grid.Row="2" Grid.Column="1"    
+                                   IsVisible="{Binding FromWhsVisible}"
+                                   Text="{Binding WhsCode, StringFormat='From {0}'}"></Label>
+
+                            <Label Grid.Row="3" Grid.Column="1"        
+                                   IsVisible="{Binding FromWhsVisible}"
+                                   Text="{Binding BinCode, StringFormat='Bin {0}'}"></Label>
+                            
+                            <Label Grid.Row="2" Grid.Column="2"   
+                                   FontAttributes="Bold"
+                                   HorizontalOptions="End"
+                                   Text="{Binding Batch, StringFormat='Batch# {0}'}"></Label>
+
+                            
+                            <Label Grid.Row="3" Grid.Column="2"                                     
+                                   Text="{Binding Qty, StringFormat='Qty {0:N}'}"></Label>
+                            
+                            
+                            <Label Grid.Row="4" Grid.Column="1"                                
+                                   FontAttributes="Bold"       
+                                   HorizontalOptions="End"
+                                   Text="{Binding BinListDisplay, StringFormat='{0}'}"></Label>
+
+                            <CheckBox Grid.Row="0" Grid.Column="2" Grid.RowSpan="2"   
+                                      HorizontalOptions="End"
+                                      IsChecked="{Binding IsChecked}"></CheckBox>
+
+
+                            <BoxView Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3"
+                                     HeightRequest="0.3" 
+                                     BackgroundColor="{StaticResource colorPrimaryDark}"></BoxView>
+
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</ContentPage>

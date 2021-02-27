@@ -1,0 +1,255 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="App" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="AppNo" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="AppQuit" xml:space="preserve">
+    <value>确认现在退出？</value>
+  </data>
+  <data name="AppYes" xml:space="preserve">
+    <value>确认</value>
+  </data>
+  <data name="BtnLabelLogon" xml:space="preserve">
+    <value>登入</value>
+  </data>
+  <data name="InvalidPassword" xml:space="preserve">
+    <value>密码, 不能为空，请重新输入，然后重试</value>
+  </data>
+  <data name="invalidServerAddrs" xml:space="preserve">
+    <value>服务器地址格式不正确，请稍后重试，或与管理员联系以获取帮助，谢谢</value>
+  </data>
+  <data name="InvalidUserId" xml:space="preserve">
+    <value>用户身份, 不能为空，请重新输入，然后重试</value>
+  </data>
+  <data name="LabelCompany" xml:space="preserve">
+    <value>公司</value>
+  </data>
+  <data name="LabelPassword" xml:space="preserve">
+    <value>密码</value>
+  </data>
+  <data name="LabelSwicthPasswordVisible" xml:space="preserve">
+    <value>显示密码</value>
+  </data>
+  <data name="LabelUserId" xml:space="preserve">
+    <value>用户身份</value>
+  </data>
+  <data name="langitepty90Header" xml:space="preserve">
+    <value>收到错误的服务器身份认证</value>
+  </data>
+  <data name="langitepty90Message" xml:space="preserve">
+    <value>服务器无法识别此登录详细信息，请检查登录详细信息，然后重试, 谢谢 [ITEPTY90]</value>
+  </data>
+  <data name="langitepty90Ok" xml:space="preserve">
+    <value>确认</value>
+  </data>
+  <data name="langitepty93Header" xml:space="preserve">
+    <value>收到错误的服务器身份认证</value>
+  </data>
+  <data name="langitepty93Message" xml:space="preserve">
+    <value>服务器无法识别此登录详细信息，请检查登录详细信息，然后重试, 谢谢 [ITEPTY93]</value>
+  </data>
+  <data name="langitepty93Ok" xml:space="preserve">
+    <value>确认</value>
+  </data>
+  <data name="misMatchReplied" xml:space="preserve">
+    <value>我们从服务器获取到， 不匹配的回复信息，请稍后再试，或与管理员联系以获取帮助，谢谢</value>
+  </data>
+  <data name="offLineHeader" xml:space="preserve">
+    <value>服务器登录错误，是否离线操作？</value>
+  </data>
+  <data name="offLineMessage" xml:space="preserve">
+    <value>请确认，登入用户身份和密码是正确的，然后重试。或点击“离线操作“，以在稍后恢复线上时， 再提交。</value>
+  </data>
+  <data name="offLineMessageNo" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="offLineMessageYes" xml:space="preserve">
+    <value>离线操作</value>
+  </data>
+  <data name="ScannerMiddleText" xml:space="preserve">
+    <value>对准二维码红线之间</value>
+  </data>
+  <data name="scanResultHeader" xml:space="preserve">
+    <value>扫描结果：</value>
+  </data>
+  <data name="scanTestAccept" xml:space="preserve">
+    <value>测试连接</value>
+  </data>
+  <data name="scanTestCancel" xml:space="preserve">
+    <value>返回</value>
+  </data>
+  <data name="scanTestConnectMsg" xml:space="preserve">
+    <value>按“测试连接”进行测试。或 按 "返回" 回到登录界面</value>
+  </data>
+  <data name="testConnectCancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="testConnectSave" xml:space="preserve">
+    <value>确定</value>
+  </data>
+  <data name="testConnectSuccessHeader" xml:space="preserve">
+    <value>连接测试成功 ！</value>
+  </data>
+  <data name="testConnectSuccessMsg" xml:space="preserve">
+    <value>按“确定”保存，或按“取消”退出此界面</value>
+  </data>
+  <data name="ToolBarItem_ConnectStatus_Connected" xml:space="preserve">
+    <value>已连接</value>
+  </data>
+  <data name="ToolBarItem_ConnectStatus_Reconnect" xml:space="preserve">
+    <value>已断开</value>
+  </data>
+  <data name="ToolbarItem_Quit" xml:space="preserve">
+    <value>退出</value>
+  </data>
+  <data name="ToolbarItem_SetupLinkWeb_Addr" xml:space="preserve">
+    <value>设置服务器地址</value>
+  </data>
+  <data name="ToolbarItem_SetupLinkWeb_Qr" xml:space="preserve">
+    <value>使用二维码， 设置服务器地址</value>
+  </data>
+  <data name="translateAlertLCx00" xml:space="preserve">
+    <value>服务器连接错误, 请稍后再试 [LCx00]</value>
+  </data>
+  <data name="translateAlertLCx01" xml:space="preserve">
+    <value>请稍后再试 [LCx01]</value>
+  </data>
+  <data name="translateAlertLCx02" xml:space="preserve">
+    <value>请稍后再试 [LCx02]</value>
+  </data>
+  <data name="translateErrECx00" xml:space="preserve">
+    <value>用户身份无效，请重新检查及验证并重试， 谢谢 [ECx00]</value>
+  </data>
+  <data name="translateErrECx01" xml:space="preserve">
+    <value>密码无效，请重新检查及验证并重试， 谢谢[ECx01]</value>
+  </data>
+  <data name="ViewScanCancel" xml:space="preserve">
+    <value>取消扫描</value>
+  </data>
+  <data name="ViewTiltleLogin" xml:space="preserve">
+    <value>APP 登录</value>
+  </data>
+  <data name="ViewTitlteScanner" xml:space="preserve">
+    <value>扫描二维码中的服务器地址</value>
+  </data>
+</root>

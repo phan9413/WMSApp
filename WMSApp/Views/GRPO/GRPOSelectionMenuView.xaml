@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WMSApp.Views.GRPO.GRPOSelectionMenuView"
+             Title="GRPO action">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="cancel512.png" 
+                     Text="Cancel"
+                     Command="{Binding CmdCancel}"></ToolbarItem>
+    </ContentPage.ToolbarItems>
+
+    <StackLayout Padding="15" 
+                 VerticalOptions="CenterAndExpand">
+        
+        <Label Text="Select PO"
+               Padding="15" 
+               FontSize="Medium"
+               TextColor="White"
+               HorizontalTextAlignment="Center"
+               BackgroundColor="{StaticResource colorPrimaryDark}">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer NumberOfTapsRequired="1" 
+                                      Command="{Binding CmdShowPOList}">
+                </TapGestureRecognizer>
+            </Label.GestureRecognizers>
+        </Label>
+        
+        <Label Text="Receipt without PO"
+               Padding="15" 
+               FontSize="Medium"
+               TextColor="White"
+               HorizontalTextAlignment="Center"
+               BackgroundColor="{StaticResource ColorTone3}">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer NumberOfTapsRequired="1"
+                                      Command="{Binding CmdProcessNoPo}"></TapGestureRecognizer>
+            </Label.GestureRecognizers>
+        </Label>
+    </StackLayout>
+
+</ContentPage>

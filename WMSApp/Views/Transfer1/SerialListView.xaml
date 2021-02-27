@@ -1,0 +1,234 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:s="clr-namespace:System;assembly=netstandard"
+             x:Class="WMSApp.Views.Transfer1.SerialListView"
+             Title="{Binding ItemCode}">
+
+    <ContentPage.ToolbarItems>
+
+        <ToolbarItem Text="Cancel" 
+                     Order="Default" 
+                     IconImageSource="cancel512.png"
+                     Command="{Binding CmdCancel}"></ToolbarItem>
+
+        <ToolbarItem IconImageSource="search_white.png" 
+                     Command="{Binding CmdSearchVisible}" 
+                     CommandParameter="{x:Reference searchBar}"></ToolbarItem>
+
+        <ToolbarItem Text="Done" 
+                     Order="Default" 
+                     IconImageSource="save512.png"
+                     Command="{Binding CmdDone}"></ToolbarItem>
+
+    </ContentPage.ToolbarItems>
+
+    <Grid Padding="3" RowSpacing="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Text="{StaticResource PressBackToReturn}"></Label>
+        
+        <SearchBar Grid.Row="1" x:Name="searchBar" 
+                   IsVisible="false" 
+                   Text="{Binding SearchQuery}"></SearchBar>
+
+        <Label Grid.Row="2" 
+                   Text="{Binding WhsCode, StringFormat='Warehouse {0}'}"                   
+                   Padding="6" 
+                   FontSize="Medium"               
+                   FontAttributes="Bold"                    
+                   BackgroundColor="{StaticResource ColorTone3}"
+                   TextColor="White">
+        </Label>
+
+        <Label Grid.Row="2" 
+               Text="Scan Serial#"
+               Padding="6" 
+               FontSize="Medium"
+               FontAttributes="Bold"
+               BackgroundColor="{StaticResource GoogleGreen}"
+               HorizontalOptions="End"
+               TextDecorations="Underline"
+               TextColor="White">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer NumberOfTapsRequired="1" 
+                                      Command="{Binding CmdStartScan}"></TapGestureRecognizer>
+            </Label.GestureRecognizers>
+        </Label>
+
+        <Label Grid.Row="3" 
+               Text="Pick serial(s) from warehouse"
+               Padding="6,0,0,0"                               
+               BackgroundColor="{StaticResource ColorTone5}"  
+               FontSize="Medium"
+               TextColor="White">
+        </Label>
+
+        <!-- item code + name +  qty needed  display -->
+        <Expander Grid.Row="4"
+                  IsExpanded="True"
+                  Padding="6">
+
+            <Expander.Header>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0"
+                           Text="{Binding ItemCode}"
+                           FontSize="Medium"
+                           FontAttributes="Bold"/>
+
+                    <Image Grid.Column="1"
+                           Source="expanded_blue.png"
+                           WidthRequest="15"
+                           HeightRequest="15"
+                           HorizontalOptions="End"
+                           VerticalOptions="Center">
+                        <Image.Triggers>
+                            <DataTrigger TargetType="Image"
+                                 Binding="{Binding Source={RelativeSource AncestorType={x:Type Expander}}, 
+                                        Path=IsExpanded}"
+                                 Value="True">
+                                <Setter Property="Source"
+                                        Value="collapsed_blue.png" />
+                            </DataTrigger>
+                        </Image.Triggers>
+                    </Image>
+                </Grid>
+            </Expander.Header>
+
+            <!-- show needed information , auto select and auto cancel -->
+            <Grid RowSpacing="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0" 
+                       Text="{Binding ItemName}"/>
+
+                <Grid Grid.Row="1" ColumnSpacing="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Column="0" 
+                           Text="{Binding NeededQtyDisplay}"/>
+
+                    <Label Grid.Column="1"
+                           Text="Auto Select"
+                           Padding="6"
+                           TextDecorations="Underline"
+                           IsVisible="false"
+                           BackgroundColor="{StaticResource GoogleGreen}"                             
+                           TextColor="White">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer 
+                                    Command="{Binding CmdAutoSelect}" >
+                                <TapGestureRecognizer.CommandParameter>
+                                    <s:Boolean>True</s:Boolean>
+                                </TapGestureRecognizer.CommandParameter>
+                            </TapGestureRecognizer>
+                        </Label.GestureRecognizers>
+                    </Label>
+
+                    <Label Grid.Column="2" 
+                           Text= "Cancel"
+                           Padding="6"
+                           TextDecorations="Underline"
+                           IsVisible="false"
+                           BackgroundColor="{StaticResource GoogleRed}"                                        
+                           TextColor="White">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding CmdAutoSelect}">
+                                <TapGestureRecognizer.CommandParameter>
+                                    <s:Boolean>False</s:Boolean>
+                                </TapGestureRecognizer.CommandParameter>
+                            </TapGestureRecognizer>
+                        </Label.GestureRecognizers>
+                    </Label>
+                </Grid>
+            </Grid>
+        </Expander>
+       
+        <!-- Allocated + remain qty display -->
+        <Label Grid.Row="5" 
+               Text="{Binding AllocatedDisplay}"
+               Padding="6" 
+               FontSize="Medium"
+               FontAttributes="Bold"
+               BackgroundColor="Black"                          
+               TextColor="LightGreen">
+        </Label>
+
+        <Label Grid.Row="5" 
+               Text="{Binding RemainDisplay}"
+               IsVisible="{Binding IsRemainQtyVisible}"
+               Padding="6" 
+               FontSize="Medium"
+               FontAttributes="Bold"
+               HorizontalOptions="End"
+               TextColor="{StaticResource GoogleYellow}"
+               BackgroundColor="Black">
+        </Label>
+
+
+        <ListView Grid.Row="6" 
+                  HasUnevenRows="True"
+                  SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
+                  ItemsSource="{Binding ItemsSource, Mode=TwoWay}"
+                  CachingStrategy="RecycleElement">
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid RowSpacing="0" Padding="3" BackgroundColor="{Binding CellColor}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <Image Grid.Row="0" Grid.Column=" 0" Grid.RowSpan="2"  
+                                   HeightRequest="30"
+                                   WidthRequest="30"
+                                   VerticalOptions="Center"
+                                   Source="tray512.png"></Image>
+
+                            <Label Grid.Row="0" Grid.Column="1"
+                                   HorizontalOptions="End"
+                                   FontAttributes="Bold"
+                                   VerticalOptions="Center"
+                                   Text="{Binding DistNumber, StringFormat='Serial# {0}'}"></Label>
+
+                            <Label Grid.Row="0" Grid.Column="1"
+                                   HorizontalOptions="Start"
+                                   VerticalOptions="Center"
+                                   Text="{Binding InDate, StringFormat='In Date {0:dd/MM/yyyy}'}"></Label>
+
+                            <CheckBox Grid.Row="0" Grid.Column="2" Grid.RowSpan="2"
+                                      VerticalOptions="Center"
+                                      IsChecked="{Binding IsChecked} "></CheckBox>
+
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</ContentPage>

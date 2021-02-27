@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage 
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+    xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+    x:Class="WMSApp.Views.Share.CollectBatchPopUpView">
+
+    <!--You can set an animation in the xaml file or in the csharp code behind-->
+    <pages:PopupPage.Animation>
+        <animations:ScaleAnimation 
+            PositionIn="Center"
+            PositionOut="Center"
+            ScaleIn="1.2"
+            ScaleOut="0.8"
+            DurationIn="30"
+            DurationOut="30"
+            EasingIn="SinOut"
+            EasingOut="SinIn"            
+            HasBackgroundAnimation="True"/>
+    </pages:PopupPage.Animation>
+
+    <!--page started here -->
+    <StackLayout VerticalOptions="Center" 
+                 HorizontalOptions="Center" 
+                 BackgroundColor="White"
+                 Orientation="Vertical"
+                 HeightRequest="420"
+                 WidthRequest="300"
+                 Padding="21">
+
+        <StackLayout Orientation="Horizontal" 
+                         Padding="6"
+                         BackgroundColor="{StaticResource colorPrimary}">
+
+            <ImageButton Source="cancel512.png" 
+                         HeightRequest="30" 
+                         WidthRequest="30"                
+                             VerticalOptions="Center"
+                             BackgroundColor="{StaticResource colorPrimary}"
+                             Clicked="ImageButtonCancel_Clicked"></ImageButton>
+
+            <Label Text="Input batch details" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center"/>
+
+            <ImageButton Source="save512.png" 
+                         HeightRequest="30" 
+                         WidthRequest="30"          
+                             VerticalOptions="Center"
+                             HorizontalOptions="EndAndExpand"
+                        BackgroundColor="{StaticResource colorPrimary}"       
+                             Clicked="ImageButtonSave_Clicked"></ImageButton>
+        </StackLayout>
+
+        <ScrollView>
+            <StackLayout>
+                <Label Text="Dist. Number"></Label>
+                <Entry Keyboard="Numeric" 
+                   IsEnabled="False"
+                   Text="{Binding DisNumber}"></Entry>
+
+                <Label Text="Quantity"></Label>
+                <Entry x:Name="EntryQty" Keyboard="Numeric" Placeholder="input numeric value" Text="{Binding Qty}"></Entry>
+
+                <Label Text="Attribute 1"></Label>
+                <Entry Keyboard="Default" Text="{Binding Attribute1}"></Entry>
+
+                <Label Text="Attribute 2"></Label>
+                <Entry Keyboard="Default" Text="{Binding Attribute2}"></Entry>
+
+                <Label Text="Admission Date"></Label>
+                <DatePicker Format="dd/MM/yyyy" Date="{Binding AdmissionDate}"></DatePicker>
+
+                <Label Text="Expired Date"></Label>
+                <DatePicker Format="dd/MM/yyyy" Date="{Binding ExpiredDate}"></DatePicker>
+            </StackLayout>
+        </ScrollView>
+    </StackLayout>
+</pages:PopupPage>

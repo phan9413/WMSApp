@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WMSApp.Views.DO.DOSelectionMenuView"
+             Title="Delivery Order Action">
+    
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="cancel512.png" 
+                     Text="Cancel"
+                     Command="{Binding CmdCancel}"></ToolbarItem>
+    </ContentPage.ToolbarItems>
+
+    <StackLayout Padding="15" 
+                 VerticalOptions="CenterAndExpand">
+
+        <Label Text="Select SO"
+               Padding="15" 
+               FontSize="Medium"
+               TextColor="White"
+               HorizontalTextAlignment="Center"
+               BackgroundColor="{StaticResource colorPrimaryDark}">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer NumberOfTapsRequired="1" 
+                                      Command="{Binding CmdShowSOList}">
+                </TapGestureRecognizer>
+            </Label.GestureRecognizers>
+        </Label>
+
+        <Label Text="Delivery without SO"
+               Padding="15" 
+               FontSize="Medium"
+               TextColor="White"
+               HorizontalTextAlignment="Center"
+               BackgroundColor="{StaticResource ColorTone3}">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer NumberOfTapsRequired="1"
+                                      Command="{Binding CmdProcessNoSo}"></TapGestureRecognizer>
+            </Label.GestureRecognizers>
+        </Label>
+
+        <Label Text="Delivery with Pick list"
+               Padding="15" 
+               FontSize="Medium"
+               TextColor="White"
+               HorizontalTextAlignment="Center"
+               BackgroundColor="{StaticResource ColorTone5}">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer NumberOfTapsRequired="1"
+                                      Command="{Binding CmdProcessPickList}"></TapGestureRecognizer>
+            </Label.GestureRecognizers>
+        </Label>
+    </StackLayout>
+
+</ContentPage>

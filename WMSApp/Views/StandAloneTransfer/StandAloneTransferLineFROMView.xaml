@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WMSApp.Views.StandAloneTransfer.StandAloneTransferLineFROMView"
+             Title="Stand-Alone Transfer">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="save512.png" 
+                     Text="Save" 
+                     Command="{Binding CmdSave}"></ToolbarItem>
+        
+        <ToolbarItem IconImageSource="cancel512.png"                     
+                     Text="Cancel" 
+                     Command="{Binding CmdCancel}"></ToolbarItem>
+    </ContentPage.ToolbarItems>
+
+    <Grid RowSpacing="0" Padding="3">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Text="{StaticResource PressBackToReturn}"></Label>
+
+        <Label Grid.Row="1" 
+               Text="Scan Item Code, Serial#, or Batch# to start"
+               Padding="6"
+               FontSize="Medium"
+               TextColor="White"
+              BackgroundColor="{StaticResource ColorTone3}">
+        </Label>
+
+        <Label Grid.Row="2" 
+               Text="{Binding FromWarehouse, StringFormat='From Whs {0}'}"
+               Padding="6"
+               FontSize="Medium"
+               TextColor="White"
+               TextDecorations="Underline"
+               BackgroundColor="{StaticResource GoogleGreen}">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer NumberOfTapsRequired="1"
+                                      Command="{Binding CmdPromptSelectWarehouse}"
+                                      CommandParameter="from">
+                </TapGestureRecognizer>
+            </Label.GestureRecognizers>
+        </Label>
+
+        <Label Grid.Row="3" 
+               Text="{Binding ToWarehouse, StringFormat='To Whs {0}'}"
+               Padding="6"
+               FontSize="Medium"
+               TextColor="White"
+               TextDecorations="Underline"
+              BackgroundColor="{StaticResource GoogleYellow}">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer NumberOfTapsRequired="1"
+                                      Command="{Binding CmdPromptSelectWarehouse}"
+                                      CommandParameter="to">
+                </TapGestureRecognizer>
+            </Label.GestureRecognizers>
+        </Label>
+
+        <!--opr button -->
+        <Label Grid.Row="4" 
+               Text="Manual Input"
+               FontSize="Medium"
+               
+               Padding="6"              
+               BackgroundColor="{StaticResource GoogleBlue}"
+               TextDecorations="Underline"
+               TextColor="White">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer NumberOfTapsRequired="1"
+                                      Command="{Binding CmdInput}"></TapGestureRecognizer>
+            </Label.GestureRecognizers>
+        </Label>
+
+        <Label Grid.Row="4" 
+               Text="Scan Code"
+               FontSize="Medium"
+               Padding="6"
+               BackgroundColor="{StaticResource GoogleGreen}"
+               HorizontalOptions="EndAndExpand"
+               TextDecorations="Underline"
+               TextColor="White">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer NumberOfTapsRequired="1"
+                                      Command="{Binding CmdScan}"></TapGestureRecognizer>
+            </Label.GestureRecognizers>
+        </Label>
+
+        <ListView Grid.Row="5"
+                  CachingStrategy="RecycleElement"
+                  HasUnevenRows="True"
+                  ItemsSource="{Binding ItemsSource, Mode=TwoWay}"
+                  SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <SwipeView>
+                            <SwipeView.LeftItems>
+                                <SwipeItems Mode="Reveal">
+                                    <SwipeItem Text="Remove"                                               
+                                               BackgroundColor="LightPink"
+                                               CommandParameter="{Binding .}"
+                                               Invoked="OnDeleteSwipeItemInvoked" />
+                                </SwipeItems>
+                            </SwipeView.LeftItems>
+
+                            <Grid RowSpacing="0" Padding="3">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                </Grid.RowDefinitions>
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+
+                                <BoxView Grid.Row="0" Grid.Column="0" Grid.RowSpan="6"                                         
+                                         WidthRequest="3"
+                                         BackgroundColor="LightPink"></BoxView>
+                                                                
+                                <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" 
+                                       FontAttributes="Bold"
+                                       FontSize="Medium"
+                                   Text="{Binding ItemCode}"></Label>
+
+                                <Label Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" 
+                                   Text="{Binding ItemName}"></Label>
+
+                                <Label Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" 
+                                   Text="{Binding DistNumber}"></Label>
+
+                                <!-- from warehouse -->
+                                <Label Grid.Row="3" Grid.Column="1" 
+                                   Text="{Binding FromWhsCode, StringFormat='From {0}'}"></Label>
+                            
+                                <Label Grid.Row="4" Grid.Column="1" 
+                                       TextColor="White"
+                                       Padding="3"
+                                       BackgroundColor="{StaticResource colorPrimaryDark}"
+                                   Text="{Binding FromTransQty, StringFormat='Transfer {0:N}'}"></Label>
+                            
+                                <!-- to wareehouse -->
+                                <Label Grid.Row="3" Grid.Column="2" 
+                                   Text="{Binding ToWhsCode, StringFormat=' To {0}'}"></Label>
+                            
+                                <Label Grid.Row="4" Grid.Column="2" 
+                                       TextColor="White"
+                                       Padding="3"
+                                       BackgroundColor="{StaticResource GoogleGreen}"
+                                   Text="{Binding ToTransQty, StringFormat='Receipt {0:N}'}"></Label>
+
+                                </Grid>
+                            </SwipeView>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+
+</ContentPage>

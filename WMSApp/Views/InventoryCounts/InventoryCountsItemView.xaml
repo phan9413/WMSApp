@@ -1,0 +1,214 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             Title="Update Inventory Count"
+             mc:Ignorable="d"
+             x:Class="WMSApp.Views.InventoryCounts.InventoryCountsItemView">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="save512.png" Text="Save" Order="Default" Command="{Binding CmdSaveUpdate}"></ToolbarItem>
+        <ToolbarItem IconImageSource="cancel512.png" Text="Cancel" Order="Default" Command="{Binding CmdClose}"></ToolbarItem>
+    </ContentPage.ToolbarItems>
+
+    <Grid Padding="3" RowSpacing="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Text="{StaticResource PressBackToReturn}"></Label>
+
+        <Expander Grid.Row="1" 
+                  Padding="6"    
+                  BackgroundColor="{StaticResource ColorTone5}">
+            
+            <Expander.Header>
+                <Grid>
+                    <Label Grid.Column="0" 
+                           Text="Doc Properties" 
+                           FontAttributes="Bold" 
+                           FontSize="Medium"  
+                           TextColor="White"/>
+                    
+                    <Image Source="expanded_blue.png"
+                           WidthRequest="15"
+                           HeightRequest="15"
+                           HorizontalOptions="End"
+                           VerticalOptions="Center">
+                        <Image.Triggers>
+                            <DataTrigger TargetType="Image"
+                                 Binding="{Binding Source={RelativeSource AncestorType={x:Type Expander}}, 
+                                            Path=IsExpanded}"
+                                 Value="True">
+                                <Setter Property="Source"
+                                        Value="collapsed_blue.png" />
+                            </DataTrigger>
+                        </Image.Triggers>
+                    </Image>
+                </Grid>
+            </Expander.Header>
+
+            <ScrollView>
+                <StackLayout BackgroundColor="White" Padding="6">
+                    <Label Text="Doc Series" 
+                           FontAttributes="Italic"></Label>
+
+                    <Picker x:Name="DocSeries" 
+                            ItemsSource="{Binding DocSeriesItemsSource}" 
+                            SelectedItem="{Binding DocSeriesSelectedItem}"></Picker>
+
+                    <Label Text="DO#" FontAttributes="Italic"></Label>
+                    <Entry Text="{Binding NumberAtCard}"></Entry>
+
+                    <Label Text="Reference 2" FontAttributes="Italic"></Label>
+                    <Entry Text="{Binding Ref2}"></Entry>
+
+                    <Label Text="Comments" FontAttributes="Italic"></Label>
+                    <Entry Text="{Binding Comments}"></Entry>
+
+                    <Label Text="Journal memo" FontAttributes="Italic"></Label>
+                    <Entry Text="{Binding JrnlMemo}"></Entry>
+
+                    <!--rest of the UDF needed -->
+
+                </StackLayout>
+            </ScrollView>
+        </Expander>
+
+        <!-- Inventory counting details -->
+        <Expander Grid.Row="2" 
+                  Padding="6"
+                  BackgroundColor="{StaticResource ColorTone3}">
+            <Expander.Header>
+                <Grid>
+                    <Label Grid.Column="0" 
+                           Text="{Binding DocDetails}"                            
+                           FontAttributes="Bold" 
+                           TextColor="White"                            
+                           FontSize="Medium"/>
+                    
+                    <Image Source="expanded_blue.png"
+                           WidthRequest="15"
+                           HeightRequest="15"
+                           HorizontalOptions="End"
+                           VerticalOptions="Center">
+                        
+                        <Image.Triggers>
+                            <DataTrigger TargetType="Image"
+                                 Binding="{Binding Source={RelativeSource AncestorType={x:Type Expander}}, 
+                                            Path=IsExpanded}"
+                                 Value="True">
+                                <Setter Property="Source"
+                                        Value="collapsed_blue.png" />
+                            </DataTrigger>
+                        </Image.Triggers>
+                    </Image>
+                </Grid>
+
+            </Expander.Header>
+            
+            <Grid BackgroundColor="White" Padding="3">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Text="{Binding SelectedText}"></Label>
+                <Label Grid.Row="1" Text="{Binding SelectedDetails}"></Label>
+            </Grid>
+            
+        </Expander>
+
+        <!-- Middle scanner -->       
+        <!-- search bar -->
+        <Label Grid.Row="3" 
+               Padding="6"
+               Text="Search Item" 
+               FontAttributes="Bold" 
+               FontSize="Medium"
+               TextDecorations="Underline"
+               BackgroundColor="{StaticResource  GoogleYellow}"
+               TextColor="White">
+            
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer NumberOfTapsRequired="1"
+                                      Command="{Binding CmdManualInput}"></TapGestureRecognizer>
+            </Label.GestureRecognizers>
+        </Label>
+
+        <Label Grid.Row="3" 
+               Text="Scan Item Code" 
+               Padding="6"
+               FontAttributes="Bold" 
+               FontSize="Medium" 
+               HorizontalOptions="End"
+               TextDecorations="Underline"
+               BackgroundColor="{StaticResource GoogleGreen}"
+               TextColor="White">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer NumberOfTapsRequired="1"
+                                      Command="{Binding  CmdStartScan}"></TapGestureRecognizer>
+            </Label.GestureRecognizers>
+        </Label>
+
+        <!-- Item Count Lines INC_Ex -->
+        <ListView Grid.Row="4" 
+                  CachingStrategy="RecycleElement"
+                  HasUnevenRows="True"
+                  ItemsSource="{Binding ItemsSource, Mode=TwoWay}"
+                  SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid RowSpacing="0" 
+                            Padding="6" 
+                            BackgroundColor="{Binding CellBackGroundColor}">
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <Label Grid.Row="0" Grid.Column="0" 
+                                   Text="{Binding ItemCodeDisplay}" FontAttributes="Bold"></Label>
+                            <Label Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding ItemDescDisplay}"></Label>
+
+                            <Label Grid.Row="2" Grid.Column="0"                       
+                                   Text="{Binding WarehouseDisplay, Mode=TwoWay}" 
+                                   HorizontalOptions="Start"></Label>
+
+                            <Label Grid.Row="0" Grid.Column="1" 
+                                   FontAttributes="Bold"                                           
+                                   Text="{Binding CountedQtyDisplay, Mode=TwoWay}" 
+                                   HorizontalOptions="End"></Label>
+
+                            <Label Grid.Row="2" Grid.Column="1" 
+                                   FontAttributes="Bold"                                           
+                                   Text="{Binding ShowList, Mode=TwoWay}" 
+                                   HorizontalTextAlignment="End"
+                                   HorizontalOptions="End"></Label>
+
+                            <BoxView Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
+                                     BackgroundColor="{StaticResource colorPrimaryDark}" 
+                                     HeightRequest="0.6" HorizontalOptions="Fill"></BoxView>
+                        </Grid>
+
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</ContentPage>

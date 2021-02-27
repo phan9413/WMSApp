@@ -1,0 +1,237 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WMSApp.Views.Transfer1.BatchToBinSelectView"
+             Title="{Binding ItemCode}">
+
+    <ContentPage.ToolbarItems>
+              
+        <ToolbarItem IconImageSource="cancel512.png" 
+                     Text="Cancel" 
+                     Command="{Binding CmdCancel}" Order="Default"></ToolbarItem>
+        
+        <ToolbarItem IconImageSource="search_white.png"
+                     Command="{Binding CmdSearchVisible}"
+                     CommandParameter="{x:Reference searchBar}"></ToolbarItem>
+
+        <ToolbarItem IconImageSource="save512.png" 
+                     Text="Save" 
+                     Command="{Binding CmdSave}" Order="Default"></ToolbarItem>
+        
+    </ContentPage.ToolbarItems>
+
+    <Grid Padding="3" RowSpacing="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Text="{StaticResource PressBackToReturn}"></Label>
+
+        <SearchBar Grid.Row="1" 
+                   x:Name="searchBar" 
+                   IsVisible="false"
+                   Text="{Binding SearchText}"></SearchBar>
+
+        <Label Grid.Row="2" 
+               Text="{Binding WhsCode, StringFormat='Warehouse {0}'}"
+               BackgroundColor="{StaticResource ColorTone2}"               
+               Padding="3"
+               FontSize="Medium"       
+               FontAttributes="Bold"
+               TextColor="White"></Label>
+
+        <Label Grid.Row="2" 
+               Text="{Binding BatchNumberAndQty}"
+               HorizontalOptions="End"
+               BackgroundColor="{StaticResource ColorTone5}"
+               Padding="3"
+               FontSize="Medium"               
+               TextColor="White"></Label>
+
+        <Grid Grid.Row="3" ColumnSpacing="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Column="0" 
+                   Text="Select bin to allocate" 
+                   FontSize="Medium"
+                   TextColor="White"
+                   Padding="6"                           
+                   BackgroundColor="{StaticResource ColorTone1}"></Label>
+
+            <Label Grid.Column="1"
+                    Text="Scan Bin#"                           
+                    BackgroundColor="{StaticResource GoogleGreen}"
+                    Padding="6"
+                    HorizontalOptions="EndAndExpand"
+                    TextDecorations="Underline"
+                    FontSize="Medium"               
+                    TextColor="White">
+
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer NumberOfTapsRequired="1"
+                                      Command="{Binding CmdScanBinCode}"/>
+                </Label.GestureRecognizers>
+            </Label>
+        </Grid>
+
+        <!-- item code + name +  qty needed  display -->
+        <Expander Grid.Row="4"
+                  IsExpanded="True"
+                  Padding="6">
+
+            <Expander.Header>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0"
+                           Text="{Binding ItemCode}"
+                           FontSize="Medium"
+                           FontAttributes="Bold"/>
+
+                    <Image Grid.Column="1"
+                           Source="expanded_blue.png"
+                           WidthRequest="15"
+                           HeightRequest="15"
+                           HorizontalOptions="End"
+                           VerticalOptions="Center">
+                        <Image.Triggers>
+                            <DataTrigger TargetType="Image"
+                                 Binding="{Binding Source={RelativeSource AncestorType={x:Type Expander}}, 
+                                        Path=IsExpanded}"
+                                 Value="True">
+                                <Setter Property="Source"
+                                        Value="collapsed_blue.png" />
+                            </DataTrigger>
+                        </Image.Triggers>
+                    </Image>
+                </Grid>
+            </Expander.Header>
+
+            <!-- show needed information , auto select and auto cancel -->
+            <Grid RowSpacing="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0" 
+                       Text="{Binding ItemName}"/>
+
+                <Grid Grid.Row="1" ColumnSpacing="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Column="0" 
+                           Text="{Binding NeededQty, StringFormat='Available Qty {0:N}'}"/>
+
+                    <!--
+                    <Label Grid.Column="1"
+                           Text="Auto Select"
+                           Padding="6"
+                           TextDecorations="Underline"
+                           BackgroundColor="{StaticResource GoogleGreen}"                             
+                           TextColor="White">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer 
+                                    Command="{Binding CmdAutoSelect}" >
+                                <TapGestureRecognizer.CommandParameter>
+                                    <s:Boolean>True</s:Boolean>
+                                </TapGestureRecognizer.CommandParameter>
+                            </TapGestureRecognizer>
+                        </Label.GestureRecognizers>
+                    </Label>
+
+                    <Label Grid.Column="2" 
+                           Text= "Cancel"
+                           Padding="6"
+                           TextDecorations="Underline"
+                           BackgroundColor="{StaticResource GoogleRed}"                                        
+                           TextColor="White">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding CmdAutoSelect}">
+                                <TapGestureRecognizer.CommandParameter>
+                                    <s:Boolean>False</s:Boolean>
+                                </TapGestureRecognizer.CommandParameter>
+                            </TapGestureRecognizer>
+                        </Label.GestureRecognizers>
+                    </Label> -->
+                </Grid>
+            </Grid>
+        </Expander>
+
+        <!-- Allocated + remain qty display -->
+        <Label Grid.Row="5" 
+               Text="{Binding AllocatedDisplay}"
+               Padding="6" 
+               FontSize="Medium"
+               FontAttributes="Bold"
+               BackgroundColor="Black"                          
+               TextColor="LightGreen">
+        </Label>
+
+        <Label Grid.Row="5" 
+               Text="{Binding RemainDisplay}"
+               Padding="6" 
+               FontSize="Medium"
+               FontAttributes="Bold"
+               HorizontalOptions="End"
+               TextColor="{StaticResource GoogleYellow}"
+               BackgroundColor="Black">
+        </Label>
+
+        <ListView Grid.Row="6"                   
+                  CachingStrategy="RecycleElement"
+                  HasUnevenRows="true"
+                  ItemsSource="{Binding ItemsSourceBin, Mode=TwoWay}"
+                  SelectedItem="{Binding SelectedItemBin, Mode=TwoWay}">
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid RowSpacing="0" Padding="3" BackgroundColor="{Binding CellColor}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <Label Grid.Row="0" 
+                                   Text="{Binding oBIN.BinCode}"
+                                   FontSize="Medium"
+                                   FontAttributes="Bold">
+                            </Label>
+
+                            <Label Grid.Row="1" 
+                                   Text="{Binding BatchNumber, StringFormat='Batch# {0}'}">
+                            </Label>
+                            
+                            <Label Grid.Row="2" 
+                                   Text="{Binding BatchTransQty, StringFormat='Transfer Qty -> {0:N}'}">
+                            </Label>
+
+                            <BoxView Grid.Row="3" 
+                                     HeightRequest="0.03" 
+                                     BackgroundColor="{StaticResource colorPrimaryDark}"></BoxView>
+                            
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</ContentPage>

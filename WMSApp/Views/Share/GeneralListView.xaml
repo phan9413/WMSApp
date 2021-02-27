@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             Title="{Binding PageTitle}"
+             x:Class="WMSApp.Views.Share.GeneralListView" 
+             BackgroundColor="Transparent">
+    
+    <Grid Padding="15" 
+          RowSpacing="0"
+          BackgroundColor="White">
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Text="{StaticResource PressBackToReturn}"></Label>
+        <Label Grid.Row="1" Text="Select an item from below list"></Label>
+
+        <SearchBar Grid.Row="2" 
+                   x:Name="QuerySearchBar"
+                   Text="{Binding SearchText}" 
+                   Keyboard="Numeric"
+                   HeightRequest="21"></SearchBar>
+
+        <ListView Grid.Row="3"
+                  CachingStrategy="RecycleElement"
+                  HasUnevenRows="True"
+                  SelectionMode="Single"
+                  SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
+                  ItemsSource="{Binding ItemsSource, Mode=TwoWay}">
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ImageCell ImageSource="tray512.png" Text="{Binding .}" 
+                               TextColor="{StaticResource colorPrimaryDark}"
+                               Detail="Bin Code"></ImageCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+    
+</ContentPage>

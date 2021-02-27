@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             Title="{Binding title}"
+             x:Class="WMSApp.Views.Setting.AppUser.AppUserAddView">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem 
+            Order="Default"           
+            Text="{Binding saveBntText}" 
+            Command="{Binding cmdAdd}"></ToolbarItem>
+        <ToolbarItem 
+            Order="Primary"
+            Text="Cancel" 
+            Command="{Binding cmdCancel}"></ToolbarItem>
+    </ContentPage.ToolbarItems>
+
+    <Grid Padding="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" ></RowDefinition>
+            <RowDefinition Height="auto" ></RowDefinition>
+            <RowDefinition Height="*" ></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" 
+                Padding="3"
+                Text="{StaticResource PressBackToReturn}" 
+                TextColor="{StaticResource colorPrimaryDark}"></Label>
+
+        <StackLayout Grid.Row="1" Orientation="Horizontal" BackgroundColor="LightGray" Padding="6">
+            <Label Text="Create SAP User"  FontAttributes="Bold" VerticalOptions="Center"></Label>
+            <CheckBox VerticalOptions="Center"                            
+                      IsChecked="{Binding IsCreateSapUser,Mode=TwoWay}"
+                      IsEnabled="{Binding IsCreateSapUserCheckBoxEnable, Mode=TwoWay}">
+
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal">
+                            <VisualState.Setters>
+                                <Setter Property="Color"
+                                        Value="{StaticResource ColorTone1}" />
+                            </VisualState.Setters>
+                        </VisualState>
+
+                        <VisualState x:Name="IsChecked">
+                            <VisualState.Setters>
+                                <Setter Property="Color"
+                                        Value="{StaticResource ColorTone2}" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateManager.VisualStateGroups>
+            </CheckBox>
+
+            <Label Text="{Binding sapId}" FontAttributes="Bold" VerticalOptions="Center"></Label>
+        </StackLayout>
+
+        <ListView Grid.Row="2"
+                x:Name="lvDoc" 
+                HasUnevenRows="True"                                                                   
+                IsGroupingEnabled="True"           
+                CachingStrategy="RecycleElement"
+                SelectionMode="Single"                
+                SelectedItem="{Binding selectedItem, Mode=TwoWay}"                      
+                ItemsSource="{Binding list}">
+
+            <ListView.GroupHeaderTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid Padding="6" HeightRequest="{Binding cellHeight}"
+                            BackgroundColor="{StaticResource ColorTone3}" 
+                            IsVisible="{Binding isVisible}">
+
+                            <Label Text="{Binding Heading}" 
+                                    TextColor="White" 
+                                    FontAttributes="None" 
+                                    FontSize="Subtitle" />
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.GroupHeaderTemplate>
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid RowSpacing="0" Margin="0,3,0,3">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+
+                            <Label Grid.Row="0" Grid.Column="0" 
+                                    Text="{Binding title}" 
+                                    IsVisible="{Binding isVisible}" 
+                                    FontSize="Small" 
+                                    FontAttributes="None" 
+                                    Padding="0" />
+
+                            <Label Grid.Row="1" Grid.Column="0" 
+                                    Text="{Binding value, Mode=TwoWay}" 
+                                    IsVisible="{Binding isVisible}" 
+                                    FontSize="Subtitle" 
+                                    FontAttributes="Bold" Padding="0"/>
+
+                            <Image Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Source="arrowRight512.png" 
+                                        IsVisible="{Binding isRightArrowVisible}"
+                                        Scale="0.5"
+                                        HeightRequest="30"
+                                        WidthRequest="30"
+                                        HorizontalOptions="End"
+                                        VerticalOptions="Center"/>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+
+        </ListView>
+    </Grid>
+
+</ContentPage>

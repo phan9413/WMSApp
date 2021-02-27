@@ -1,0 +1,192 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WMSApp.Views.Transfer1.SerialToBinView"
+             Title="{Binding ItemCode}">
+
+    <ContentPage.ToolbarItems>
+        
+        <ToolbarItem Text="Cancel" IconImageSource="cancel512.png" Command="{Binding CmdCancel}"></ToolbarItem>
+        <ToolbarItem IconImageSource="search_white.png" 
+                     Command="{Binding CmdSearchBarVisible}" 
+                     CommandParameter="{x:Reference searchBar}"></ToolbarItem>
+        <ToolbarItem Text="Save" IconImageSource="save512.png" Command="{Binding CmdSave}"></ToolbarItem>
+    </ContentPage.ToolbarItems>
+    
+    <Grid Padding="3" RowSpacing="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" 
+               Text="{StaticResource PressBackToReturn}"></Label>
+
+        <SearchBar Grid.Row="1"  
+                   x:Name="searchBar" 
+                   IsVisible="false"
+                   Text="{Binding SearchQuery}"></SearchBar>
+
+        <Label Grid.Row="2"
+                Text="{Binding WhsCode, StringFormat='Warehouse {0}'}" 
+                TextColor="White"
+                FontSize="Medium"
+                FontAttributes="Bold"
+                Padding="6"
+                VerticalOptions="Center"
+                BackgroundColor="{StaticResource colorPrimary}"></Label>
+
+        <Label Grid.Row="3"
+                Text="Allocate serial to bin#" 
+                TextColor="White"
+                FontSize="Medium"                       
+                Padding="3"
+                VerticalOptions="Center"
+                BackgroundColor="{StaticResource ColorTone3}"></Label>
+
+        <!-- item code + name +  qty needed  display -->
+        <Expander Grid.Row="4"
+                  IsExpanded="True"
+                  Padding="6">
+
+            <Expander.Header>
+                <Grid>
+                    <Label Grid.Column="0" 
+                           Text="{Binding ItemCode}"
+                           FontSize="Medium"
+                           FontAttributes="Bold"/>
+                    <Image Source="expanded_blue.png"
+                           WidthRequest="15"
+                           HeightRequest="15"
+                           HorizontalOptions="End"
+                           VerticalOptions="Center">
+                        <Image.Triggers>
+                            <DataTrigger TargetType="Image"
+                                 Binding="{Binding Source={RelativeSource AncestorType={x:Type Expander}}, 
+                                                Path=IsExpanded}"
+                                 Value="True">
+                                <Setter Property="Source"
+                                        Value="collapsed_blue.png" />
+                            </DataTrigger>
+                        </Image.Triggers>
+                    </Image>
+                </Grid>
+            </Expander.Header>
+
+            <Grid RowSpacing="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0" 
+                       Text="{Binding ItemName}"/>
+            </Grid>
+        </Expander>
+
+        <ScrollView Grid.Row="5">
+            <Grid ColumnSpacing="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Column="0"
+                       Text="Scan Serial#"                        
+                       TextColor="White"
+                       FontSize="Medium"
+                       Padding="6"
+                       TextDecorations="Underline"
+                       VerticalOptions="Center"
+                       BackgroundColor="{StaticResource GoogleGreen}">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer NumberOfTapsRequired="1" 
+                                              Command="{Binding CmdScanSerial}">
+                        </TapGestureRecognizer>
+                    </Label.GestureRecognizers>
+                </Label>
+
+                <Label Grid.Column="1"
+                       Text="Pick Bin#"                         
+                       TextColor="White"
+                       FontSize="Medium"
+                       Padding="6"
+                       TextDecorations="Underline"
+                       VerticalOptions="Center"
+                       BackgroundColor="{StaticResource GoogleYellow}">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer NumberOfTapsRequired="1" 
+                                              Command="{Binding CmdPickBins}">
+                        </TapGestureRecognizer>
+                    </Label.GestureRecognizers>
+                </Label>
+            </Grid>
+        </ScrollView>
+        
+        <ListView Grid.Row="6"
+                  CachingStrategy="RecycleElement"
+                  HasUnevenRows="True"
+                  ItemsSource="{Binding ItemsSource, Mode=TwoWay}"
+                  SelectedItem="{Binding  SelectedItem, Mode=TwoWay}">
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid RowSpacing="0" BackgroundColor="{Binding ReceiptColor}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="2"                                     
+                                   Source="tray512.png"
+                                   HeightRequest="30"
+                                   WidthRequest="30"></Image>
+
+                           <!-- <Label Grid.Row="0" Grid.Column="1"                                           
+                                   Text="{Binding ItemCode}"></Label> -->
+
+                            <Label Grid.Row="0" Grid.Column="1"                                       
+                                   FontAttributes="Bold"
+                                   Text="{Binding Serial, StringFormat='Serial# {0}'}"></Label>
+
+                            <Label Grid.Row="1" Grid.Column="1"      
+                                   IsVisible="{Binding FromWhsVisible}"
+                                   Text="{Binding WhsCode, StringFormat='From {0}'}"></Label>
+
+                            <Label Grid.Row="2" Grid.Column="1"        
+                                   IsVisible="{Binding FromWhsVisible}"
+                                   Text="{Binding BinCode, StringFormat='From Bin# {0}'}"></Label>
+                            
+                            <Label Grid.Row="3" Grid.Column="1"     
+                                   HorizontalOptions="EndAndExpand"
+                                   Text="{Binding SelectedBinCode, StringFormat='-> Bin# {0}'}"></Label>
+
+                            <CheckBox Grid.Row="0" Grid.Column="2" 
+                                      HorizontalOptions="EndAndExpand"
+                                      IsChecked="{Binding IsChecked}"></CheckBox>
+
+                            <BoxView Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" 
+                                     HeightRequest="0.3" 
+                                     BackgroundColor="{StaticResource colorPrimaryDark}"></BoxView>
+
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</ContentPage>

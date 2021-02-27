@@ -1,0 +1,271 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:zxing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
+             mc:Ignorable="d"
+             Title="Add GRPO Items"             
+             x:Class="WMSApp.Views.GRPO.GrpoItemsView">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="cancel512.png" Text="Cancel" Order="Default" Command="{Binding CmdClose}"></ToolbarItem>
+        <ToolbarItem IconImageSource="search_white.png"
+                     Command="{Binding CmdSearchBarVisible}" 
+                     CommandParameter="{x:Reference searchBarItem}"></ToolbarItem>
+        <ToolbarItem IconImageSource="save512.png" Text="Save" Order="Default" Command="{Binding CmdSaveUpdate}"></ToolbarItem>
+    </ContentPage.ToolbarItems>
+
+    <Grid Padding="3" RowSpacing="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Text="{StaticResource PressBackToReturn}"></Label>
+        <Expander Grid.Row="1" 
+                  Padding="6"    
+                  Tapped="DocPropExpander_Tapped"
+                  x:Name="DocPropExpander"
+                  BackgroundColor="{StaticResource ColorTone5}">
+            <Expander.Header>
+                <Grid>
+                    <Label Grid.Column="0" 
+                           Text="Doc Properties" 
+                           FontAttributes="Bold" 
+                           FontSize="Medium"  
+                           TextColor="White"/>
+                    <Image Source="expanded_blue.png"
+                           WidthRequest="15"
+                           HeightRequest="15"
+                           HorizontalOptions="End"
+                           VerticalOptions="Center">
+                        <Image.Triggers>
+                            <DataTrigger TargetType="Image"
+                                 Binding="{Binding Source={RelativeSource AncestorType={x:Type Expander}}, Path=IsExpanded}"
+                                 Value="True">
+                                <Setter Property="Source"
+                                        Value="collapsed_blue.png" />
+                            </DataTrigger>
+                        </Image.Triggers>
+                    </Image>
+                </Grid>
+            </Expander.Header>
+            <ScrollView>
+                <StackLayout BackgroundColor="White" Padding="6">
+                    <Label Text="Doc Series" 
+                           FontAttributes="Italic"></Label>
+                    <Picker x:Name="DocSeries" 
+                            ItemsSource="{Binding DocSeriesItemsSource}" 
+                            SelectedItem="{Binding DocSeriesSelectedItem}"></Picker>
+
+                    <Label Text="DO#" FontAttributes="Italic"></Label>
+                    <Entry Text="{Binding NumberAtCard}"></Entry>
+
+                    <Label Text="Reference 2" FontAttributes="Italic"></Label>
+                    <Entry Text="{Binding Ref2}"></Entry>
+
+                    <Label Text="Comments" FontAttributes="Italic"></Label>
+                    <Entry Text="{Binding Comments}"></Entry>
+
+                    <Label Text="Journal memo" FontAttributes="Italic"></Label>
+                    <Entry Text="{Binding JrnlMemo}"></Entry>
+                    
+                    <!--rest of the UDF needed -->
+                    
+                    
+                </StackLayout>
+            </ScrollView>
+        </Expander>
+
+        <!-- PO Details -->
+        <Expander Grid.Row="2"                   
+                  x:Name="PODetailsExpander"
+                  Tapped="PODetailsExpander_Tapped"
+                  Padding="6"
+                  BackgroundColor="{StaticResource ColorTone3}"     
+                  IsExpanded="{Binding IsPODetailsExpand, Mode=TwoWay}">
+            <Expander.Header>
+                <Grid>
+                    <Label Grid.Column="0" 
+                           Text="{Binding PoDetails}" 
+                           FontAttributes="Bold" 
+                           FontSize="Medium"  
+                           TextColor="White"/>
+                    <Image Source="expanded_blue.png"
+                           WidthRequest="15"
+                           HeightRequest="15"
+                           HorizontalOptions="End"
+                           VerticalOptions="Center">
+                        <Image.Triggers>
+                            <DataTrigger TargetType="Image"
+                                 Binding="{Binding Source={RelativeSource AncestorType={x:Type Expander}}, Path=IsExpanded}"
+                                 Value="True">
+                                <Setter Property="Source"
+                                        Value="collapsed_blue.png" />
+                            </DataTrigger>
+                        </Image.Triggers>
+                    </Image>
+                </Grid>
+            </Expander.Header>
+            
+            <ListView Grid.Row="0"   
+                      HeightRequest="300"
+                          HasUnevenRows="True"
+                          CachingStrategy="RecycleElement"
+                          BackgroundColor="White"
+                          ItemsSource="{Binding ItemsSourceSelectedPOs, Mode=TwoWay}"
+                          SelectedItem="{Binding SelectedItemSelectedPO, Mode=TwoWay}">
+
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid RowSpacing="0" Padding="6">
+                                    <Grid.RowDefinitions>
+                                         <RowDefinition Height="*"></RowDefinition>
+                                         <RowDefinition Height="*"></RowDefinition>
+                                         <RowDefinition Height="*"></RowDefinition>
+                                </Grid.RowDefinitions>
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+
+                                <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" 
+                                       HeightRequest="60"
+                                       WidthRequest="60"
+                                       Source="file.png"></Image>
+                                    
+                                    <Label Grid.Row="0" Grid.Column="1"
+                                           FontAttributes="Bold"
+                                           Text="{Binding Text, StringFormat='Doc# {0}'}"></Label>
+
+                                    <Label Grid.Row="1" Grid.Column="1"
+                                           Text="{Binding Details, StringFormat='Details {0}'}"></Label>
+
+                                    <Label Grid.Row="2" Grid.Column="1"
+                                           Text="{Binding LineCount, Mode=TwoWay, StringFormat='Total lines {0}'}"></Label>
+                                    
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            
+        </Expander>
+
+        <!-- Middle scanner -->
+        <Label Grid.Row="3" 
+               Text="Scan" 
+               FontSize="Medium"
+               TextDecorations="Underline"               
+               Padding="6"
+               TextColor="White"
+               FontAttributes="Bold"
+               BackgroundColor="{StaticResource GoogleGreen}">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer NumberOfTapsRequired="1"
+                                      Command="{Binding CmdStartScan}">
+                </TapGestureRecognizer>
+            </Label.GestureRecognizers>
+        </Label>
+
+          
+        <!-- search bar -->
+        <SearchBar 
+            Grid.Row="4" 
+            x:Name="searchBarItem"
+            IsVisible="false"
+            Placeholder="Enter Item code to search"                 
+            HorizontalOptions="Start"
+            VerticalOptions="Center"                
+            Text="{Binding SearchItemQuery}"></SearchBar>
+
+        <!-- PO Lines POR1_Ex -->
+        <ListView Grid.Row="5" 
+                  CachingStrategy="RecycleElement"
+                  HasUnevenRows="True"
+                  ItemsSource="{Binding ItemsSource, Mode=TwoWay}"
+                  SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
+
+            <ListView.Header>
+                <StackLayout>
+                    <Label Text="Tap item below to enter quantity" ></Label>
+                </StackLayout>
+            </ListView.Header>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <SwipeView>
+                            <SwipeView.LeftItems>
+                                <SwipeItems Mode="Reveal">
+                                    <SwipeItem Text="Whs"  
+                                               x:Name="LineChangeWhs"
+                                               IconImageSource="change512.png"
+                                               BackgroundColor="{StaticResource GoogleGreen}"
+                                               Invoked="LineChangeWhs_Invoked"                                               
+                                               CommandParameter="{Binding .}"/>
+                                </SwipeItems>
+                            </SwipeView.LeftItems>
+
+                            <!-- Content -->
+                            <Grid RowSpacing="0"                                 
+                              BackgroundColor="{Binding CellBackGroundColor}">
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+
+                                <BoxView Grid.Row="0" Grid.Column="0" Grid.RowSpan="8" 
+                                         WidthRequest="3" 
+                                         BackgroundColor="{StaticResource GoogleGreen}"></BoxView>
+
+                                <Label Grid.Row="0" Grid.Column="1" Text="{Binding CardName}"></Label>
+                                <Label Grid.Row="1" Grid.Column="1" Text="{Binding CardCode}"></Label>
+                                <Label Grid.Row="2" Grid.Column="1" Text="{Binding DocNum, StringFormat='Doc# {0}'}"></Label>
+
+                                <Label Grid.Row="3" Grid.Column="1" Text="{Binding ItemCodeDisplay}" FontAttributes="Bold"></Label>
+                                <Label Grid.Row="3" Grid.Column="2" Text="{Binding OpenQuantityDisplay}" 
+                                   HorizontalOptions="End"></Label>
+
+                                <Label Grid.Row="4" Grid.Column="1" Text="{Binding ItemNameDisplay}"></Label>
+                                <Label Grid.Row="4" Grid.Column="2" Text="{Binding ReceiptQuantityDisplay}" 
+                                        HorizontalOptions="End"></Label>
+
+                                <Label Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2"                         
+                                   Text="{Binding ItemWhsCode, Mode=TwoWay}" 
+                                   HorizontalOptions="End"></Label>
+
+                                <Label Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2"                         
+                                   Text="{Binding ShowList, Mode=TwoWay}" 
+                                   HorizontalOptions="End"></Label>
+
+                                <BoxView Grid.Row="7"
+                                         Grid.ColumnSpan="3"
+                                         HeightRequest="0.9" BackgroundColor="{StaticResource colorPrimaryDark}"></BoxView>
+                            </Grid>
+                            
+                        </SwipeView>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</ContentPage>

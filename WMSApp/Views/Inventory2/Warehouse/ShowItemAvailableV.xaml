@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WMSApp.View.Warehouse.ShowItemAvailableV"
+             Title="{Binding WhsName}">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem 
+            IconImageSource="search_white.png"
+            Command="{Binding CmdVisibleSearchBar}"
+            CommandParameter="{x:Reference searchbar}">
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+    
+    <Grid Margin="10,5,10,5"
+          BackgroundColor="AliceBlue"
+          RowSpacing="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" 
+               FontSize="Medium"
+               FontAttributes="Bold"
+               Text="{Binding WhsCode, StringFormat='Warehouse : {0}'}"/>
+                
+        <Label  Grid.Row="0"
+                Text="Available Items"
+                FontSize="Medium"
+                FontAttributes="Bold"
+                HorizontalOptions="End"/>
+
+        <Frame Grid.Row="1" 
+               IsVisible="{Binding IsSearchBarVisible}"
+               Padding="0"
+               OutlineColor="{StaticResource colorPrimaryDark}"
+               HasShadow="True"
+               HorizontalOptions="FillAndExpand"               
+               VerticalOptions="Center">
+
+            <SearchBar Grid.Row="0"
+                       Placeholder="Input Whs Code / Name to Search"
+                       x:Name="searchbar"
+                       IsVisible="false"
+                       Text="{Binding SearchText,Mode=TwoWay}">
+            </SearchBar>
+
+        </Frame>
+
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+           
+            <ListView Grid.Row="1"
+                      ItemsSource="{Binding ItemsSource}"
+                      SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
+                      HasUnevenRows="True">
+                
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+
+                            <Grid Padding="3">
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+
+                                <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" 
+                                       HeightRequest="60"
+                                       WidthRequest="60"
+                                       Source="item.png"></Image>
+
+                                <Label Grid.Row="0" Grid.Column="1" 
+                                       FontAttributes="Bold"
+                                       Text="{Binding ItemCode}"></Label>
+                                
+                                <Label Grid.Row="1" Grid.Column="1" 
+                                       Text="{Binding OnHand,StringFormat='{0:N}'}"
+                                       HorizontalOptions="EndAndExpand"></Label>
+
+                                <Label Grid.Row="1" Grid.Column="1" 
+                                       Text="{Binding ItemName}"
+                                       HorizontalOptions="StartAndExpand"></Label>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+    </Grid>
+</ContentPage>

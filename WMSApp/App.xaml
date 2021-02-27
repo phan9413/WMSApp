@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="WMSApp.App">
+
+    <Application.Resources>
+        <ResourceDictionary>
+
+            <x:String x:Key="PressBackToReturn">Press back to return</x:String>
+            
+            <!--Color Styles-->
+            <Color x:Key="NavigationPrimary">#3F5161</Color>
+            <Color x:Key="colorPrimary">#3F5161</Color>
+            <Color x:Key="colorPrimaryDark">#3F5161</Color>
+            <Color x:Key="colorAccent">#647987</Color>
+            <Color x:Key="textColorPrimaryWhite">#ffffff</Color>
+            <Color x:Key="textColorPrimaryBlack">#000000</Color>
+            <Color x:Key="SapListViewHeaderBackGroundColor">#21cdf3</Color>
+            <Color x:Key="sapListviewHeaderBackGroundColor2">#21f3ef</Color>
+            <Color x:Key="SapPageBackgroundColor">#ffffff</Color>
+
+            <Color x:Key="ColorTone1">#3F5161</Color>
+            <Color x:Key="ColorTone2">#475b6d</Color>
+            <Color x:Key="ColorTone3">#4e6579</Color>
+            <Color x:Key="ColorTone4">#566f85</Color>
+            <Color x:Key="ColorTone5">#5e7991</Color>
+
+            <Color x:Key="GoogleBlue">#4285F4</Color>
+            <Color x:Key="GoogleRed">#DB4437</Color>
+            <Color x:Key="GoogleYellow">#F4B400</Color>
+            <Color x:Key="GoogleGreen">#0F9D58</Color>
+
+            <!-- Navigation page -->
+            <Style TargetType="NavigationPage">
+                <Setter Property="BarBackgroundColor" Value="{StaticResource NavigationPrimary}" />
+                <Setter Property="BarTextColor" Value="{StaticResource textColorPrimaryWhite}" />
+            </Style>
+
+            <!-- Button -->
+            <Style TargetType="Button" x:Key="ButtonStyle">
+                <Setter Property="BackgroundColor" Value="{StaticResource colorAccent}"/>
+                <Setter Property="TextColor" Value="{StaticResource textColorPrimaryWhite}"/>
+            </Style>
+
+            <!-- SearchBar -->
+            <Style TargetType="SearchBar" x:Key="SearcBarStyle">
+                <Setter Property="HeightRequest" Value="21"></Setter>
+            </Style>
+
+            <!-- Label -->
+            <Style TargetType="Label" x:Key="LabelStyle">
+                <Setter Property="TextColor" Value="{StaticResource colorAccent}"></Setter>
+                <Setter Property="VerticalOptions" Value="Center"></Setter>
+            </Style>
+
+            <!-- Grid -->
+            <Style TargetType="Grid" x:Key="GridStyle">
+                <Setter Property="Padding" Value="12"/>
+                <Setter Property="BackgroundColor" Value="White"/>
+            </Style>
+            
+            <!-- Switch -->            
+            <Style TargetType="Switch" x:Key="SwitchStyle">
+                <Setter Property="OnColor" Value="{StaticResource colorPrimaryDark}"></Setter>
+                <Setter Property="ThumbColor" Value="{StaticResource colorAccent}"></Setter>
+                <Setter Property="VerticalOptions" Value="Center"></Setter>
+            </Style>
+
+            <!-- Picker -->
+            <Style TargetType="Picker" x:Key="PickerStyle">
+                <Setter Property="VerticalOptions" Value="Center"></Setter>
+                <Setter Property="TextColor" Value="{StaticResource colorPrimaryDark}"></Setter>
+            </Style>
+
+            <!-- Entry -->
+            <Style TargetType="Entry" x:Key="EntryStyle">
+                <Setter Property="TextColor" Value="{StaticResource colorPrimaryDark}"></Setter>
+                <Setter Property="Keyboard" Value="Default"></Setter>
+                <Setter Property="VerticalOptions" Value="Center"></Setter>
+            </Style>
+            
+        </ResourceDictionary>
+
+    </Application.Resources>
+    
+</Application>

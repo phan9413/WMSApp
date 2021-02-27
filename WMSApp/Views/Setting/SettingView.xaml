@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             Title="App Settings"
+             x:Class="WMSApp.Views.Setting.SettingView">
+    <Grid Padding="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Text="{StaticResource PressBackToReturn}"></Label>
+
+        <ListView Grid.Row="1"
+            CachingStrategy="RecycleElement"
+            HasUnevenRows="True"
+            SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
+            ItemsSource="{Binding ItemsSource, Mode=TwoWay}">
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+
+                    <ImageCell ImageSource="settings_grey192.png" 
+                               Text="{Binding Text}" 
+                               TextColor="Black" 
+                               Detail="{Binding Details}" 
+                               DetailColor="{StaticResource ColorTone5}">
+                        
+                    </ImageCell>
+
+                    <!--<ViewCell>
+                        <Grid RowSpacing="0" Padding="12">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="3"                                    
+                                   HeightRequest="30"
+                                   WidthRequest="30"
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="Center"
+                                   Source="settings_grey192.png"></Image>
+
+                            <Label Grid.Row="0" Grid.Column="1"                                    
+                                   FontAttributes="Bold"
+                                   FontSize="15"
+                                   Text="{Binding Text}"                                             
+                                   HorizontalOptions="StartAndExpand"
+                                   VerticalOptions="Center"></Label>
+
+                            <Label Grid.Row="1" Grid.Column="1"
+                                   HorizontalOptions="StartAndExpand"  
+                                   VerticalOptions="Center"
+                                   Text="{Binding Details}"></Label>
+
+                        </Grid>
+                    </ViewCell>-->
+
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+
+</ContentPage>

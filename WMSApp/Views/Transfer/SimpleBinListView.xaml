@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WMSApp.Views.Transfer.SimpleBinListView"
+             Title="{Binding Title}">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Save"
+                     Command="{Binding CmdSave}"></ToolbarItem>
+
+        <ToolbarItem Text="Close"
+                     Command="{Binding CmdClose}"></ToolbarItem>
+
+        <ToolbarItem IconImageSource="search_white.png"
+                     Command="{Binding CmdSerachBarVisible}"
+                     CommandParameter="{Reference serachBar}"></ToolbarItem>
+        
+    </ContentPage.ToolbarItems>
+
+    <Grid Padding="12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Text="{StaticResource PressBackToReturn}"></Label>
+
+        <SearchBar  Grid.Row="1" x:Name="serachBar"
+                    IsVisible="false"
+                   Text="{Binding SearchText}"></SearchBar>
+
+        <Label Grid.Row="2" Text="Scan To BinCode"
+               Padding="12"
+               TextColor="White"
+               FontAttributes="Bold"
+               FontSize="Medium"
+               BackgroundColor="{StaticResource ColorTone3}">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer NumberOfTapsRequired="1"
+                                      Command="{Binding CmdScanToBinCode}"
+                                      CommandParameter="{Binding .}"/>
+            </Label.GestureRecognizers>
+        </Label>
+
+        <Label Grid.Row="3" 
+               Text="{Binding NeedQty, StringFormat='Needed Qty {0:N}'}" Padding="3"  
+               TextColor="White"
+               FontSize="Medium"
+               FontAttributes="Bold"
+               BackgroundColor="{StaticResource colorPrimary}"></Label>
+
+        <Label Grid.Row="4" 
+               Text="{Binding SelectedSumQty}" Padding="3"  
+               TextColor="White"
+               FontSize="Medium"
+               FontAttributes="Bold"
+               BackgroundColor="{StaticResource GoogleGreen}"></Label>
+
+        <ListView Grid.Row="5"
+                  HasUnevenRows="True"
+                  SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
+                  ItemsSource="{Binding ItemsSource,Mode=TwoWay}">
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid Padding="3" RowSpacing="0" BackgroundColor="{Binding SelectedColr}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" 
+                                   Text="{Binding BinCode}"   
+                                   FontSize="Medium"
+                                   FontAttributes="Bold"></Label>
+
+                            <CheckBox Grid.Row="0" Grid.Column="3" Grid.RowSpan="2" 
+                                      HorizontalOptions="End" 
+                                      IsChecked="{Binding IsChecked}"></CheckBox>
+
+                            <!--<Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" 
+                                   Text="{Binding ItemName}"/>-->
+
+                            <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"  
+                                   Text="{Binding WhsCode, StringFormat='{0}'}"></Label>
+
+                            <Label Grid.Row="2" Grid.Column="3" 
+                                   Text="{Binding BatchSerial}" HorizontalOptions="End" ></Label>
+
+                            <!--<Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" 
+                                   Text="{Binding ItemCode, StringFormat='{0}'}"></Label>-->
+
+                            <!--<Label Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" 
+                                   Padding="3"                                   
+                                   BackgroundColor="LightGreen"
+                                   HorizontalOptions="End"
+                                   Text="{Binding OnHandQty, StringFormat='On hand {0:N}'}"></Label>-->
+
+                            <Label Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2"  
+                                   Padding="3"
+                                   TextColor="White"
+                                   BackgroundColor="Green"
+                                   HorizontalOptions="End"
+                                   Text="{Binding TransferQty, StringFormat='Transfer {0:N}'}"></Label>
+
+                        </Grid>
+                        <!--<StackLayout Spacing="0">
+                            <Label Text="{Binding BinCode}" FontSize="Medium" FontAttributes="Bold"></Label>
+                            <Label Text="{Binding WhsCode}" FontAttributes="Bold"></Label>
+                            
+                        </StackLayout>-->
+                    </ViewCell>
+
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+    
+</ContentPage>

@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             Title="Choose User Group"
+             x:Class="WMSApp.Views.Setting.AppUserGroup.AppUserAddGroupListView">
+    
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="search_white.png" 
+                     Order="Default"
+                     Command="{Binding cmdSearchBarVisible, Mode=TwoWay}"
+                     CommandParameter="{x:Reference searchBar}"></ToolbarItem>
+    </ContentPage.ToolbarItems>
+
+    <Grid BackgroundColor="White" Padding="12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Text="Press back to return" TextColor="{StaticResource colorPrimaryDark}"></Label>
+
+        <Label Grid.Row="1"                                                          
+                Padding="3"
+                FontAttributes="Bold"
+                TextColor="{StaticResource ColorTone3}"
+                HorizontalOptions="Start"
+                Text="{Binding curCompany}"></Label>
+
+        <SearchBar Grid.Row="2" 
+                   Placeholder="Input group related info to search"
+                   x:Name="searchBar"
+                   IsVisible="{Binding searchBarIsVisible}"></SearchBar>
+
+        <ListView Grid.Row="3"
+                  CachingStrategy="RecycleElement"
+                  SelectionMode="Single"
+                  SelectedItem="{Binding selectedItem, Mode=TwoWay}"
+                  ItemsSource="{Binding obcList}">
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ImageCell ImageSource="group512.png" 
+                               TextColor="Black"
+                               DetailColor="{StaticResource ColorTone5}"
+                               Text="{Binding TextDisplay}" 
+                               Detail="{Binding DetailsDisplay}"></ImageCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+
+        </ListView>
+    </Grid>
+</ContentPage>

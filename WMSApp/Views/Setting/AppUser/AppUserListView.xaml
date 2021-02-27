@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             Title="App User List"
+             x:Class="WMSApp.Models.Setting.AppUser.AppUserListView">
+    
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="toolbarItem_addAppUser"
+                        Text="Add"                         
+                        Priority="0" 
+                        Order="Primary"
+                        Command="{Binding cmdAddNewUser}"/>
+
+        <ToolbarItem x:Name="toolbarItem_search"
+                    IconImageSource="search_white.png"                         
+                    Priority="0"
+                    Order="Default"                    
+                    Command="{Binding cmdVisibleSearchBar}"
+                    CommandParameter="{x:Reference searchBar}"/>
+
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Content>
+
+        <Grid BackgroundColor="White" Padding="12" RowSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0" 
+                   Padding="3"
+                   HeightRequest="24"
+                   Text="{StaticResource PressBackToReturn}" 
+                   TextColor="{StaticResource colorPrimaryDark}"/>
+
+            <SearchBar Grid.Row="1" HeightRequest="21"
+                       x:Name="searchBar"                                                                  
+                       Placeholder="Input related info to search" 
+                       IsVisible="{Binding searchBarVisible}"    
+                       Text="{Binding searchText, Mode=TwoWay}"/>
+
+            <ListView Grid.Row="2"
+                x:Name="lvAppUsers" 
+                HasUnevenRows="True"
+                CachingStrategy="RecycleElement"
+                Margin="0,6,0,0"
+                ItemsSource="{Binding list, Mode=TwoWay}"
+                SelectedItem="{Binding selectedItem, Mode=TwoWay}">
+
+                <ListView.Header>
+                    <Grid BackgroundColor="{StaticResource ColorTone3}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"></ColumnDefinition>
+                            <ColumnDefinition Width="9*"></ColumnDefinition>
+                            <ColumnDefinition Width="auto"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer NumberOfTapsRequired="1" 
+                                                  Command="{Binding cmdCompanyTapped}"/>
+                        </Grid.GestureRecognizers>
+
+                        <Label Grid.Column="0"  
+                               Text="Selected company" 
+                               FontAttributes="Bold"
+                               FontSize="15"
+                               Padding="9"               
+                               TextColor="White">
+                        </Label>
+
+                        <Label Grid.Column="1" Text="{Binding curOADMCompany.CompnyName}"                                         
+                               FontSize="15"
+                               Padding="9"                                                                                          
+                               TextColor="White"                                
+                               FontAttributes="Bold"
+                               VerticalOptions="Center"
+                               HorizontalOptions="End"
+                               HorizontalTextAlignment="End">
+                        </Label>
+
+                        <Image Grid.Column="2" 
+                               Scale="0.5"
+                               HeightRequest="30"
+                               WidthRequest="30"
+                               Source="arowRight512.png"
+                               HorizontalOptions="End" 
+                               VerticalOptions="Center">
+                        </Image>
+
+                    </Grid>
+                </ListView.Header>
+
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+
+                        <ImageCell                             
+                            ImageSource="user512.png" 
+                            Text="{Binding TextDisplay}" 
+                            TextColor="Black" 
+                            Detail="{Binding DetailsDisplay}"
+                            DetailColor="{StaticResource colorPrimaryDark}">
+                        </ImageCell>
+
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+        
+    </ContentPage.Content>
+</ContentPage>

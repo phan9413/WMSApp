@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage  xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+             xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+             x:Class="WMSApp.Views.RequestSummary.RequestSummaryView">
+
+    <!--You can set an animation in the xaml file or in the csharp code behind-->
+    <pages:PopupPage.Animation>
+        <animations:ScaleAnimation 
+            PositionIn="Center"
+            PositionOut="Center"
+            ScaleIn="1.2"
+            ScaleOut="0.8"
+            DurationIn="30"
+            DurationOut="30"
+            EasingIn="SinOut"
+            EasingOut="SinIn"            
+            HasBackgroundAnimation="True"/>
+    </pages:PopupPage.Animation>
+
+    <!--page started here -->
+    <StackLayout VerticalOptions="Center" 
+                 Spacing="0"
+                 HorizontalOptions="Center" 
+                 Padding="21">
+
+        <Frame Padding="0">
+            <StackLayout BackgroundColor="White"                          
+                         Padding="6"
+                         Spacing="0">
+
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Show details" 
+                           FontAttributes="Bold"
+                           Padding="6"
+                           FontSize="Default"
+                           TextDecorations="Underline"
+                           HorizontalOptions="StartAndExpand"
+                           VerticalOptions="Center"
+                           IsVisible="{Binding IsResetVisible}">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer NumberOfTapsRequired="1"
+                                              Command="{Binding CmdShowDetails}"></TapGestureRecognizer>
+                        </Label.GestureRecognizers>
+                    </Label>
+
+                    <ImageButton Source="cross512_reb.png" HeightRequest="30" WidthRequest="30"
+                             BackgroundColor="White"
+                             Command="{Binding CmdAction}"                              
+                             CommandParameter="close"
+                             VerticalOptions="Center"
+                             HorizontalOptions="EndAndExpand"></ImageButton>
+                </StackLayout>
+                
+                <Label Text="{Binding Result}"
+                       Padding="6"    
+                       FontAttributes="Bold"
+                       FontSize="Large"/>
+                
+                <Label Text="{Binding Message}" 
+                       FontAttributes="Bold"                       
+                       Padding="6"></Label>
+
+                <Image Source="{Binding Picture}"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Center"
+                       Scale="0.5"/>
+
+                <Label Text="OK"
+                       IsVisible="{Binding IsOKVisible}"
+                       TextColor="White"
+                       FontSize="Large"
+                       HorizontalTextAlignment="Center"
+                       Padding="12"
+                       BackgroundColor="{StaticResource GoogleGreen}">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer NumberOfTapsRequired="1"
+                                              Command="{Binding CmdAction}"
+                                              CommandParameter="ok"></TapGestureRecognizer>
+                    </Label.GestureRecognizers>
+                </Label>
+
+                <Label Text="Reset"
+                       IsVisible="{Binding IsResetVisible}"
+                       TextColor="White"
+                       FontSize="Large"
+                       Padding="12"
+                       HorizontalTextAlignment="Center"
+                       BackgroundColor="{StaticResource GoogleRed}">
+                    
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer NumberOfTapsRequired="1"
+                                              Command="{Binding CmdAction}"
+                                              CommandParameter="reset"></TapGestureRecognizer>
+                    </Label.GestureRecognizers>
+                </Label>
+
+            </StackLayout>
+        </Frame>
+    </StackLayout>
+
+</pages:PopupPage> 

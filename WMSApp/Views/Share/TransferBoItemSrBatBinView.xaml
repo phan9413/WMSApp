@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WMSApp.Views.Share.TransferBoItemSrBatBinView"
+             Title="{Binding PageTitle}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Text="{StaticResource PressBackToReturn}"></Label>
+
+        <Label Grid.Row="1" Text="Scan"></Label>
+        <Label Grid.Row="2" Text="{Binding ItemName}"></Label>
+        <Label Grid.Row="3" Text="{Binding ItemCode}"></Label>
+        <Label Grid.Row="4" Text="Batch/Serial Selection"></Label>
+
+        <SearchBar Grid.Row="5" x:Name="searchBar"></SearchBar>
+
+        <ListView Grid.Row="6"
+                  CachingStrategy="RecycleElement"
+                  ItemsSource="{Binding ItemsSource, Mode=TwoWay}"
+                  SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <Label Grid.Row="0" Grid.Column="0"
+                                   Text="{Binding DistNum}"/>
+
+                            <Label Grid.Row="0" Grid.Column="1"
+                                   Text="{Binding Qty}"/>
+
+                            <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                                   Text="{Binding FromWhs}"/>
+
+                            <Label Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"
+                                   Text="{Binding ToWhs}"/>
+
+                            <Image Grid.Row="0" Grid.Column="2" Grid.RowSpan="3"
+                                   HorizontalOptions="Start"
+                                   VerticalOptions="Center"
+                                   Source="arowRight512.png"/>
+
+                            <CheckBox Grid.Row="0" Grid.Column="2" Grid.RowSpan="3"
+                                      HorizontalOptions="End"
+                                      VerticalOptions="Center"
+                                     IsChecked="{Binding IsChecked}"></CheckBox>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</ContentPage>

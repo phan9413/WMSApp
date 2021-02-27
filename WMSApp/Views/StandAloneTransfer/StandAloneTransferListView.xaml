@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WMSApp.Views.StandAloneTransfer.StandAloneTransferListView"
+             Title="{Binding ViewTitle}">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="search_white.png"
+                     Command="{Binding CmdSetSearchBarVisible}"
+                     CommandParameter="{x:Reference searchBar}"></ToolbarItem>
+    </ContentPage.ToolbarItems>
+    
+    <Grid Padding="3" RowSpacing="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Text="{StaticResource PressBackToReturn}"/>
+
+        <SearchBar Grid.Row="1" 
+                   x:Name="searchBar" 
+                   IsVisible="False"
+                   Text="{Binding SearchQuery}"></SearchBar>
+
+        <Label Grid.Row="2" 
+               Padding="6"
+               FontSize="Medium"
+               BackgroundColor="{StaticResource colorPrimaryDark}"
+               TextColor="White"
+               Text="Select a STA doc to start picking"></Label>
+        
+        <ListView Grid.Row="3"
+                  CachingStrategy="RecycleElement"
+                  HasUnevenRows="True"
+                  ItemsSource="{Binding ItemsSource}"
+                  SelectedItem="{Binding SelectedItem}">
+            
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid RowSpacing="0" Padding="3">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" 
+                                   Source="file.png"
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="Center"
+                                   HeightRequest="60"
+                                   WidthRequest="60"></Image>
+
+                            <Label Grid.Row="0" Grid.Column="1" 
+                                   FontAttributes="Bold"
+                                   FontSize="Medium"
+                                   Text="{Binding Id, StringFormat='Doc # {0}'}"/>
+
+                            <Label Grid.Row="0" Grid.Column="2" 
+                                   Text="{Binding StatusDisplay}"/>
+                            
+                            <Label Grid.Row="2" Grid.Column="1" 
+                                   Text="{Binding TransDate, StringFormat='{0:dd/MM/yyyy}'}"/>
+
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</ContentPage>

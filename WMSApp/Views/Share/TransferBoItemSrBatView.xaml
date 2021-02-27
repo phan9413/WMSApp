@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WMSApp.Views.Share.TransferBoItemSrBatView"
+             NavigationPage.HasNavigationBar="False">
+
+    <StackLayout Padding="3">
+        <Grid RowSpacing="0"          
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" 
+            Padding="12">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <StackLayout Grid.Row="0"  
+                         Orientation="Horizontal" 
+                         Spacing="0">
+                <Label Text="{Binding PageTitle}"                    
+                       TextColor="White"
+                       FontAttributes="Bold"   
+                       HorizontalOptions="FillAndExpand"
+                       FontSize="Medium"
+                       Padding="9" BackgroundColor="{StaticResource GoogleGreen}"></Label>
+
+                <Label Text="Scan"                    
+                       TextColor="White"
+                       FontAttributes="Bold"                   
+                       FontSize="Medium"         
+                       HorizontalOptions="End"                       
+                       Padding="9" BackgroundColor="{StaticResource GoogleYellow}">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding CmdStartScanner}"/>
+                    </Label.GestureRecognizers>
+                </Label>
+
+                <Label Text="Update" 
+                       FontSize="Medium"
+                       FontAttributes="Bold"
+                       TextColor="Wheat"
+                       Padding="9" 
+                       HorizontalOptions="End"
+                       BackgroundColor="{StaticResource ColorTone4}">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer NumberOfTapsRequired="1" 
+                                              Command="{Binding CmdUpdate}"/>
+                    </Label.GestureRecognizers>
+                </Label>
+                
+                <ImageButton Source="search_white.png"                              
+                             HorizontalOptions="End"
+                             BackgroundColor="{StaticResource GoogleGreen}"
+                             Command="{Binding CmdSearchVisible}"
+                             CommandParameter="{x:Reference searchBar}"></ImageButton>
+            </StackLayout>
+
+            <Label Grid.Row="1"                  
+                   Text="{Binding NeededQty, StringFormat='Needed {0:N}'}" 
+                   FontSize="Medium"
+                   FontAttributes="Bold"
+                   TextColor="White"
+                   Padding="9" 
+                   BackgroundColor="{StaticResource ColorTone1}"/>
+
+            <Label Grid.Row="3" 
+                   Text="{Binding NeededQtyDisplay}" 
+               FontSize="Medium"
+               FontAttributes="Bold"
+               TextColor="White"
+               Padding="9" 
+               BackgroundColor="{StaticResource ColorTone3}"/>
+
+            <SearchBar Grid.Row="4" 
+                       BackgroundColor="White"                       
+                       x:Name="searchBar"
+                       IsVisible="false"
+                       Text="{Binding SearchText}"></SearchBar>
+            
+            <ListView Grid.Row="5"                      
+                  BackgroundColor="White"
+                  ItemsSource="{Binding ItemsSource, Mode=TwoWay}"                  
+                  SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
+                  HasUnevenRows="True">
+
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid RowSpacing="0" Padding="6" BackgroundColor="{Binding SelectedColr}">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+
+                                <Label Grid.Row="0" Grid.Column="0" 
+                                   FontAttributes="Bold"                                   
+                                   Text="{Binding ItemCode}"></Label>
+
+                                <Label Grid.Row="1" Grid.Column="0" 
+                                   FontAttributes="Bold" 
+                                   Text="{Binding itemName}"></Label>
+
+                                <Label Grid.Row="2" Grid.Column="0" 
+                                   FontAttributes="Bold"                                   
+                                   Text="{Binding WhsCode,StringFormat='{0}'}"></Label>
+
+                                <Label Grid.Row="2" Grid.Column="1" 
+                                   HorizontalOptions="End"   
+                                   Text="{Binding InDate, StringFormat='In Date {0:dd/MM/yyyy}'}"></Label>
+
+                                <StackLayout Grid.Row="3" Grid.Column="1"  
+                                         HorizontalOptions="End"
+                                         Orientation="Horizontal">
+                                    <Label 
+                                   FontAttributes="Bold"             
+                                   VerticalOptions="Center"
+                                   TextColor="White"
+                                   HorizontalOptions="End"
+                                   Padding="3"
+                                   BackgroundColor="{StaticResource ColorTone3}"
+                                   Text="{Binding DistNumber}"></Label>
+
+                                    <CheckBox    
+                                      HorizontalOptions="End"
+                                      VerticalOptions="Center"
+                                      IsChecked="{Binding IsChecked, Mode=TwoWay}"></CheckBox>
+                                </StackLayout>
+
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            
+        </Grid>
+    </StackLayout>
+</ContentPage>

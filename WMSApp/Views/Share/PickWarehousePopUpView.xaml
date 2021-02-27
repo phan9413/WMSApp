@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage 
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+    xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+    x:Class="WMSApp.Views.Share.PickWarehousePopUpView">
+    
+    <!--You can set an animation in the xaml file or in the csharp code behind-->
+    <pages:PopupPage.Animation>
+        <animations:ScaleAnimation 
+            PositionIn="Center"
+            PositionOut="Center"
+            ScaleIn="1.2"
+            ScaleOut="0.8"
+            DurationIn="30"
+            DurationOut="30"
+            EasingIn="SinOut"
+            EasingOut="SinIn"            
+            HasBackgroundAnimation="True"/>
+    </pages:PopupPage.Animation>
+    
+    <!--page started here -->
+    <StackLayout VerticalOptions="Center" 
+                    HorizontalOptions="Center" 
+                    Padding="21">
+
+        <Frame CornerRadius="18" 
+               Margin="0"                                
+               Padding="0"               
+               BorderColor="{StaticResource colorPrimaryDark}">
+            
+            <Grid BackgroundColor="White" RowSpacing="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0" 
+                       Text="{Binding Title}"
+                       BackgroundColor="{Binding HeaderColor}"
+                       TextColor="Black"
+                       FontSize="Large"
+                       FontAttributes="Bold"
+                       Padding="6"/>
+
+                <Label Grid.Row="1" 
+                       Text="{StaticResource PressBackToReturn}"
+                       BackgroundColor="{StaticResource colorPrimary}"
+                       TextColor="White"
+                       FontSize="Large"
+                        Padding="12"/>
+
+                <Image Grid.Row="1"                
+                       Source="search_white.png" 
+                       BackgroundColor="{StaticResource colorPrimary}"
+                       HorizontalOptions="End"
+                       HeightRequest="30" 
+                       WidthRequest="30">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer NumberOfTapsRequired="1" 
+                                          Command="{Binding CmdSearchBarVisible}"
+                                          CommandParameter="{x:Reference searchBar}"></TapGestureRecognizer>
+                    </Image.GestureRecognizers>
+                </Image>
+
+                <SearchBar Grid.Row="2" 
+                       x:Name="searchBar"
+                           Text="{Binding SearchText}"
+                       IsVisible="False"></SearchBar>
+
+                <ListView Grid.Row="3"                           
+                      CachingStrategy="RecycleElement"
+                      HasUnevenRows="True"
+                      ItemsSource="{Binding ItemsSource, Mode=TwoWay}"
+                      SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
+
+                    <ListView.ItemTemplate>
+                        
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="100" >
+                                            </ColumnDefinition>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="80"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                    
+                                        <Image Source="wh1.png" Grid.Row="0" Grid.Column="0" Aspect="AspectFit" HorizontalOptions="End"/>
+                                         <Label Grid.Row="0" Grid.Column="1"  Text="{Binding WhsCode, StringFormat='Warehouse {0}'}"
+                                           FontSize="25" HorizontalTextAlignment="Start" VerticalTextAlignment="Center"></Label>
+                                    </Grid>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+        </Frame>
+    </StackLayout>
+</pages:PopupPage>

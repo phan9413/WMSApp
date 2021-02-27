@@ -1,0 +1,300 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WMSApp.Views.ItemMasterInfo.InventoryView"
+             Title="{Binding ItemCode}">
+
+    <Grid Padding="6">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Expander Grid.Row="0"   
+                  BackgroundColor="{StaticResource ColorTone5}"   
+                  IsExpanded="True"
+                  Padding="6">
+            <Expander.Header>
+                <Grid>
+                    <Label Grid.Column="0" 
+                           Text="Inventory"
+                           FontAttributes="Bold" 
+                           FontSize="Medium"  
+                           TextColor="White"/>
+                    <Image Source="expanded_blue.png"
+                           WidthRequest="15"
+                           HeightRequest="15"
+                           HorizontalOptions="End"
+                           VerticalOptions="Center">
+                        <Image.Triggers>
+                            <DataTrigger TargetType="Image"
+                                 Binding="{Binding Source={RelativeSource AncestorType={x:Type Expander}}, Path=IsExpanded}"
+                                 Value="True">
+                                <Setter Property="Source"
+                                        Value="collapsed_blue.png" />
+                            </DataTrigger>
+                        </Image.Triggers>
+                    </Image>
+                </Grid>
+            </Expander.Header>
+            
+            <Grid RowSpacing="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                
+                <Label Grid.Row="0" Grid.Column="0"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Start"
+                       TextColor="White"
+                        Text="Start date"></Label>
+
+                <Label Grid.Row="0" Grid.Column="1"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Start"
+                       TextColor="White"
+                    Text="End date"></Label>
+
+                <DatePicker Grid.Row="1" Grid.Column="0"                   
+                            HorizontalOptions="Start"
+                            Format="dd/MM/yyyy"
+                            Date="{Binding StartDate, Mode=TwoWay}"/>
+
+                <DatePicker Grid.Row="1" Grid.Column="1"                          
+                            HorizontalOptions="Start"
+                            Format="dd/MM/yyyy"
+                            Date="{Binding EndDate, Mode=TwoWay}"/>
+
+                <!-- item code entry-->
+                <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
+                       Text="Scan Item Code"
+                       Padding="12"
+                       TextColor="White"
+                       FontAttributes="Bold"
+                       FontSize="Medium"
+                       BackgroundColor="{StaticResource GoogleBlue}">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer NumberOfTapsRequired="1"
+                                      Command="{Binding CmdScanItemCode}"
+                                      CommandParameter="{Binding .}"/>
+                    </Label.GestureRecognizers>
+                </Label>
+
+                <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" 
+                       Text="Search by Item Code"
+                       Padding="12"
+                       TextColor="White"
+                       FontAttributes="Bold"
+                       FontSize="Medium"
+                       BackgroundColor="{StaticResource GoogleYellow}">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer NumberOfTapsRequired="1"
+                                      Command="{Binding CmdInputItemCode}"
+                                      CommandParameter="{Binding .}"/>
+                    </Label.GestureRecognizers>
+                </Label>
+                
+                
+                <Grid Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    
+                    <Label Grid.Column="0" 
+                           Text="Bin Content" 
+                           FontSize="Medium"
+                           BackgroundColor="{StaticResource GoogleGreen}"
+                           TextColor="White"
+                           Padding="6">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer NumberOfTapsRequired="1"
+                                                  Command="{Binding CmdShowBinContent}"
+                                                  CommandParameter="BinContent"></TapGestureRecognizer>
+                        </Label.GestureRecognizers>
+                    </Label>
+                    
+                    <Label Grid.Column="1" 
+                           Text="Stock Trans Log" 
+                           FontSize="Medium"
+                           BackgroundColor="{StaticResource GoogleGreen}"
+                           TextColor="White"
+                           Padding="6">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer NumberOfTapsRequired="1" 
+                                                  Command="{Binding CmdShowBinContent}"
+                                                  CommandParameter="StockTransLog"></TapGestureRecognizer>
+                        </Label.GestureRecognizers>
+                    </Label>
+                </Grid>
+                
+            </Grid>
+        </Expander>
+
+        <!-- item bin content -->
+        <ListView Grid.Row="1"                   
+                  IsVisible="{Binding IsBinContentVisible}"
+                  CachingStrategy="RecycleElement"
+                  HasUnevenRows="True"
+                  ItemsSource="{Binding ItemsSource_BinContent}"
+                  SelectedItem="{Binding SelectedItem_BinContent}">
+            <ListView.Header>
+                <StackLayout>
+                    <Label Text="Bin Content" 
+                           FontSize="Large"
+                           FontAttributes="Bold"
+                           Padding="9" 
+                           BackgroundColor="{StaticResource ColorTone5}" 
+                           TextColor="White"></Label>
+                </StackLayout>
+            </ListView.Header>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid RowSpacing="0" Padding="6">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <Label Grid.Row="0" Grid.Column="0"
+                                   FontAttributes="Bold"         
+                                   HorizontalOptions="Start"
+                                   Text="{Binding BinCode}"></Label>
+
+                            <Label Grid.Row="0" Grid.Column="1"    
+                                   HorizontalOptions="End"
+                                   Text="{Binding Freezed, StringFormat='Freezed : {0}'}">
+                            </Label>
+
+                            <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" 
+                                   FontAttributes="Bold" 
+                                   Text="{Binding ItemCode}"></Label>
+                            <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                                   FontAttributes="None" 
+                                   Text="{Binding ItemName}"></Label>
+
+                            <Label Grid.Row="3" Grid.Column="1" 
+                                   Text="{Binding Qty, StringFormat='Qty {0:N}'}"
+                                   FontAttributes="Bold"
+                                   BackgroundColor="Wheat"
+                                   Padding="3"
+                                   HorizontalOptions="End"></Label>
+
+                            <BoxView Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"  
+                                     HeightRequest="1.2" 
+                                     BackgroundColor="{StaticResource GoogleGreen}"></BoxView>
+
+                            
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <!-- item stock transfer log -->
+        <ListView Grid.Row="1" 
+                  CachingStrategy="RecycleElement"
+                  HasUnevenRows="True"
+                  IsVisible="{Binding IsStockTransLogVisible}"                  
+                  ItemsSource="{Binding ItemsSource_StockTranLogs}"
+                  SelectedItem="{Binding SelectedItem_StockTranLog}">
+
+            <ListView.Header>
+                <StackLayout>
+                    <Label Text="Stock Trans Log" 
+                           FontSize="Large"
+                           FontAttributes="Bold"
+                           Padding="9" 
+                           BackgroundColor="{StaticResource ColorTone5}" 
+                           TextColor="White"></Label>
+                </StackLayout>
+            </ListView.Header>
+            
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid RowSpacing="0" Padding="3">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <Label Grid.Row="0" Grid.Column="0" Text="{Binding DocName}" FontAttributes="Bold" HorizontalOptions="Start"></Label>
+                            <Label Grid.Row="0" Grid.Column="1" Text="{Binding DocNum, StringFormat='# {0}'}"></Label>
+
+                            <Label Grid.Row="1" Grid.Column="0" Text="Doc. Date"></Label>
+                            <Label Grid.Row="1" Grid.Column="1" Text="{Binding DocDate}"></Label>
+
+                            <Label Grid.Row="2" Grid.Column="0" Text="Item Code"></Label>
+                            <Label Grid.Row="2" Grid.Column="1" Text="{Binding ItemCode}"></Label>
+
+                            <Label Grid.Row="3" Grid.Column="0" Text="Item Name"></Label>
+                            <Label Grid.Row="3" Grid.Column="1" Text="{Binding ItemName}"></Label>
+                            
+
+                            <Label Grid.Row="4" Grid.Column="0" Text="Item Group"></Label>
+                            <Label Grid.Row="4" Grid.Column="1" Text="{Binding ItemGroup}"></Label>
+
+                            <Label Grid.Row="5" Grid.Column="0" Text="Warehouse"></Label>
+                            <Label Grid.Row="5" Grid.Column="1" Text="{Binding Warehouse}"></Label>
+
+                            <Label Grid.Row="6" Grid.Column="0" Text="Quantity"></Label>
+                            <Label Grid.Row="6" Grid.Column="1" Text="{Binding Quantity, StringFormat='{0:N}'}"></Label>
+
+                            <Label Grid.Row="7" Grid.Column="0" Text="Bin"></Label>
+                            <Label Grid.Row="7" Grid.Column="1" Text="{Binding BinCode}"></Label>
+
+                            <Label Grid.Row="8" Grid.Column="0" Text="Bin Qty"></Label>
+                            <Label Grid.Row="8" Grid.Column="1" Text="{Binding BinQty, StringFormat='{0:N}'}"></Label>
+
+                            <Label Grid.Row="9" Grid.Column="0" Text="Created Date"></Label>
+                            <Label Grid.Row="9" Grid.Column="1" Text="{Binding CreatedDate, StringFormat='{0:dd/MM/yyyy}'}"></Label>
+
+                            <Label Grid.Row="10" Grid.Column="0" Text="User"></Label>
+                            <Label Grid.Row="10" Grid.Column="1" Text="{Binding User}"></Label>
+
+                            <BoxView Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="2" 
+                                     HeightRequest="1"
+                                     BackgroundColor="{StaticResource GoogleGreen}"></BoxView>
+
+                        </Grid>
+                        
+                        
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        
+    </Grid>
+</ContentPage>

@@ -1,0 +1,575 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Selector"
+             x:Class="WMSApp.View.Warehouse.TrackWarehouseV"             
+             Title="{Binding selectedItem.ItemCode}">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="search_white.png"                     
+                     Command="{Binding CmdVisibleSearchbar}"
+                     CommandParameter="{x:Reference searchbar}"></ToolbarItem>
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="QueryNonManageItem">
+                <ViewCell>
+                    <Frame CornerRadius="15"
+                           Margin="0,0,0,7"
+                           BorderColor="Black">
+
+                        <Grid Padding="3" RowSpacing="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+
+                            </Grid.ColumnDefinitions>
+
+                            <Label Grid.Row="0"  Grid.Column="0" Grid.ColumnSpan="2"
+                                   Text="{Binding WhsCode, StringFormat='Warehouse {0}'}"
+                                   FontAttributes="Bold"
+                                   TextColor="Gray"
+                                   FontSize="Body" />
+
+                            <Label Grid.Row="1" Grid.Column="0"
+                                   Text="{Binding OnHandQty ,StringFormat='OnHand {0:N}'}"/>
+
+                            <Label Grid.Row="1"  Grid.Column="1"
+                                   Text="{Binding CommitQty ,
+                                   StringFormat='Commited {0:N}'}"
+                                   HorizontalOptions="End"/>
+
+                            <Label Grid.Row="2" Grid.Column="0"
+                                   Text="{Binding OrderQty , StringFormat='Ordered {0:N}'}"/>
+
+                            <Label Grid.Row="2" Grid.Column="1"
+                                   Text="{Binding Available,
+                                   StringFormat='Available {0:N}'}"
+                                   HorizontalOptions="End"/>
+
+                        </Grid>
+                    </Frame>
+                </ViewCell>
+            </DataTemplate>
+            <DataTemplate x:Key="QueryNonManageItemWithBin">
+                <ViewCell>
+                    <Frame CornerRadius="15"
+                           Margin="0,0,0,7"
+                           BorderColor="Black">
+
+                        <Grid Padding="3" RowSpacing="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <Label Grid.Row="0"  Grid.Column="0"
+                                   Text="{Binding WhsCode, StringFormat='Warehouse {0}'}"
+                                   FontAttributes="Bold"
+                                   TextColor="Gray"
+                                   FontSize="Body" />
+
+                            <Label Grid.Row="0"  Grid.Column="1"
+                                   Text="{Binding BinCode}"
+                                   HorizontalOptions="End"/>
+
+                            
+                            <Label Grid.Row="1" Grid.Column="0"
+                                   Text="{Binding OnHandQty,StringFormat='OnHand {0:N}'}"/>
+
+                            <Label Grid.Row="1"  Grid.Column="1"
+                                   Text="{Binding CommitQty,
+                                   StringFormat='Commited {0:N}'}"
+                                   HorizontalOptions="End"/>
+
+                            <Label Grid.Row="2" Grid.Column="0"
+                                   Text="{Binding OrderQty, StringFormat='Ordered {0:N}'}"/> 
+                            
+
+                            <Label Grid.Row="2" Grid.Column="1"
+                                   Text="{Binding Available, StringFormat='Available {0:N}'}"
+                                   HorizontalOptions="End"/>
+
+                        </Grid>
+
+                    </Frame>
+                </ViewCell>
+            </DataTemplate>
+            <DataTemplate x:Key="QuerySerialItemWithoutBin">
+                <ViewCell>
+                    <Frame CornerRadius="15"
+                           Margin="0,0,0,7"
+                           BorderColor="Black">
+                        <Grid Padding="3" RowSpacing="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+
+                            </Grid.ColumnDefinitions>
+
+                            <Label Grid.Row="0"  Grid.Column="0"
+                                   Text="{Binding WhsCode, StringFormat='Warehouse {0}'}"
+                                   FontAttributes="Bold"
+                                   TextColor="Gray"
+                                   FontSize="Body" />
+
+                            <Label Grid.Row="0"  Grid.Column="1"
+                                   Text="{Binding DistNumber}"                                   
+                                   HorizontalOptions="End"/>
+
+                            <Label Grid.Row="1"  Grid.Column="1"
+                                   Text="Available"                                   
+                                   HorizontalOptions="End"/>
+
+                        </Grid>
+                    </Frame>
+                </ViewCell>
+            </DataTemplate>
+            <DataTemplate x:Key="QuerySerialItemWithBin">
+                <ViewCell>
+                    <Frame CornerRadius="15"
+                           Margin="0,0,0,7"
+                           BorderColor="Black">
+
+                        <Grid Padding="3" RowSpacing="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+
+                            </Grid.ColumnDefinitions>
+
+                            <Label Grid.Row="0"  Grid.Column="0"
+                                   Text="{Binding WhsCode, StringFormat='Warehouse {0}'}"
+                                   FontAttributes="Bold"
+                                   TextColor="Gray"
+                                   FontSize="Body" />
+
+                            <Label Grid.Row="0"  Grid.Column="1"
+                                   Text="{Binding BinCode}"                                   
+                                   HorizontalOptions="End"/>
+
+                            <Label Grid.Row="1"  Grid.Column="1"
+                                   Text="{Binding DistNumber}"                                   
+                                   HorizontalOptions="End"/>
+
+                            <Label Grid.Row="2"  Grid.Column="1"
+                                   HorizontalOptions="End"
+                                   Text="Available"/>
+                        </Grid>
+                    </Frame>
+                </ViewCell>
+            </DataTemplate>
+            <DataTemplate x:Key="QueryBatchItemWithoutBin">
+                <ViewCell>
+                    <Frame CornerRadius="15"
+                           Margin="0,0,0,7"
+                           BorderColor="Black">
+
+                        <Grid Padding="3" RowSpacing="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <Label Grid.Row="0"  Grid.Column="0"
+                                   Text="{Binding WhsCode, StringFormat='Warehouse {0}'}"
+                                   FontAttributes="Bold"
+                                   TextColor="Gray"
+                                   FontSize="Body" />
+
+                            <Label Grid.Row="0"  Grid.Column="1"
+                                   Text="{Binding DistNumber}"
+                                   HorizontalOptions="End"/>
+
+                            <Label Grid.Row="1" Grid.Column="1"
+                                   Text="{Binding Available,StringFormat='Available {0:N}'}"
+                                   HorizontalOptions="End"/>
+                        </Grid>
+                    </Frame>
+                </ViewCell>
+            </DataTemplate>
+            <DataTemplate x:Key="QueryBatchItemWithBin">
+                <ViewCell>
+                    <Frame CornerRadius="15"
+                           Margin="0,0,0,7"
+                           BorderColor="Black">
+
+                        <Grid Padding="3" RowSpacing="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <Label Grid.Row="0"  Grid.Column="0"
+                                   Text="{Binding WhsCode, StringFormat='Warehouse {0}'}"
+                                   FontAttributes="Bold"
+                                   TextColor="Gray"
+                                   FontSize="Body" />
+
+                            <Label Grid.Row="0"  Grid.Column="1"
+                                   Text="{Binding BinCode}"
+                                   HorizontalOptions="End"/>
+
+                            <Label Grid.Row="1"  Grid.Column="1"
+                                   Text="{Binding DistNumber}"
+                                   HorizontalOptions="End"/>
+
+                            <Label Grid.Row="2" Grid.Column="1"
+                                   Text="{Binding Available,StringFormat='Available {0:N}'}"
+                                       HorizontalOptions="End"/>
+                        </Grid>
+                    </Frame>
+                </ViewCell>
+            </DataTemplate>
+
+            <local:ItemListSelector x:Key="ItemListSelector"
+                                    QueryNonManageItem="{x:StaticResource QueryNonManageItem}"
+                                    QueryNonManageItemWithBin="{x:StaticResource QueryNonManageItemWithBin}"
+                                    QuerySerialItemWithoutBin="{x:StaticResource QuerySerialItemWithoutBin}"
+                                    QuerySerialItemWithBin="{x:StaticResource QuerySerialItemWithBin}"
+                                    QueryBatchItemWithoutBin="{x:StaticResource QueryBatchItemWithoutBin}"
+                                    QueryBatchItemWithBin="{x:StaticResource QueryBatchItemWithBin}"></local:ItemListSelector>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid 
+        Padding="3,0,3,0"          
+        BackgroundColor="AliceBlue"
+        VerticalOptions="FillAndExpand">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Expander Grid.Row="0" 
+                  Padding="15"                  
+                  IsExpanded="{Binding IsExpanded, Mode=TwoWay}">
+
+            <Expander.Header>
+                <Grid>
+                    <Label Grid.Column="0" 
+                           Text="{Binding selectedItem.ItemName}" 
+                           FontAttributes="Bold" 
+                           Padding="6"
+                           FontSize="Medium"/>
+
+                    <Image Source="expanded_blue.png"
+                           WidthRequest="15"
+                           HeightRequest="15"
+                           HorizontalOptions="End"
+                           VerticalOptions="Center">
+                        <Image.Triggers>
+                            <DataTrigger TargetType="Image"
+                                 Binding="{Binding Source={RelativeSource AncestorType={x:Type Expander}}, 
+                                            Path=IsExpanded}"
+                                 Value="True">
+                                <Setter Property="Source"
+                                        Value="collapsed_blue.png" />
+                            </DataTrigger>
+                        </Image.Triggers>
+                    </Image>
+                </Grid>
+            </Expander.Header>
+
+            <Expander.Content>
+                <Grid HorizontalOptions="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <Frame Grid.Row="0" Grid.Column="0" Margin="5,0,5,0"
+                                   Padding="10,5,10,5"
+                                   BorderColor="Black"
+                                   CornerRadius="10">
+
+                        <Grid HeightRequest="70"
+                                      WidthRequest="80"
+                                      RowSpacing="5">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <Frame Grid.Row="0"
+                                           CornerRadius="30"
+                                           HeightRequest="40"
+                                           WidthRequest="50"
+                                           Padding="0"
+                                           BorderColor="Transparent">
+                                <Image Source="Warehouse"
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Center" />
+                            </Frame>
+
+                            <Label  Grid.Row="1"
+                                            Text="Warehouse"
+                                            FontAttributes="Bold"
+                                            TextColor="Black"
+                                            HorizontalOptions="Center"></Label>
+                        </Grid>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding CmdMenuSelect}"
+                                                          CommandParameter="1" />
+                        </Frame.GestureRecognizers>
+                    </Frame>
+                    <Frame Grid.Row="0" Grid.Column="1" Margin="5,0,5,0"
+                                   Padding="10,5,10,5"
+                                   BorderColor="Black"
+                                   CornerRadius="10">
+                        <Grid HeightRequest="70"
+                                      WidthRequest="80"
+                                      RowSpacing="5">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <Frame Grid.Row="0"
+                                           CornerRadius="30"
+                                           HeightRequest="40"
+                                           WidthRequest="50"
+                                           Padding="0"
+                                           BorderColor="Transparent">
+                                <Image Source="ItemWithBin.png"
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Center" />
+                            </Frame>
+
+                            <Label  Grid.Row="1"
+                                            Text="Bin"
+                                            FontAttributes="Bold"
+                                            TextColor="Black"
+                                            HorizontalOptions="Center"></Label>
+                        </Grid>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding CmdMenuSelect}"
+                                                          CommandParameter="2" />
+                        </Frame.GestureRecognizers>
+                    </Frame>
+                    <Frame Grid.Row="0" Grid.Column="2" Margin="5,0,5,0"
+                                   Padding="10,5,10,5"
+                                   BorderColor="Black"
+                                   CornerRadius="10">
+                        <Grid HeightRequest="70"
+                                      WidthRequest="80"
+                                      RowSpacing="5">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <Frame Grid.Row="0"
+                                           CornerRadius="30"
+                                           HeightRequest="40"
+                                           WidthRequest="50"
+                                           Padding="0"
+                                           BorderColor="Transparent">
+                                <Image Source="SerialWithoutBin.png"
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Center" />
+                            </Frame>
+
+                            <Label  Grid.Row="1"
+                                            Text="Serial"
+                                            FontAttributes="Bold"
+                                            TextColor="Black"
+                                            HorizontalOptions="Center"></Label>
+                        </Grid>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding CmdMenuSelect}"
+                                                          CommandParameter="3" />
+                        </Frame.GestureRecognizers>
+                    </Frame>
+                    <Frame Grid.Row="1" Grid.Column="0" Margin="5,0,5,0"
+                                   Padding="10,5,10,5"
+                                   BorderColor="Black"
+                                   CornerRadius="10">
+                        <Grid HeightRequest="70"
+                                      WidthRequest="80"
+                                      RowSpacing="5">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <Frame Grid.Row="0"
+                                           CornerRadius="30"
+                                           HeightRequest="40"
+                                           WidthRequest="50"
+                                           Padding="0"
+                                           BorderColor="Transparent">
+                                <Image Source="SerialWithBin.png"
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Center" />
+                            </Frame>
+
+                            <Label  Grid.Row="1"
+                                            Text="Serial Bin"
+                                            FontAttributes="Bold"
+                                            TextColor="Black"
+                                            HorizontalOptions="Center"></Label>
+                        </Grid>
+
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding CmdMenuSelect}"
+                                                          CommandParameter="4" />
+                        </Frame.GestureRecognizers>
+                    </Frame>
+                    <Frame Grid.Row="1" Grid.Column="1" Margin="5,0,5,0"
+                                   Padding="10,5,10,5"
+                                   BorderColor="Black"
+                                   CornerRadius="10">
+                        <Grid HeightRequest="70"
+                                      WidthRequest="80"
+                                      RowSpacing="5">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <Frame Grid.Row="0"
+                                           CornerRadius="30"
+                                           HeightRequest="40"
+                                           WidthRequest="50"
+                                           Padding="0"
+                                           BorderColor="Transparent">
+                                <Image Source="BatchWithoutBin.png"
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Center" />
+                            </Frame>
+
+                            <Label  Grid.Row="1"
+                                            Text="Batch"
+                                            FontAttributes="Bold"
+                                            TextColor="Black"
+                                            HorizontalOptions="Center"></Label>
+                        </Grid>
+
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding CmdMenuSelect}"
+                                                          CommandParameter="5" />
+                        </Frame.GestureRecognizers>
+                    </Frame>
+                    <Frame Grid.Row="1" Grid.Column="2" Margin="5,0,5,0"
+                                   Padding="10,5,10,5"
+                                   BorderColor="Black"
+                                   CornerRadius="10">
+                        <Grid HeightRequest="70"
+                                      WidthRequest="80"
+                                      RowSpacing="5">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <Frame Grid.Row="0"
+                                           CornerRadius="30"
+                                           HeightRequest="40"
+                                           WidthRequest="50"
+                                           Padding="0"
+                                           BorderColor="Transparent">
+                                <Image Source="BatchWithBin"
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Center" />
+                            </Frame>
+
+                            <Label  Grid.Row="1"
+                                            Text="Batch bin"
+                                            FontAttributes="Bold"
+                                            TextColor="Black"
+                                            HorizontalOptions="Center"></Label>
+                        </Grid>
+
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding CmdMenuSelect}"
+                                                          CommandParameter="6" />
+                        </Frame.GestureRecognizers>
+                    </Frame>
+                </Grid>
+            </Expander.Content>
+        </Expander>
+
+        <Frame Grid.Row="1"  Padding="0"
+                   IsVisible="{Binding IsSearchBarVisible}"
+               OutlineColor="{StaticResource colorPrimaryDark}"
+               HasShadow="True"
+               HorizontalOptions="FillAndExpand"
+               VerticalOptions="Center">
+
+            <SearchBar x:Name="searchbar" 
+                       Text="{Binding SearchText}" 
+                       Placeholder="Input item code / name to search"
+                       IsVisible="false">
+            </SearchBar>
+        </Frame>
+
+
+        <StackLayout Grid.Row="2"  Margin="10,5,10,5"
+                     IsVisible="{Binding IsVisible}"
+                     Orientation="Vertical">
+
+            <ListView ItemsSource="{Binding ItemsSource}"
+                      ItemTemplate="{StaticResource ItemListSelector}"                      
+                      IsVisible="{Binding IsVisibleData}"                      
+                      CachingStrategy="RecycleElement"
+                      HasUnevenRows="True">
+            </ListView>
+
+            <Frame Margin="0,5,0,0"
+                   VerticalOptions="Start"
+                   HeightRequest="30"
+                   CornerRadius="15"
+                   BorderColor="Black"
+                   IsVisible="{Binding IsVisibleNoData}">
+
+                <Label Text="No Data Found"
+                       FontAttributes="Bold"
+                       FontSize="Body" />
+            </Frame>
+        </StackLayout>
+
+    </Grid>
+</ContentPage>

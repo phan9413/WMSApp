@@ -1,0 +1,184 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             Title="{Binding CapturePageTitle, Mode=TwoWay}"
+             x:Class="WMSApp.Views.Share.CaptureTextView">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Back" IconImageSource="backwhite.png" Command="{Binding CmdClose}"></ToolbarItem>
+        <ToolbarItem Text="Save and Close" 
+                     IconImageSource="save512.png" 
+                     Command="{Binding CmdClose}"></ToolbarItem>
+    </ContentPage.ToolbarItems>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Expander Grid.Row="0" IsExpanded="True">
+            <Expander.Header>
+                <Grid BackgroundColor="{StaticResource ColorTone3}">
+                    <Label Grid.Column="0" Text="Expand to add bin" 
+                           FontAttributes="Bold" 
+                           FontSize="Medium"  
+                           TextColor="White" 
+                           Padding="6"/>
+                    
+                    <Image Source="expanded_blue.png"
+                           Margin="0,0,3,0"
+                           WidthRequest="15"
+                           HeightRequest="15"
+                           HorizontalOptions="End"
+                           VerticalOptions="Center">
+                        <Image.Triggers>
+                            <DataTrigger TargetType="Image"
+                                 Binding="{Binding Source={RelativeSource AncestorType={x:Type Expander}}, Path=IsExpanded}"
+                                 Value="True">
+                                <Setter Property="Source"
+                                        Value="collapsed_blue.png" />
+                            </DataTrigger>
+                        </Image.Triggers>
+                    </Image>
+                </Grid>
+            </Expander.Header>
+            
+            <Grid Grid.Row="0" RowSpacing="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                
+                <ScrollView Grid.Row="0" Orientation="Horizontal" >
+                    <StackLayout Orientation="Horizontal" 
+                             Spacing="0"
+                             BackgroundColor="{StaticResource ColorTone3}">
+
+                        <Label Text="Camera Scan Add"
+                           TextColor="White" Padding="9"                        
+                           BackgroundColor="{StaticResource GoogleGreen}" 
+                           FontSize="Medium">
+
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding CmdStartCamera}"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+
+                     
+                        <Label  Text="Search Add" 
+                            TextColor="White" 
+                            Padding="9" 
+                            BackgroundColor="{StaticResource GoogleYellow}" FontSize="Medium">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding CmdSearchBinCode}"></TapGestureRecognizer>
+                            </Label.GestureRecognizers>
+                        </Label>
+
+                        <Label  Text="Select Add" 
+                            TextColor="White" 
+                            Padding="9" 
+                            BackgroundColor="{StaticResource GoogleBlue}" FontSize="Medium">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding CmdSelectBinCode}"></TapGestureRecognizer>
+                            </Label.GestureRecognizers>
+                        </Label>
+
+                        <Label Text="Enter Add" TextColor="White" Padding="9" 
+                                BackgroundColor="{StaticResource GoogleRed}" FontSize="Medium" >
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding CmdStartManualEnter}"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+
+                        <!--<Label  Text="Handheld Scan" 
+                            TextColor="White" 
+                            Padding="9" 
+                            BackgroundColor="{StaticResource GoogleGreen}" FontSize="Medium" >
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="TapGestureRecognizer_Tapped"></TapGestureRecognizer>
+                            </Label.GestureRecognizers>
+                        </Label>-->
+
+                    </StackLayout>
+
+                </ScrollView>
+                <StackLayout Grid.Row="1">
+                    <!--<Label Text="Save and Close" 
+                       HorizontalTextAlignment="Center"                       
+                       TextColor="White" 
+                       FontSize="Medium"
+                       Padding="12"                       
+                       BackgroundColor="{StaticResource ColorTone4}">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding CmdClose}"/>
+                        </Label.GestureRecognizers>
+                    </Label>-->
+
+                    <Label Text="{Binding ItemInfo}"  
+                           Padding="6"
+                           HorizontalTextAlignment="Start" 
+                           TextColor="{StaticResource colorPrimaryDark}"
+                           FontSize="Medium"/>
+                    
+                    <!--control hide for no hand held scanning -->
+                    <!--<Entry x:Name="lbHandHeldValue" 
+                           TextChanged="lbHandHeldValue_TextChanged" 
+                           HorizontalTextAlignment="Center"></Entry>-->
+                </StackLayout>
+            </Grid>
+            
+        </Expander>
+
+        <ListView 
+            Grid.Row="1"
+            CachingStrategy="RecycleElement"
+            HasUnevenRows="true"
+            ItemsSource="{Binding ItemsSource, Mode=TwoWay}"
+            SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <SwipeView>
+                            <SwipeView.RightItems>
+                                <SwipeItems Mode="Execute">
+                                    <SwipeItem Text="Delete"                                                  
+                                                   IconImageSource="cancel512.png"
+                                                   BackgroundColor="LightPink"
+                                                   Invoked="OnDeleteSwipeItemInvoked" 
+                                                   CommandParameter="{Binding .}" />
+                                </SwipeItems>
+                            </SwipeView.RightItems>
+
+                            <Grid RowSpacing="0" Padding="3">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+
+                                <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" 
+                                       Margin="6"
+                                       Source="tray512.png" 
+                                       HeightRequest="42" 
+                                       WidthRequest="42"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center"></Image>
+
+                                <Label Grid.Row="0" Grid.Column="1" Text="{Binding Text}" TextColor="{StaticResource ColorTone1}"></Label>
+                                <Label Grid.Row="1" Grid.Column="1" Text="{Binding Detail}" TextColor="{StaticResource ColorTone3}"></Label>
+                                <BoxView Grid.Row="0" Grid.Column="2" Grid.RowSpan="2" BackgroundColor="LightPink" WidthRequest="9"></BoxView>
+                            </Grid>
+                        </SwipeView>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+
+</ContentPage>

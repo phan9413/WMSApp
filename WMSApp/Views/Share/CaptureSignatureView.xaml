@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:controls="clr-namespace:SignaturePad.Forms;assembly=SignaturePad.Forms"
+             x:Class="WMSApp.Views.Share.CaptureSignatureView"
+             Title="Capture Signature">
+
+    <StackLayout Spacing="0">
+        <controls:SignaturePadView	            
+            x:Name="signatureView"       
+            CaptionText="Signature above the line"
+            ClearText="Clear"                
+            VerticalOptions="FillAndExpand"	            
+            StrokeWidth="3"
+	        StrokeColor="Black"
+	        BackgroundColor="White" />
+
+        <Label Text="Done"
+               TextColor="White"
+               BackgroundColor="{StaticResource GoogleGreen}"
+               FontSize="Medium"               
+               HorizontalTextAlignment="End"
+               Padding="15">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer NumberOfTapsRequired="1"
+                                      Tapped="SignatureDone_Tapped">
+                </TapGestureRecognizer>
+            </Label.GestureRecognizers>
+        </Label>
+        
+    </StackLayout>
+    
+</ContentPage>

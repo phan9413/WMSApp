@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WMSApp.Views.Transfer1.SerialToBinSelectView">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="search_white.png"
+                     Command="{Binding CmdSearchVisible}"
+                     CommandParameter="{x:Reference searchBar}"></ToolbarItem>
+    </ContentPage.ToolbarItems>
+    
+    <Grid Padding="3" RowSpacing="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Text="{StaticResource PressBackToReturn}"></Label>
+
+        <SearchBar Grid.Row="1" 
+                   x:Name="searchBar" 
+                   IsVisible="false"
+                   Text="{Binding SearchText}"></SearchBar>
+
+        <Label Grid.Row="2" 
+               Text="{Binding WhsCode, StringFormat='Warehouse {0}'}"
+               BackgroundColor="{StaticResource ColorTone2}"               
+               Padding="3"
+               FontSize="Medium"       
+               FontAttributes="Bold"
+               TextColor="White"></Label>
+        
+        <Grid Grid.Row="3" ColumnSpacing="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Column="0" 
+                   Text="Select bin to allocate" 
+                   FontSize="Medium"
+                   TextColor="White"
+                   Padding="6"                           
+                   BackgroundColor="{StaticResource ColorTone1}"></Label>
+
+            <Label Grid.Column="1"
+                Text="Scan Bin#"       
+                TextDecorations="Underline"
+                BackgroundColor="{StaticResource GoogleGreen}"
+                Padding="6"
+                HorizontalTextAlignment="Center"
+                
+                FontSize="Medium"               
+                TextColor="White">
+
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer NumberOfTapsRequired="1"
+                                      Command="{Binding CmdScanBinCode}"/>
+                </Label.GestureRecognizers>
+            </Label>
+        </Grid>
+
+        <ListView Grid.Row="5" CachingStrategy="RecycleElement"
+                  ItemsSource="{Binding ItemsSourceBin, Mode=TwoWay}"
+                  SelectedItem="{Binding SelectedItemBin, Mode=TwoWay}">
+          
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ImageCell ImageSource="tray512.png" 
+                               Text="{Binding BinCode}" 
+                               TextColor="{StaticResource colorPrimaryDark}"></ImageCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</ContentPage>

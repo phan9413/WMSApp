@@ -1,0 +1,297 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Title="Inventory Request"
+             x:Class="WMSApp.Views.TransferRequest.TransferRequestView">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="cancel512.png" 
+                     Text="Cancel" 
+                     Order="Default" 
+                     Command="{Binding CmdClose}"></ToolbarItem>
+        
+        <ToolbarItem IconImageSource="save512.png" 
+                     Text="Save" 
+                     Order="Default" 
+                     Command="{Binding CmdSaveUpdate}"></ToolbarItem>
+    </ContentPage.ToolbarItems>
+
+    <Grid Padding="3" RowSpacing="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <!-- Press back instruction -->
+        <Label Grid.Row="0" Text="{StaticResource PressBackToReturn}"></Label>
+
+        <Expander Grid.Row="1" 
+                  Padding="6"    
+                  BackgroundColor="{StaticResource ColorTone5}">
+
+            <Expander.Header>
+                <Grid>
+                    <Label Grid.Column="0" 
+                           Text="Doc Properties" 
+                           FontAttributes="Bold" 
+                           FontSize="Medium"  
+                           TextColor="White"/>
+                    
+                    <Image Source="expanded_blue.png"
+                           WidthRequest="15"
+                           HeightRequest="15"
+                           HorizontalOptions="End"
+                           VerticalOptions="Center">
+                        <Image.Triggers>
+                            <DataTrigger TargetType="Image"
+                                 Binding="{Binding Source={RelativeSource AncestorType={x:Type Expander}}, 
+                                            Path=IsExpanded}"
+                                 Value="True">
+                                <Setter Property="Source"
+                                        Value="collapsed_blue.png" />
+                            </DataTrigger>
+                        </Image.Triggers>
+                    </Image>
+                </Grid>
+            </Expander.Header>
+
+            <ScrollView>
+                <StackLayout BackgroundColor="White" Padding="6">
+                    <Label Text="Doc Series" 
+                           FontAttributes="Italic"></Label>
+
+                    <Picker x:Name="DocSeries" 
+                            ItemsSource="{Binding DocSeriesItemsSource}" 
+                            SelectedItem="{Binding DocSeriesSelectedItem}"></Picker>
+
+                    <Label Text="Reference #" FontAttributes="Italic"></Label>
+                    <Entry Text="{Binding NumberAtCard}"></Entry>
+
+                    <Label Text="Reference 2" FontAttributes="Italic"></Label>
+                    <Entry Text="{Binding Ref2}"></Entry>
+
+                    <Label Text="Comments" FontAttributes="Italic"></Label>
+                    <Entry Text="{Binding Comments}"></Entry>
+
+                    <Label Text="Journal memo" FontAttributes="Italic"></Label>
+                    <Entry Text="{Binding JrnlMemo}"></Entry>
+
+                    <!--rest of the UDF needed -->
+
+                </StackLayout>
+            </ScrollView>
+        </Expander>
+        
+        <Expander Grid.Row="2" 
+                  BackgroundColor="{StaticResource ColorTone3}" 
+                  IsExpanded="{Binding IsExpanded, Mode=TwoWay}"
+                  Padding="6">
+            <Expander.Header>
+                <Grid>
+                    <Label Grid.Column="0" 
+                           Text="Select FROM and TO warehouse"                                
+                           FontAttributes="Bold" 
+                           FontSize="Medium"  
+                           TextColor="White"/>
+                    
+                    <Image Source="expanded_blue.png"
+                           WidthRequest="15"
+                           HeightRequest="15"
+                           HorizontalOptions="End"
+                           VerticalOptions="Center">
+                        <Image.Triggers>
+                            <DataTrigger TargetType="Image"
+                                 Binding="{Binding Source={RelativeSource AncestorType={x:Type Expander}}, Path=IsExpanded}"
+                                 Value="True">
+                                <Setter Property="Source"
+                                        Value="collapsed_blue.png" />
+                            </DataTrigger>
+                        </Image.Triggers>
+                    </Image>
+                </Grid>
+            </Expander.Header>
+            
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0" 
+                       Text="From Warehouse" 
+                       TextColor="White"                        
+                       FontAttributes="Bold" 
+                       VerticalOptions="Center"></Label>
+                
+                <Label Grid.Row="1" Grid.Column="0" 
+                       Text="To Warehouse" 
+                       TextColor="White"                        
+                       FontAttributes="Bold" 
+                       VerticalOptions="Center"></Label>
+
+                <Label Grid.Row="0" Grid.Column="1" 
+                   Text="{Binding FromWarehouse}"     
+                   Padding="10"
+                   TextColor="White"                    
+                   BackgroundColor="{StaticResource ColorTone1}">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer NumberOfTapsRequired="1"
+                                          Command="{Binding CmdSelectFromWhs}">
+
+                        </TapGestureRecognizer>
+                    </Label.GestureRecognizers>
+                </Label>
+                <Label Grid.Row="1" Grid.Column="1" 
+                   Text="{Binding ToWarehouse}"       
+                   Padding="10"
+                   TextColor="White"                    
+                   BackgroundColor="{StaticResource ColorTone1}">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer NumberOfTapsRequired="1"
+                                              Command="{Binding CmdSelectToWhs}"/>
+                    </Label.GestureRecognizers>
+                </Label>
+            </Grid>
+
+        </Expander>
+        <!-- transfer warehouse selection -->
+        
+        <!-- Page operation button -->
+        <Grid Grid.Row="3" ColumnSpacing="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Column="0"
+                   Text="Search to Add"      
+                   Padding="9"
+                   TextColor="White" 
+                   FontSize="Medium" 
+                   TextDecorations="Underline"
+                   BackgroundColor="{StaticResource GoogleYellow}">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer NumberOfTapsRequired="1"
+                                          Command="{Binding CmdManualAddItem}"/>
+                </Label.GestureRecognizers>
+            </Label>
+            
+            <Label Grid.Column="1" 
+                   Text="Scan to Add"     
+                   Padding="9"
+                   TextColor="White" 
+                   FontSize="Medium"                    
+                   TextDecorations="Underline"
+                   BackgroundColor="{StaticResource GoogleGreen}">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer NumberOfTapsRequired="1" 
+                                          Command="{Binding CmdScanAddItem}"/>
+                </Label.GestureRecognizers>
+
+            </Label>
+
+           
+        </Grid>
+
+        <!-- list view item -->
+        <ListView Grid.Row="4" 
+                  CachingStrategy="RecycleElement"
+                  HasUnevenRows="True"
+                  ItemsSource="{Binding ItemsSource, Mode=TwoWay}"
+                  SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <SwipeView>
+                            <SwipeView.LeftItems>
+                                <SwipeItems Mode="Reveal">
+                                    <SwipeItem Text="Frm Whse"     
+                                               IconImageSource="change512.png"
+                                               BackgroundColor="{StaticResource GoogleYellow}"
+                                               Invoked="SwipeItem_EditItemFromWarehouse" 
+                                               
+                                               CommandParameter="{Binding .}"/>
+                                    <SwipeItem Text="To Whse"                                                 
+                                               IconImageSource="change512.png"
+                                               BackgroundColor="{StaticResource GoogleGreen}"
+                                               Invoked="SwipeItem_EditItemToWarehouse"  
+                                               CommandParameter="{Binding .}"/>
+                                </SwipeItems>
+                                
+                            </SwipeView.LeftItems>
+                            <SwipeView.RightItems>
+                                <SwipeItems Mode="Reveal">
+                                    <SwipeItem Text="Remove"                                                 
+                                           BackgroundColor="{StaticResource GoogleRed}"
+                                               Invoked="SwipeItem_RemoveItem"                                               
+                                               CommandParameter="{Binding .}"/>
+                                </SwipeItems>
+                            </SwipeView.RightItems>
+
+                            <!-- Content -->
+                            <Grid RowSpacing="0"                                
+                                      BackgroundColor="{Binding CellBackGroundColor}">
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+
+                                <BoxView Grid.Row="0" Grid.Column="0" Grid.RowSpan="5"
+                                         WidthRequest="3"
+                                         BackgroundColor="{StaticResource GoogleGreen}"></BoxView>
+
+                                <Label Grid.Row="0" Grid.Column="1" 
+                                       Text="{Binding RequestedItemCode}" 
+                                       FontAttributes="Bold"></Label>
+
+                                <Label Grid.Row="0" Grid.Column="2" 
+                                       Text="{Binding RequestQuantity, StringFormat='Request Qty: {0:N}'}" 
+                                       HorizontalOptions="End"></Label>
+
+                                <Label Grid.Row="1" Grid.Column="1"  Grid.ColumnSpan="2"
+                                       Text="{Binding RequestedItemName}"></Label>
+
+                                <Label Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"                         
+                                       Text="{Binding RequestFromWarehouse, StringFormat='From {0}'}" 
+                                       HorizontalOptions="End"></Label>
+
+                                <Label Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2"                         
+                                       Text="{Binding RequestToWarehouse, StringFormat='To {0}'}" 
+                                       HorizontalOptions="End"></Label>
+
+                                <BoxView Grid.Row="0" Grid.Column="3" Grid.RowSpan="5"
+                                         WidthRequest="3"
+                                         BackgroundColor="{StaticResource GoogleRed}"></BoxView>
+
+                                <BoxView Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" 
+                                         HeightRequest="1" 
+                                         BackgroundColor="{StaticResource colorPrimaryDark}"></BoxView>
+                            </Grid>
+                        </SwipeView>
+
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</ContentPage>

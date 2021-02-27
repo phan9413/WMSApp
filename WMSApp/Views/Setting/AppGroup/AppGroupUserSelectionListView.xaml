@@ -1,0 +1,180 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             Title ="Choose user(s)"
+             x:Class="WMSApp.Views.Setting.AppGroup.AppGroupUserSelectionListView">
+    
+    <ContentPage.ToolbarItems>
+        <ToolbarItem 
+            IconImageSource="search_white.png" 
+            Order="Default" Priority="0" 
+           Command="{Binding cmdSearhIconClicked}"
+           CommandParameter="{x:Reference searchBar}"></ToolbarItem>
+    </ContentPage.ToolbarItems>
+
+    <Grid Padding="12" BackgroundColor="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        
+        <!--//content-->
+        <Label Grid.Row="0" Grid.Column="0" Text="{StaticResource PressBackToReturn}" 
+               HeightRequest="15"
+               TextColor="{StaticResource colorPrimaryDark}"/>
+
+        <Label Grid.Row="0" Grid.Column="1" Text="Choose and Return"
+               TextColor="{StaticResource colorPrimary}" 
+               HorizontalOptions="EndAndExpand"
+               FontAttributes="Bold">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding cmdChooseTick}"></TapGestureRecognizer>
+            </Label.GestureRecognizers>
+
+        </Label>
+
+        <SearchBar Grid.Row="1" x:Name="searchBar" 
+                   HeightRequest="21"
+                   Placeholder="Enter user related info to search" 
+                   IsVisible="{Binding searchBarVisible}"></SearchBar>
+
+
+        <ListView Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                  CachingStrategy="RecycleElement"                                 
+                  HasUnevenRows="True"
+                  SelectedItem="{Binding selectedItem, Mode=TwoWay}"
+                  ItemsSource="{Binding obcList, Mode=TwoWay}">
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid Padding="9">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="2"                                         
+                                   HeightRequest="45"
+                                   WidthRequest="45"
+                                   HorizontalOptions="CenterAndExpand"
+                                   VerticalOptions="CenterAndExpand"
+                                    Source="user512.png"/>
+
+                            <Label Grid.Row="0" Grid.Column="1" 
+                                   VerticalTextAlignment="End"
+                                    HorizontalOptions="Start"
+                                    FontSize="Subtitle"
+                                   FontAttributes="Bold"
+                                    Text="{Binding TextDisplay}"/>
+
+                            <Label Grid.Row="1" Grid.Column="1" VerticalTextAlignment="Start"
+                                    HorizontalOptions="Start"
+                                    FontSize="12"
+                                    TextColor="{StaticResource ColorTone1}"
+                                Text="{Binding DetailsDisplay}"/>
+
+                            <CheckBox Grid.Row="0" Grid.Column="2" Grid.RowSpan="2" 
+                                      HorizontalOptions="EndAndExpand"
+                                      VerticalOptions="Center"
+                                        IsChecked="{Binding isSelected, Mode=TwoWay}" 
+                                        IsEnabled="True">
+                                
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal">
+                                            <VisualState.Setters>
+                                                <Setter Property="Color" Value="{StaticResource ColorTone4}" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+
+                                        <VisualState x:Name="IsChecked">
+                                            <VisualState.Setters>
+                                                <Setter Property="Color" Value="{StaticResource ColorTone5}" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                            </CheckBox>
+
+                        </Grid>
+                    </ViewCell>
+
+                </DataTemplate>
+            </ListView.ItemTemplate>
+
+            <!--<ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" 
+                                   Source="user.png" Scale="0.5" 
+                                   HeightRequest="60" WidthRequest="60"
+                                   HorizontalOptions="Center" VerticalOptions="Start"
+                                   ></Image>
+                            
+                            <Label Grid.Row="0" Grid.Column="1" Padding="0" 
+                                   TextColor="Black"
+                                   FontSize="15"
+                                   Text="{Binding textDisplay}" 
+                                   HorizontalOptions="Start" VerticalOptions="End"></Label>
+
+                            <Label Grid.Row="1" Grid.Column="1" Padding="0"                                   
+                                   Text="{Binding detailsDisplay}" 
+                                   FontSize="15"
+                                   TextColor="{StaticResource SapMildColor3}"
+                                   HorizontalOptions="Start" VerticalOptions="Start"></Label>
+
+                            <CheckBox Grid.Row="0" Grid.Column="2" Grid.RowSpan="2" 
+                                      IsChecked="{Binding isSelected, Mode=TwoWay}">
+                                
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal">
+                                            <VisualState.Setters>
+                                                <Setter Property="Color" Value="{StaticResource SapMildColor}" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+
+                                        <VisualState x:Name="IsChecked">
+                                            <VisualState.Setters>
+                                                <Setter Property="Color" Value="Green" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                            </CheckBox>
+                            
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>-->
+        </ListView>
+
+    </Grid>
+</ContentPage>
